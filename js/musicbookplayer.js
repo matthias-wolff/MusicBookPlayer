@@ -39,16 +39,17 @@ class MusicBookPlayer
    * MusicBookPlayer object is already existing, the method creates a new object
    * and writes the MusicBookPlayer HTML page into the current HTMl document.
    * 
-   * @param  mediaBaseURI Base URI of the book's media files (string)
-   * @param  title        Music book title (string)
-   * @param  artist       Artist name (string)
-   * @param  image        Cover image file name relative to 
-   *                      <code>mediaBaseURI</code> (string)
-   * @param  descr        Description text (string, HTML)
+   * @param props Object containing the following properties
+   *              - mediaBaseURI Base URI of the book's media files (string)
+   *              - title        Music book title (string)
+   *              - artist       Artist name (string)
+   *              - image        Cover image file name relative to 
+   *                             <code>mediaBaseURI</code> (string)
+   *              - descr        Description text (string, HTML)
    * @return The pseudo-singleton, (object, also stored in global variable 
    *         <code>musicBookPlayer</code>)
    */
-  static create(mediaBaseURI,title,artist,image,descr)
+  static create(props)
   {
     // Return existing object
     if (musicBookPlayer!=null)
@@ -56,12 +57,38 @@ class MusicBookPlayer
 
     // Create new object
     musicBookPlayer = new MusicBookPlayer();
-    musicBookPlayer.mediaBaseURI = mediaBaseURI;
-    musicBookPlayer.currentPage = 0;
+    musicBookPlayer.currentPage = -1;
     musicBookPlayer.pages = [];
+
+    // Detect MediaBookPlayer Javascript base URI
+    let scripts = $('script');
+    for (var i=0; i<scripts.length; i++)
+      if (scripts[i].src.endsWith('musicbookplayer.js'))
+        musicBookPlayer.scriptBaseURI = scripts[i].baseURI;
+
+    // Normalize mediaBaseURI
+    try
+    {
+      // mediaBaseURI is absolute (i.e., it already includes an origin)
+      let mbu = new URL(props.mediaBaseURI);
+      musicBookPlayer.mediaBaseURI = mbu.toString();
+    }
+    catch (e)
+    {
+      // mediaBaseURI is relative (i.e., it does not include an origin)
+      let mbu = new URL(props.mediaBaseURI,musicBookPlayer.scriptBaseURI);
+      musicBookPlayer.mediaBaseURI = mbu.toString();
+    }
+    if (!musicBookPlayer.mediaBaseURI.endsWith('/'))
+      musicBookPlayer.mediaBaseURI += '/';
     
     // Create cover page
-    musicBookPlayer.addPage(title,artist,undefined,image,descr);
+    musicBookPlayer.addPage({
+        title : props.title,
+        artist: props.artist,
+        image : props.image,
+        descr : props.descr
+      });
 
     // TODO: Write HTML page
 
@@ -75,13 +102,7 @@ class MusicBookPlayer
    * callback <code>MediaElement.success</code>.
    */
   initialize()
-  {
-    // Detect MediaBookPlayer Javascript base URI
-    var scripts = $('script');
-    for (var i=0; i<scripts.length; i++)
-      if (scripts[i].src.endsWith('musicbookplayer.js'))
-        musicBookPlayer.scriptBaseURI = scripts[i].baseURI;
-
+  {    
     // Attach MediaElement player
     musicBookPlayer.mep = document.querySelector('#audio-player');
 
@@ -93,10 +114,14 @@ class MusicBookPlayer
     // Add event listeners
     musicBookPlayer.mep.addEventListener('canplay', function(){
       musicBookPlayer.enablePlayButton(true);
+      musicBookPlayer.updateCurrentPage();
     });
     musicBookPlayer.mep.addEventListener('ended', function (){
       musicBookPlayer.enablePlayButton(false);
       musicBookPlayer.next();
+    });
+    musicBookPlayer.mep.addEventListener('timeupdate', function (){
+      musicBookPlayer.updateCurrentPage();
     });
   }
 
@@ -124,12 +149,13 @@ class MusicBookPlayer
   addPage(props)
   {
     // Create page and add to page list
-    this.pages = this.pages.concat(new MusicBookPage(props));
+    let page = new MusicBookPage(this.mediaBaseURI,props);
+    this.pages = this.pages.concat(page);
    
     // TODO: Create page HTML
 
     // Return newly created page
-    return this.pages[this.pages.length-1];
+    return page;
   }
 
   // -- Player Control --
@@ -141,7 +167,7 @@ class MusicBookPlayer
    */
   goto(n=0)
   {
-    n = math.max(0,math.min(n,this.pages.length-1));
+    n = Math.max(0,Math.min(n,this.pages.length-1));
     // TODO: Something with page[n]
     // TODO: this.currentPage = n;
   }
@@ -163,8 +189,23 @@ class MusicBookPlayer
     // TODO: ...
     //window.alert("[TODO: Play next part/track]");
   }
-
+  
   // -- UI Helpers --
+
+  /**
+   * Detects the page from the current source and time index of the audio player
+   * element and updates the GUI and the <code>currentPage</code> property if 
+   * the page has changed since the last time the method was invoked.
+   * 
+   * @param  Force GUI update (default is <code>false</code>)
+   * @return The One-based page number, 0 for the cover page, or -1 in case
+   *         of errors.
+   */
+  updateCurrentPage(force=false)
+  {
+    // this.mep.currentSrc
+    // this.mep.currentTime
+  }
   
   /**
    * Enables or disables the play button.
@@ -234,6 +275,7 @@ class MusicBookPage
   /**
    * Creates a new MusicBookPage.
    * 
+   * @param mediaBaseURI Base URI of media files (audio and image files)
    * @param props Object containing the following properties
    *              - tid    One-based track number (integer)
    *              - title  Page--i.e., track or part--title (string)
@@ -249,17 +291,22 @@ class MusicBookPage
    *              Footnotes:
    *              (1) relative to <code>mediaBaseURI</code>
    */
-  constructor(props)
+  constructor(mediaBaseURI,props)
   {
     // Safely initialize
     this.tid    = (typeof props.tid   =='undefined') ? undefined : props.tid;
     this.title  = (typeof props.title =='undefined') ? undefined : props.title;
     this.artist = (typeof props.artist=='undefined') ? undefined : props.artist;
-    this.audio  = (typeof props.audio =='undefined') ? undefined : props.audio;
-    this.image  = (typeof props.image =='undefined') ? undefined : props.image;
     this.descr  = (typeof props.descr =='undefined') ? undefined : props.descr;
     this.part   = (typeof props.part  =='undefined') ? undefined : props.part;
     this.ptoffs = (typeof props.ptoffs=='undefined') ? undefined : props.ptoffs;
+
+    this.audio = undefined;
+    if (typeof props.audio!='undefined')
+      this.audio = (new URL(mediaBaseURI+props.audio)).toString();  
+    this.image = undefined;
+    if (typeof props.image!='undefined')
+      this.image = (new URL(mediaBaseURI+props.image)).toString();  
   }
 
 }

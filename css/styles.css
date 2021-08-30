@@ -285,7 +285,7 @@ div.track-title-container  {
 div.content {
 	display: flex;
 	flex-direction: row;
-	align-items: center;^
+	align-items: center;
   margin-top: 9.5rem;
   width: 100%;
   min-height: calc(100vh - 9.5rem);

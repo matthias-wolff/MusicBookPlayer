@@ -28,7 +28,7 @@
 	    </div>
 	    <audio id="audio-player" 
 	      style="width:100%; height:40%;" controls="controls"
-	      src="2021 - Near Dark/01 - Near Dark.mp3" type="audio/mp3">
+	      src="../musicbooks/2021 - Near Dark/01 - Near Dark.mp3">
 	    </audio>
 	  </div>
     <div class="track-controls">
@@ -58,7 +58,7 @@
   <!-- Music Book Content -->
   <div class="content">
     <div class="page" id="page-1">
-	    <div class="track-image"><img id="track-image" src="2021 - Near Dark/01 - Near Dark.jpg"></div>
+	    <div class="track-image"><img id="track-image" src="../musicbooks/2021 - Near Dark/01 - Near Dark.jpg"></div>
 	    <div class="track-comments">
 	    </div>
     </div>
@@ -78,7 +78,7 @@
         <a target="_blank" href="https://github.com/mediaelement/mediaelement">MediaElement.js</a>
         <ul>
           <li><a target="_blank" href="https://github.com/mediaelement/mediaelement/tree/master/docs">Documentation</a></li>
-          <li>designmodo: <a target="_blank" href="https://designmodo.com/audio-player/"> How to Create an Audio Player in jQuery, HTML5 & CSS3.</a> (retrieved Aug. 27, 2021)</li>
+          <li>designmodo: <a target="_blank" href="https://designmodo.com/audio-player/"> How to Create an Audio Player in jQuery, HTML5 &amp; CSS3.</a> (retrieved Aug. 27, 2021)</li>
           <li>design shack: <a target="_blank" href="https://designshack.net/articles/css/custom-html5-audio-element-ui/">Creating a Custom HTML5 Audio Element UI.</a> (retrieved Aug. 27, 2021)</li>
         </ul>
       </li>
@@ -90,20 +90,19 @@
     <ul>
       <li>Implement player in Javascript</li>
       <li>Dynamically create HTML page</li>
-      <li>Publish on GitHub</li>
       <li>Make Favicon</li>
     </ul>
   </aside>
   
   <!-- Scripts -->
 	<script type="text/javascript">
-	  var mbp = MusicBookPlayer.create(                                           // Music Book
-	    '../media/Near Dark',                                                     // - Media base URI
-	    'Near Dark',                                                              // - Music book title
-	    'Matthias Wolff',                                                         // - Artist
-	    'artwork.jpg',                                                            // - Relative cover imaage URI 
-      'Lorem ipsum...'
-	  );
+	  var mbp = MusicBookPlayer.create({ // Music Book
+	      mediaBaseURI: '../musicbooks/2021 - Near Dark',
+	      title       : 'Near Dark',
+	      artist      : 'Matthias Wolff',
+	      image       : 'artwork.jpg', 
+        descr       : 'Lorem ipsum...'
+	    });
     mbp.addPage({ // Track 1
         tid   : 1,
         title : 'Near Dark',
