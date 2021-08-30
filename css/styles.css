@@ -1,0 +1,340 @@
+/* == Page Layout =========================================================== */
+
+body { /* Page bogy */
+  position: sticky;
+  margin: 0;
+  padding: 0;
+  border: none;
+	font-family: Helvetica, Arial, sans-serif;
+	font-size: 11pt;
+  background: #f0f0f0; 
+}
+
+@media (width >= 30rem) { /* Wide viewports... */
+  body { /* ...Limit body width */
+	  width: 30rem;
+	  margin-left: auto;
+	  margin-right: auto;
+  }
+}
+
+div, img, button, span, h1, h2 { /* Reset some styles */
+  margin: 0;
+  padding: 0;
+  border: none;
+  outline: none;
+}
+
+/* == Music Book Player Layout ============================================== */
+
+div.music-book-player {
+  position: fixed;
+  top: 0;
+  background: #2c2d33;
+  width: 100%;
+  height: 9.5rem;
+}
+
+@media (width >= 30rem) { /* Wide viewports... */
+  div.music-book-player {
+    width: 30rem;
+  }
+}
+
+/* -- Audio Player Layout --------------------------------------------------- */
+
+audio {
+	visibility: hidden;
+}
+
+div.audio-player {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 7rem;
+  background: #4c4e5a;
+  background: -webkit-linear-gradient(top, #4c4e5a 0%, #2c2d33 100%);
+  background: -moz-linear-gradient(top, #4c4e5a 0%, #2c2d33 100%);
+  background: -o-linear-gradient(top, #4c4e5a 0%, #2c2d33 100%);
+  background: -ms-linear-gradient(top, #4c4e5a 0%, #2c2d33 100%);
+  background: linear-gradient(top, #4c4e5a 0%, #2c2d33 100%);
+}
+
+/* -- Audio Player Header Layout -------------------------------------------- */
+
+div.audio-player-header {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 5rem;
+}
+
+div.album-info {
+  width: 61.8%;
+}
+
+div.spectrum-analyzer {
+  width: 38.2%;
+}
+
+/* -- Album Info Layout -- */
+
+.audio-player-header h1 {
+  margin-top: 1rem;
+  margin-left: 0.5rem;
+  font-weight: bold;
+  font-size: 1.3rem;
+  color: #ececec;
+  text-shadow: 1px 1px 1px rgba(0,0,0,0.5);
+}
+
+.audio-player-header h2 {
+  margin-left: 0.5rem;
+  font-weight: normal;
+  font-size: 0.8rem;
+  color: #ececec;
+  text-shadow: 1px 1px 1px rgba(0,0,0,0.5);
+}
+
+/* -- MediaElement Layout --------------------------------------------------- */
+
+div.mejs-container { /* Player container */
+  width: 100% !important;
+  height: 2rem !important;
+}
+
+div.mejs-inner { /* Player inner container */
+  width: 100% !important;
+  height: 100% !important;
+}
+
+div.mejs-controls { /* Player controls container */ 
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* -- Buttons and Indicators -- */ 
+.mejs-controls .mejs-button button {
+  cursor: pointer;
+  display: block;
+  text-indent: -9999px;
+}
+ 
+.mejs-controls .mejs-play button,
+.mejs-controls .mejs-pause button,
+.mbp-prev button,
+.mbp-next button {
+  width: 33px;
+  height: 33px;
+  background-color: transparent;
+  background-repeat: no-repeat;
+}
+
+.mejs-controls .mejs-play button,
+.mejs-controls .mejs-pause button { 
+  margin-left: 0.35em;
+}
+
+.mejs-controls .mejs-play button {
+  background-image: url(../img/play.png);
+}
+ 
+.mejs-controls .mejs-pause button { 
+	background-image: url(../img/pause.png);
+}
+
+.mbp-prev button {
+  background-image: url(../img/prev-disabled.png);
+}
+
+.mbp-next button {
+  background-image: url(../img/next.png);
+}
+
+.mejs-time { /* Current time and duration indicators */
+	height: 0.9rem;
+  padding-left: 0.25rem;
+  padding-right: 0.25rem;
+  font-size: 0.8rem;
+  color: #ececec;
+}
+
+/* -- Time Rail -- */
+
+.mejs-controls div.mejs-time-rail { /* Time rail container */
+	position: relative;
+	height: 0.75rem;
+}
+
+.mejs-controls .mejs-time-rail span { /* All bars */
+  position: absolute;
+  display: block;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  cursor: pointer;
+  -webkit-border-radius: 0px 0px 2px 2px;
+  -moz-border-radius: 0px 0px 2px 2px;
+  border-radius: 0px 0px 2px 2px;
+}
+ 
+.mejs-controls .mejs-time-rail .mejs-time-total { /* Duration bar */
+	background: #565860; 
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+}
+.mejs-controls .mejs-time-rail .mejs-time-loaded { /* Load progress bar */
+  background: #7b7d82;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+}
+.mejs-controls .mejs-time-rail .mejs-time-current { /* Current time bar */
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  background: #22B424;
+  background: -webkit-linear-gradient(top, #22B424 0%, #1C9B1F 100%);
+  background: -moz-linear-gradient(top, #22B424 0%, #1C9B1F 100%);
+  background: -o-linear-gradient(top, #22B424 0%, #1C9B1F 100%);
+  background: -ms-linear-gradient(top, #22B424 0%, #1C9B1F 100%);
+  background: linear-gradient(top, #22B424 0%, #1C9B1F 100%);
+}
+
+/* -- Time Rail Knob -- */
+
+.mejs-controls .mejs-time-rail .mejs-time-handle {
+  display: block;
+  width: 1rem;
+  height: 1rem;
+  top: -0.125rem;
+}
+
+/* -- Time Rail Tooltip -- */
+.mejs-controls .mejs-time-rail .mejs-time-float { /* Balloon */
+  display: none;
+  width: 33px;
+  height: 23px;
+  top: -26px;
+  margin-left: -17px;
+  background: url(../img/time-box.png);
+}
+ 
+.mejs-controls .mejs-time-rail .mejs-time-float-current { /* Text */
+  width: 33px;
+  display: block;
+  left: 0;
+  top: 4px;
+  font-size: 8pt;
+  font-weight: bold;
+  color: #666666;
+  text-align: center;
+}
+
+/* -- Track Controls -- */
+
+div.track-controls {
+  width: calc(100% - 0.65rem);
+	height: 2rem;
+	margin: 0.25rem 0.15rem 0.25rem 0.5rem;
+  display: grid;
+  grid-template-columns: auto 33px 33px;
+  gap: 0.1rem;
+  align-items: center;
+}
+
+div.track-info {
+  width: 100%;
+}
+
+div.prev-button,
+div.next-button {
+	width: 100%;
+	height: 100%;
+}
+
+div.track-title-container  {
+	display: flex;
+  flex-direction: row;
+  column-gap: 0.25em;
+  align-items: flex-start;
+}
+
+#track-number,
+#track-number-separator,
+#track-title {
+  font-weight: normal;
+  font-size: 1rem;
+  color: #ececec;
+  text-shadow: 1px 1px 1px rgba(0,0,0,0.5);
+}
+
+#part-title {
+  font-weight: normal;
+  font-size: 0.8rem;
+  color: #ececec;
+  text-shadow: 1px 1px 1px rgba(0,0,0,0.5);
+}
+
+/* == Content Layout ======================================================== */
+
+div.content {
+	display: flex;
+	flex-direction: row;
+	align-items: center;^
+  margin-top: 9.5rem;
+  width: 100%;
+  min-height: calc(100vh - 9.5rem);
+  background: #030303; /* <- Track ambient color! */
+}
+
+div.page {
+  width: 100%;
+}
+
+div.track-image,
+#track-image {
+	width: 100%;
+}
+
+/* -- Auxiliary: asides -- */
+
+aside {
+  color: #7f6e00;
+  background: #fff8cc;
+  font-size: 9pt;
+  margin-top: 1rem;
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+  padding: 0.5rem;
+  border: 1px solid #7f6e00;
+  border-radius: 0 0.5rem 0.5rem 0.5rem;
+  box-shadow: 0.5rem 0.5rem 1rem -0.5rem #999; 
+}
+
+aside a {
+  color: #7f6e00;
+}
+
+aside h1 {
+  color: #7f6e00;
+  font-size: 9pt;
+  font-weight: bold;
+  margin: 0;
+}
+
+aside ul {
+  margin: 0.3rem 0 0 0;
+  padding-left: 1rem;
+}
+
+aside li {
+  margin: 0;
+  padding-left: 0;
+}
+
+/* EOF */

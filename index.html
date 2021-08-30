@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Type" content="text/html">
+  <title>:: NEAR DARK :: Matthias Wolff</title>
+  <meta name="author" content="Matthias Wolff">
+  <meta name="viewport" content="width=device-width, initial-scale=1"> 
+  <link rel="shortcut icon" href="http://designshack.net/favicon.ico">
+  <link rel="icon" href="http://designshack.net/favicon.ico">
+  <link rel="stylesheet" type="text/css" media="screen" href="css/styles.css">
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+  <script type="text/javascript" src="js/mediaelement-and-player.min.js"></script>
+  <script type="text/javascript" src="js/musicbookplayer.js"></script>
+</head>
+
+<body>
+
+  <!-- Music Book Player -->
+  <div class="music-book-player">
+	  <div class="audio-player">
+	    <div class="audio-player-header">
+	      <div class="album-info">
+	        <h1 id="album-title">Near Dark</h1>
+	        <h2 id="album-artist">Matthias Wolff</h2>
+	      </div>
+	      <div id="spectrum-analyzer" class="spectrum-analyzer"></div>
+	    </div>
+	    <audio id="audio-player" 
+	      style="width:100%; height:40%;" controls="controls"
+	      src="2021 - Near Dark/01 - Near Dark.mp3" type="audio/mp3">
+	    </audio>
+	  </div>
+    <div class="track-controls">
+      <div class="track-info">
+        <div class="track-title-container">
+          <div id="track-number">01</div>
+          <div id="track-number-separator">-</div>
+          <div>
+            <h1 id="track-title">Near Dark</h1>
+            <h2 id="part-title"></h2>
+          </div>
+        </div>
+      </div>
+      <div class="mejs-button mbp-prev" onclick="musicBookPlayer.prev();">
+        <button type="button" aria-controls="mep_0" 
+          title="Previous Track/Part" aria-label="Previous Part/Track"
+        ></button>
+      </div>
+      <div class="mejs-button mbp-next" onclick="musicBookPlayer.next();">
+        <button type="button" aria-controls="mep_0" 
+          title="Next Track/Part" aria-label="Next Part/Track"
+        ></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Music Book Content -->
+  <div class="content">
+    <div class="page" id="page-1">
+	    <div class="track-image"><img id="track-image" src="2021 - Near Dark/01 - Near Dark.jpg"></div>
+	    <div class="track-comments">
+	    </div>
+    </div>
+  </div>
+  
+  <!-- Credits, etc. -->
+  <!-- TODO: Move to extra MusicBook page -->
+  <aside>
+    <h1>Music Book Player</h1>
+    <p>
+      by <a target="_blank" href="https://www.b-tu.de/en/fg-kommunikationstechnik/team/staff/prof-dr-ing-habil-matthias-wolff">Matthias Wolff</a>,
+      hosted on <a target="_blank" href="">GitHub</a>
+    </p>
+    <h1>Based upon</h1>
+    <ul>
+      <li>
+        <a target="_blank" href="https://github.com/mediaelement/mediaelement">MediaElement.js</a>
+        <ul>
+          <li><a target="_blank" href="https://github.com/mediaelement/mediaelement/tree/master/docs">Documentation</a></li>
+          <li>designmodo: <a target="_blank" href="https://designmodo.com/audio-player/"> How to Create an Audio Player in jQuery, HTML5 & CSS3.</a> (retrieved Aug. 27, 2021)</li>
+          <li>design shack: <a target="_blank" href="https://designshack.net/articles/css/custom-html5-audio-element-ui/">Creating a Custom HTML5 Audio Element UI.</a> (retrieved Aug. 27, 2021)</li>
+        </ul>
+      </li>
+      <li> and <a target="_blank" href="https://audiomotion.dev/#/">Spectrum Analyzer</a> by audioMotion</li>
+    </ul>
+  </aside>
+  <aside>
+    <h1>TODO</h1>
+    <ul>
+      <li>Implement player in Javascript</li>
+      <li>Dynamically create HTML page</li>
+      <li>Publish on GitHub</li>
+      <li>Make Favicon</li>
+    </ul>
+  </aside>
+  
+  <!-- Scripts -->
+	<script type="text/javascript">
+	  var mbp = MusicBookPlayer.create(                                           // Music Book
+	    '../media/Near Dark',                                                     // - Media base URI
+	    'Near Dark',                                                              // - Music book title
+	    'Matthias Wolff',                                                         // - Artist
+	    'artwork.jpg',                                                            // - Relative cover imaage URI 
+      'Lorem ipsum...'
+	  );
+    mbp.addPage({ // Track 1
+        tid   : 1,
+        title : 'Near Dark',
+        artist: mbp.pages[0].artist, // Copy book artist
+        audio : '01 - Near Dark.mp3',
+        image : '01 - Near Dark.jpg',
+        descr : 'Lorem ipsum...'
+      });
+    mbp.addPage({ // Track 2
+        tid   : 2,
+        title : 'Khitomer',
+        artist: mbp.pages[0].artist, // Copy book artist
+        audio : '02 - Khitomer.mp3',
+        image : '02 - Khitomer.jpg',
+        descr : 'Lorem ipsum...'
+      });
+    mbp.addPage({ // Track 3
+        tid   : 3,
+        title : 'Captain\'s Lounge',
+        artist: mbp.pages[0].artist, // Copy book artist
+        audio : '03 - Captain\'s Lounge.mp3',
+        image : '03 - Captain\'s Lounge.jpg',
+        descr : 'Lorem ipsum...'
+      });
+    mbp.addPage({
+        tid   : 4,
+        title : 'Perfect Dream pt. I',
+        artist: mbp.pages[0].artist, // Copy book artist
+        audio : '04 - Perfect Dream pt. I.mp3',
+        image : '04 - Perfect Dream pt. I - A.jpg',
+        descr : 'Lorem ipsum...',
+        part  : 'A - In the White Mountains',
+        ptoffs: 0 
+      });
+    mbp.addPage({
+        tid   : mbp.pages[mbp.pages.length-1].tid,   // Copy track ID from last page
+        title : mbp.pages[mbp.pages.length-1].title, // Copy title from last page
+        artist: mbp.pages[0].artist,                 // Copy book artist
+        audio : mbp.pages[mbp.pages.length-1].audio, // Copy audio from last page
+        image : '04 - Perfect Dream pt. I - B.jpg',
+        descr : 'Lorem ipsum...',
+        part  : 'B - Mystery Track',
+        ptoffs: 6*60 + 0.515
+      });
+    mbp.addPage({
+        tid   : mbp.pages[mbp.pages.length-1].tid,   // Copy track ID from last page
+        title : mbp.pages[mbp.pages.length-1].title, // Copy title from last page
+        artist: mbp.pages[0].artist,                 // Copy book artist
+        audio : mbp.pages[mbp.pages.length-1].audio, // Copy audio from last page
+        image : '04 - Perfect Dream pt. I - C.jpg',
+        descr : 'Lorem ipsum...',
+        part  : 'C - Iceland',
+        ptoffs: 9*60 + 26.6772
+      });
+    mbp.addPage({
+        tid   : mbp.pages[mbp.pages.length-1].tid,   // Copy track ID from last page
+        title : mbp.pages[mbp.pages.length-1].title, // Copy title from last page
+        artist: mbp.pages[0].artist,                 // Copy book artist
+        audio : mbp.pages[mbp.pages.length-1].audio, // Copy audio from last page
+        image : '04 - Perfect Dream pt. I - D.jpg',
+        descr : 'Lorem ipsum...',
+        part  : 'D - Lönscher Park',
+        ptoffs: 13*60 + 11.6844 
+      });
+    mbp.addPage({
+        tid   : mbp.pages[mbp.pages.length-1].tid,   // Copy track ID from last page
+        title : mbp.pages[mbp.pages.length-1].title, // Copy title from last page
+        artist: mbp.pages[0].artist,                 // Copy book artist
+        audio : mbp.pages[mbp.pages.length-1].audio, // Copy audio from last page
+        image : '04 - Perfect Dream pt. I - E.jpg',
+        descr : 'Lorem ipsum...',
+        part  : 'E - Going West (by Tangerine Dream)',
+        ptoffs: 18*60 + 46.5994 
+      });
+    mbp.addPage({
+        tid   : mbp.pages[mbp.pages.length-1].tid,   // Copy track ID from last page
+        title : mbp.pages[mbp.pages.length-1].title, // Copy title from last page
+        artist: mbp.pages[0].artist,                 // Copy book artist
+        audio : mbp.pages[mbp.pages.length-1].audio, // Copy audio from last page
+        image : '04 - Perfect Dream pt. I - F.jpg',
+        descr : 'Lorem ipsum...',
+        part  : 'F - Klötzelmönch (Logwise Edit)',
+        ptoffs: 24*60 + 34.676 
+      });
+    mbp.addPage({
+        tid   : 5,
+        title : 'Perfect Dream pt. II (Stalker Ambient Mix)',
+        artist: mbp.pages[0].artist,                 // Copy book artist
+        audio : '05 - Perfect Dream pt. II (Stalker Ambient Mix).mp3',
+        image : '05 - Perfect Dream pt. II (Stalker Ambient Mix).jpg',
+        descr : 'Lorem ipsum...'
+      });
+    mbp.addPage({
+        tid   : 6,
+        title : 'Landeskrone pt II',
+        artist: mbp.pages[0].artist,                 // Copy book artist
+        audio : '06 - Landeskrone pt II.mp3',
+        image : '06 - Landeskrone pt II.jpg',
+        descr : 'Lorem ipsum...'
+      });
+    mbp.addPage({
+        tid   : 7,
+        title : 'Haleakala',
+        artist: mbp.pages[0].artist,                 // Copy book artist
+        audio : '07 - Haleakala.mp3',
+        image : '07 - Haleakala.jpg',
+        descr : 'Lorem ipsum...'
+      });
+    mbp.addPage({
+        tid   : 8,
+        title : 'Tierpark (Vendor Remix)',
+        artist: mbp.pages[0].artist,                 // Copy book artist
+        audio : '08 - Tierpark (Vendor Remix).mp3',
+        image : '08 - Tierpark (Vendor Remix).jpg',
+        descr : 'Lorem ipsum...'
+      });
+    mbp.addPage({
+        tid   : 9,
+        title : 'Tierpark (Original Version)',
+        artist: mbp.pages[0].artist,                 // Copy book artist
+        audio : '09 - Tierpark (Original Version).mp3',
+        image : '09 - Tierpark (Original Version).jpg',
+        descr : 'Lorem ipsum...'
+      });
+    mbp.addPage({
+        tid   : 10,
+        title : 'Karamoon',
+        artist: mbp.pages[0].artist,                 // Copy book artist
+        audio : '10 - Karamoon.mp3',
+        image : '10 - Karamoon.jpg',
+        descr : 'Lorem ipsum...'
+      });
+    ;
+	</script>
+	<script type="module">
+    import AudioMotionAnalyzer from 'https://cdn.skypack.dev/audiomotion-analyzer?min';
+    //import AudioMotionAnalyzer from './js/mediaelement-and-player.min.js';
+
+    const audioMotion = new AudioMotionAnalyzer(
+      document.getElementById('spectrum-analyzer'),
+      {
+        source: document.getElementById('audio-player'),
+        showScaleX: false, showBgColor: false, overlay: true,
+        minFreq: 10, maxFreq: 20000,
+        mode: 10, lineWidth: 1, fillAlpha: 0.2,
+        // reflexRatio: 0.3, reflexAlpha: 0.15, reflexBright: 1,
+        // set your preferred options here
+      }
+    );
+  </script>
+
+  <!-- End of Page Body -->
+</body>
+</html>
