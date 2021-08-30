@@ -275,6 +275,7 @@ div.track-title-container  {
 
 #part-title {
   font-weight: normal;
+  font-style: italic;
   font-size: 0.8rem;
   color: #ececec;
   text-shadow: 1px 1px 1px rgba(0,0,0,0.5);
@@ -296,9 +297,17 @@ div.page {
   width: 100%;
 }
 
-div.track-image,
+.track-image,
 #track-image {
 	width: 100%;
+}
+
+#track-image {
+  /* TODO: ... */
+}
+
+#track-comment {
+  color: #ececec;
 }
 
 /* -- Auxiliary: asides -- */

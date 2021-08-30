@@ -21,23 +21,22 @@
 	  <div class="audio-player">
 	    <div class="audio-player-header">
 	      <div class="album-info">
-	        <h1 id="album-title">Near Dark</h1>
-	        <h2 id="album-artist">Matthias Wolff</h2>
+	        <h1 id="album-title"></h1>
+	        <h2 id="album-artist"></h2>
 	      </div>
 	      <div id="spectrum-analyzer" class="spectrum-analyzer"></div>
 	    </div>
 	    <audio id="audio-player" 
-	      style="width:100%; height:40%;" controls="controls"
-	      src="../musicbooks/2021 - Near Dark/01 - Near Dark.mp3">
+	      style="width:100%; height:40%;" controls="controls" src="media/dummy.mp3">
 	    </audio>
 	  </div>
     <div class="track-controls">
       <div class="track-info">
         <div class="track-title-container">
-          <div id="track-number">01</div>
-          <div id="track-number-separator">-</div>
+          <div id="track-number"></div>
+          <div id="track-number-separator"></div>
           <div>
-            <h1 id="track-title">Near Dark</h1>
+            <h1 id="track-title"></h1>
             <h2 id="part-title"></h2>
           </div>
         </div>
@@ -58,9 +57,8 @@
   <!-- Music Book Content -->
   <div class="content">
     <div class="page" id="page-1">
-	    <div class="track-image"><img id="track-image" src="../musicbooks/2021 - Near Dark/01 - Near Dark.jpg"></div>
-	    <div class="track-comments">
-	    </div>
+	    <div id="track-image"></div>
+	    <div id="track-comment"></div>
     </div>
   </div>
   
@@ -134,57 +132,68 @@
         audio : '04 - Perfect Dream pt. I.mp3',
         image : '04 - Perfect Dream pt. I - A.jpg',
         descr : 'Lorem ipsum...',
-        part  : 'A - In the White Mountains',
+        part  : 'In the White Mountains',
         ptoffs: 0 
       });
     mbp.addPage({
         tid   : mbp.pages[mbp.pages.length-1].tid,   // Copy track ID from last page
         title : mbp.pages[mbp.pages.length-1].title, // Copy title from last page
         artist: mbp.pages[0].artist,                 // Copy book artist
-        audio : mbp.pages[mbp.pages.length-1].audio, // Copy audio from last page
+        audio : '04 - Perfect Dream pt. I.mp3',
         image : '04 - Perfect Dream pt. I - B.jpg',
         descr : 'Lorem ipsum...',
-        part  : 'B - Mystery Track',
+        part  : 'Mystery Track',
         ptoffs: 6*60 + 0.515
       });
     mbp.addPage({
         tid   : mbp.pages[mbp.pages.length-1].tid,   // Copy track ID from last page
         title : mbp.pages[mbp.pages.length-1].title, // Copy title from last page
         artist: mbp.pages[0].artist,                 // Copy book artist
-        audio : mbp.pages[mbp.pages.length-1].audio, // Copy audio from last page
+        audio : '04 - Perfect Dream pt. I.mp3',
         image : '04 - Perfect Dream pt. I - C.jpg',
         descr : 'Lorem ipsum...',
-        part  : 'C - Iceland',
+        part  : 'Iceland',
         ptoffs: 9*60 + 26.6772
       });
     mbp.addPage({
         tid   : mbp.pages[mbp.pages.length-1].tid,   // Copy track ID from last page
         title : mbp.pages[mbp.pages.length-1].title, // Copy title from last page
         artist: mbp.pages[0].artist,                 // Copy book artist
-        audio : mbp.pages[mbp.pages.length-1].audio, // Copy audio from last page
+        audio : '04 - Perfect Dream pt. I.mp3',
         image : '04 - Perfect Dream pt. I - D.jpg',
         descr : 'Lorem ipsum...',
-        part  : 'D - Lönscher Park',
+        part  : 'Lönscher Park',
         ptoffs: 13*60 + 11.6844 
       });
     mbp.addPage({
         tid   : mbp.pages[mbp.pages.length-1].tid,   // Copy track ID from last page
         title : mbp.pages[mbp.pages.length-1].title, // Copy title from last page
         artist: mbp.pages[0].artist,                 // Copy book artist
-        audio : mbp.pages[mbp.pages.length-1].audio, // Copy audio from last page
+        audio : '04 - Perfect Dream pt. I.mp3',
         image : '04 - Perfect Dream pt. I - E.jpg',
         descr : 'Lorem ipsum...',
-        part  : 'E - Going West (by Tangerine Dream)',
+        part  : 'Going West (by Tangerine Dream)',
         ptoffs: 18*60 + 46.5994 
       });
+// TODO: Insert bridge part
+//     mbp.addPage({
+//         tid   : mbp.pages[mbp.pages.length-1].tid,   // Copy track ID from last page
+//         title : mbp.pages[mbp.pages.length-1].title, // Copy title from last page
+//         artist: mbp.pages[0].artist,                 // Copy book artist
+//         audio : '04 - Perfect Dream pt. I.mp3',
+//         image : '04 - Perfect Dream pt. I - F.jpg',
+//         descr : 'Lorem ipsum...',
+//         part  : '(Bridge)',
+//         ptoffs: 24*60 + 34.676 
+//     });
     mbp.addPage({
         tid   : mbp.pages[mbp.pages.length-1].tid,   // Copy track ID from last page
         title : mbp.pages[mbp.pages.length-1].title, // Copy title from last page
         artist: mbp.pages[0].artist,                 // Copy book artist
-        audio : mbp.pages[mbp.pages.length-1].audio, // Copy audio from last page
-        image : '04 - Perfect Dream pt. I - F.jpg',
+        audio : '04 - Perfect Dream pt. I.mp3',
+        image : '04 - Perfect Dream pt. I - G.jpg',
         descr : 'Lorem ipsum...',
-        part  : 'F - Klötzelmönch (Logwise Edit)',
+        part  : 'Klötzelmönch (Logwise Edit)',
         ptoffs: 24*60 + 34.676 
       });
     mbp.addPage({

@@ -113,16 +113,18 @@ class MusicBookPlayer
 
     // Add event listeners
     musicBookPlayer.mep.addEventListener('canplay', function(){
-      musicBookPlayer.enablePlayButton(true);
-      musicBookPlayer.updateCurrentPage();
+      musicBookPlayer.updateUI();
     });
     musicBookPlayer.mep.addEventListener('ended', function (){
-      musicBookPlayer.enablePlayButton(false);
+      musicBookPlayer.updateUI();
       musicBookPlayer.next();
     });
     musicBookPlayer.mep.addEventListener('timeupdate', function (){
-      musicBookPlayer.updateCurrentPage();
+      musicBookPlayer.updateUI();
     });
+    
+    // Goto first page
+    musicBookPlayer.goto(1);
   }
 
   // -- Book Pages --
@@ -149,7 +151,8 @@ class MusicBookPlayer
   addPage(props)
   {
     // Create page and add to page list
-    let page = new MusicBookPage(this.mediaBaseURI,props);
+    props.pid = this.pages.length;
+    let page = new MusicBookPage(props);
     this.pages = this.pages.concat(page);
    
     // TODO: Create page HTML
@@ -168,8 +171,12 @@ class MusicBookPlayer
   goto(n=0)
   {
     n = Math.max(0,Math.min(n,this.pages.length-1));
-    // TODO: Something with page[n]
-    // TODO: this.currentPage = n;
+    let src = this.pages[n].audio;
+    if (src!=this.mep.src)
+      this.mep.setSrc(src);
+    if (typeof this.pages[n].ptoffs!='undefined')
+      this.mep.setCurrentTime(this.pages[n].ptoffs);
+    musicBookPlayer.updateUI(true);
   }
 
   /**
@@ -177,8 +184,8 @@ class MusicBookPlayer
    */
   prev()
   {
-    // TODO: ...
-    //window.alert("[TODO: Play previous part/track], "+this.mep);
+    if (this.currentPage>0)
+      musicBookPlayer.goto(this.currentPage-1);
   }
 
   /**
@@ -186,27 +193,105 @@ class MusicBookPlayer
    */
   next()
   {
-    // TODO: ...
-    //window.alert("[TODO: Play next part/track]");
+    if (this.currentPage<this.pages.length-1)
+      musicBookPlayer.goto(this.currentPage+1);
   }
   
   // -- UI Helpers --
 
   /**
    * Detects the page from the current source and time index of the audio player
-   * element and updates the GUI and the <code>currentPage</code> property if 
-   * the page has changed since the last time the method was invoked.
+   * element.
    * 
-   * @param  Force GUI update (default is <code>false</code>)
    * @return The One-based page number, 0 for the cover page, or -1 in case
    *         of errors.
    */
-  updateCurrentPage(force=false)
+  detectCurrentPage()
   {
-    // this.mep.currentSrc
-    // this.mep.currentTime
+    // No current audio source -> return default
+    if (this.mep.currentSrc.endsWith('/media/dummy.mp3'))
+      return this.pages.length>0 ? 0 : -1;
+    
+    // Find all pages for current audio source
+    let cp = this.pages.filter( ({audio}) => 
+      audio.indexOf(this.mep.currentSrc)>=0
+    );
+
+    // No page for current audio source -> error
+    if (cp.length==0)
+      return -1;
+
+    // One page for current audio source -> return pages array index
+    if (cp.length==1)
+      return cp[0].pid;
+
+    // Several parts -> find current part by part time offset
+    let ct = this.mep.currentTime;
+    for (let i=0; i<cp.length-1; i++)
+      if (ct>=cp[i].ptoffs && ct<cp[i+1].ptoffs)
+        return cp[i].pid;
+    return cp[cp.length-1].pid;
   }
-  
+
+  /**
+   * Updates the UI.
+   * 
+   * @param  Force update (default is <code>false</code>)
+   */
+  updateUI(force=false)
+  {
+    let cp = musicBookPlayer.detectCurrentPage();
+    if (musicBookPlayer.currentPage==cp && !force)
+      return;
+
+    // Set current page
+    musicBookPlayer.currentPage = cp;
+
+    // Error state or cover page
+    if (cp<1)
+    {
+      $('#track-number'          )[0].innerHTML='';
+      $('#track-number-separator')[0].innerHTML='';
+      $('#track-title'           )[0].innerHTML='';
+      $('#part-title'            )[0].innerHTML='';
+    }
+    else if (cp>0)
+    {
+      let s = ''+musicBookPlayer.pages[cp].tid;
+      if (s.length==1) s='0'+s;
+      $('#track-number'          )[0].innerHTML=s;
+      $('#track-number-separator')[0].innerHTML='-';
+      $('#track-title'           )[0].innerHTML=musicBookPlayer.pages[cp].title;
+      if (typeof musicBookPlayer.pages[cp].part!='undefined')
+        $('#part-title')[0].innerHTML=musicBookPlayer.pages[cp].part;
+      else
+        $('#part-title')[0].innerHTML='';
+    }
+    
+    // Error state
+    if (cp<0)
+    {
+      musicBookPlayer.enablePlayButton(false);
+      musicBookPlayer.enablePrevButton(false);
+      musicBookPlayer.enableNextButton(false);
+      $('#album-title'   )[0].innerHTML='<span class="error">Error</span>';
+      $('#album-artist'  )[0].innerHTML='';
+      $('#track-image'   )[0].innerHTML='';
+      $('#track-comments')[0].innerHTML='';
+      return;
+    }
+    
+    // Normal state
+    let img = '<img class="track-image" src="'+musicBookPlayer.pages[cp].image+'">';
+    musicBookPlayer.enablePlayButton(musicBookPlayer.mep.readyState>=3);
+    musicBookPlayer.enablePrevButton(cp>0);
+    musicBookPlayer.enableNextButton(cp<musicBookPlayer.pages.length-1);
+    $('#album-title'  )[0].innerHTML=musicBookPlayer.pages[0].title;
+    $('#album-artist' )[0].innerHTML=musicBookPlayer.pages[0].artist;
+    $('#track-image'  )[0].innerHTML=img;
+    $('#track-comment')[0].innerHTML=musicBookPlayer.pages[cp].descr;
+  }
+
   /**
    * Enables or disables the play button.
    * 
@@ -275,8 +360,8 @@ class MusicBookPage
   /**
    * Creates a new MusicBookPage.
    * 
-   * @param mediaBaseURI Base URI of media files (audio and image files)
    * @param props Object containing the following properties
+   *              - pid    Page ID (pages array index)
    *              - tid    One-based track number (integer)
    *              - title  Page--i.e., track or part--title (string)
    *              - artist Artist name (string)
@@ -291,9 +376,10 @@ class MusicBookPage
    *              Footnotes:
    *              (1) relative to <code>mediaBaseURI</code>
    */
-  constructor(mediaBaseURI,props)
+  constructor(props)
   {
     // Safely initialize
+    this.pid    = (typeof props.pid   =='undefined') ? undefined : props.pid;
     this.tid    = (typeof props.tid   =='undefined') ? undefined : props.tid;
     this.title  = (typeof props.title =='undefined') ? undefined : props.title;
     this.artist = (typeof props.artist=='undefined') ? undefined : props.artist;
@@ -303,10 +389,12 @@ class MusicBookPage
 
     this.audio = undefined;
     if (typeof props.audio!='undefined')
-      this.audio = (new URL(mediaBaseURI+props.audio)).toString();  
+      this.audio = (new URL(musicBookPlayer.mediaBaseURI+props.audio)).toString();
+    else
+      this.audio = (new URL(musicBookPlayer.scriptBaseURI+'media/dummy.mp3')).toString();
     this.image = undefined;
     if (typeof props.image!='undefined')
-      this.image = (new URL(mediaBaseURI+props.image)).toString();  
+      this.image = (new URL(musicBookPlayer.mediaBaseURI+props.image)).toString();  
   }
 
 }
