@@ -1,6 +1,6 @@
 /* == Page Layout =========================================================== */
 
-body { /* Page bogy */
+body { /* Page body */
   position: sticky;
   margin: 0;
   padding: 0;
@@ -18,7 +18,7 @@ body { /* Page bogy */
   }
 }
 
-div, img, button, span, h1, h2 { /* Reset some styles */
+div, img, button, span, h1, h2, a { /* Reset some styles */
   margin: 0;
   padding: 0;
   border: none;
@@ -126,7 +126,8 @@ div.mejs-controls { /* Player controls container */
 .mejs-controls .mejs-play button,
 .mejs-controls .mejs-pause button,
 .mbp-prev button,
-.mbp-next button {
+.mbp-next button,
+.mbp-contents button {
   width: 33px;
   height: 33px;
   background-color: transparent;
@@ -152,6 +153,10 @@ div.mejs-controls { /* Player controls container */
 
 .mbp-next button {
   background-image: url(../img/next.png);
+}
+
+.mbp-contents button {
+  background-image: url(../img/contents.png);
 }
 
 .mejs-time { /* Current time and duration indicators */
@@ -242,19 +247,13 @@ div.track-controls {
 	height: 2rem;
 	margin: 0.25rem 0.15rem 0.25rem 0.5rem;
   display: grid;
-  grid-template-columns: auto 33px 33px;
+  grid-template-columns: auto 33px 33px 33px;
   gap: 0.1rem;
   align-items: center;
 }
 
 div.track-info {
   width: 100%;
-}
-
-div.prev-button,
-div.next-button {
-	width: 100%;
-	height: 100%;
 }
 
 div.track-title-container  {
@@ -264,19 +263,22 @@ div.track-title-container  {
   align-items: flex-start;
 }
 
-#track-number,
-#track-number-separator,
-#track-title {
+.track-number, .track-number a,
+.track-number-separator, .track-number-separator a,
+.track-title, .track-title a {
   font-weight: normal;
+  font-style: normal;
   font-size: 1rem;
+  text-decoration: none;
   color: #ececec;
   text-shadow: 1px 1px 1px rgba(0,0,0,0.5);
 }
 
-#part-title {
+.part-title, .part-title a {
   font-weight: normal;
   font-style: italic;
   font-size: 0.8rem;
+  text-decoration: none;
   color: #ececec;
   text-shadow: 1px 1px 1px rgba(0,0,0,0.5);
 }
@@ -286,7 +288,7 @@ div.track-title-container  {
 div.content {
 	display: flex;
 	flex-direction: row;
-	align-items: center;
+	align-items: flex-start; /* center? */
   margin-top: 9.5rem;
   width: 100%;
   min-height: calc(100vh - 9.5rem);
@@ -307,7 +309,10 @@ div.page {
 }
 
 #track-comment {
-  color: #ececec;
+  margin-top: 0.5rem;
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+	color: #ececec;
 }
 
 /* -- Auxiliary: asides -- */

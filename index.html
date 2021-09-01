@@ -33,11 +33,11 @@
     <div class="track-controls">
       <div class="track-info">
         <div class="track-title-container">
-          <div id="track-number"></div>
-          <div id="track-number-separator"></div>
+          <div class="track-number" id="track-number"></div>
+          <div class="track-number-separator" id="track-number-separator"></div>
           <div>
-            <h1 id="track-title"></h1>
-            <h2 id="part-title"></h2>
+            <h1 class="track-title" id="track-title"></h1>
+            <h2 class="part-title" id="part-title"></h2>
           </div>
         </div>
       </div>
@@ -49,6 +49,11 @@
       <div class="mejs-button mbp-next" onclick="musicBookPlayer.next();">
         <button type="button" aria-controls="mep_0" 
           title="Next Track/Part" aria-label="Next Part/Track"
+        ></button>
+      </div>
+      <div class="mejs-button mbp-contents" onclick="musicBookPlayer.gotoContents();">
+        <button type="button" aria-controls="mep_0" 
+          title="Contents/Cover Page" aria-label="Contents/Cover Page"
         ></button>
       </div>
     </div>
@@ -86,8 +91,9 @@
   <aside>
     <h1>TODO</h1>
     <ul>
-      <li>Implement player in Javascript</li>
+      <li>Add contents button, DHTML contents page</li>
       <li>Dynamically create HTML page</li>
+      <li>Implement swipe-able page gallery</li>
       <li>Make Favicon</li>
     </ul>
   </aside>
@@ -99,7 +105,7 @@
 	      title       : 'Near Dark',
 	      artist      : 'Matthias Wolff',
 	      image       : 'artwork.jpg', 
-        descr       : 'Lorem ipsum...'
+        descr       : '1995-2006, running time 80:08 min.',
 	    });
     mbp.addPage({ // Track 1
         tid   : 1,
@@ -107,7 +113,7 @@
         artist: mbp.pages[0].artist, // Copy book artist
         audio : '01 - Near Dark.mp3',
         image : '01 - Near Dark.jpg',
-        descr : 'Lorem ipsum...'
+        //descr : '',
       });
     mbp.addPage({ // Track 2
         tid   : 2,
@@ -115,7 +121,8 @@
         artist: mbp.pages[0].artist, // Copy book artist
         audio : '02 - Khitomer.mp3',
         image : '02 - Khitomer.jpg',
-        descr : 'Lorem ipsum...'
+        descr : 'Khitomer is a place name mentioned in a TV series called Star '
+               +'Trek.',
       });
     mbp.addPage({ // Track 3
         tid   : 3,
@@ -123,94 +130,104 @@
         artist: mbp.pages[0].artist, // Copy book artist
         audio : '03 - Captain\'s Lounge.mp3',
         image : '03 - Captain\'s Lounge.jpg',
-        descr : 'Lorem ipsum...'
+        descr : 'Captain\'s Lounge refers to the office of Jean-Luc Picard, '
+               +'captain of the U.S.S. Enterprise, a character in the same TV '
+               +'series.',
       });
     mbp.addPage({
         tid   : 4,
         title : 'Perfect Dream pt. I',
         artist: mbp.pages[0].artist, // Copy book artist
         audio : '04 - Perfect Dream pt. I.mp3',
-        image : '04 - Perfect Dream pt. I - A.jpg',
-        descr : 'Lorem ipsum...',
+        image : '04A - Perfect Dream pt. I.jpg',
         part  : 'In the White Mountains',
-        ptoffs: 0 
+        ptoffs: 0,
+        //descr : '',
       });
     mbp.addPage({
         tid   : mbp.pages[mbp.pages.length-1].tid,   // Copy track ID from last page
         title : mbp.pages[mbp.pages.length-1].title, // Copy title from last page
         artist: mbp.pages[0].artist,                 // Copy book artist
-        audio : '04 - Perfect Dream pt. I.mp3',
-        image : '04 - Perfect Dream pt. I - B.jpg',
-        descr : 'Lorem ipsum...',
+        audio : mbp.pages[mbp.pages.length-1].audio, // Copy audio URL from last page
+        image : '04B - Perfect Dream pt. I.jpg',
         part  : 'Mystery Track',
-        ptoffs: 6*60 + 0.515
+        ptoffs: 6*60 + 0.515,
+        //descr : '',
       });
     mbp.addPage({
         tid   : mbp.pages[mbp.pages.length-1].tid,   // Copy track ID from last page
         title : mbp.pages[mbp.pages.length-1].title, // Copy title from last page
         artist: mbp.pages[0].artist,                 // Copy book artist
-        audio : '04 - Perfect Dream pt. I.mp3',
-        image : '04 - Perfect Dream pt. I - C.jpg',
-        descr : 'Lorem ipsum...',
+        audio : mbp.pages[mbp.pages.length-1].audio, // Copy audio URL from last page
+        image : '04C - Perfect Dream pt. I.jpg',
         part  : 'Iceland',
-        ptoffs: 9*60 + 26.6772
+        ptoffs: 9*60 + 26.6772,
+        //descr : '',
       });
     mbp.addPage({
         tid   : mbp.pages[mbp.pages.length-1].tid,   // Copy track ID from last page
         title : mbp.pages[mbp.pages.length-1].title, // Copy title from last page
         artist: mbp.pages[0].artist,                 // Copy book artist
-        audio : '04 - Perfect Dream pt. I.mp3',
-        image : '04 - Perfect Dream pt. I - D.jpg',
-        descr : 'Lorem ipsum...',
+        audio : mbp.pages[mbp.pages.length-1].audio, // Copy audio URL from last page
+        image : '04D - Perfect Dream pt. I.jpg',
         part  : 'Lönscher Park',
-        ptoffs: 13*60 + 11.6844 
+        ptoffs: 13*60 + 11.6844,
+        descr : 'Lönscher Park is an arcane park in Görlitz.',
       });
     mbp.addPage({
         tid   : mbp.pages[mbp.pages.length-1].tid,   // Copy track ID from last page
         title : mbp.pages[mbp.pages.length-1].title, // Copy title from last page
         artist: mbp.pages[0].artist,                 // Copy book artist
-        audio : '04 - Perfect Dream pt. I.mp3',
-        image : '04 - Perfect Dream pt. I - E.jpg',
-        descr : 'Lorem ipsum...',
+        audio : mbp.pages[mbp.pages.length-1].audio, // Copy audio URL from last page
+        image : '04E - Perfect Dream pt. I.jpg',
         part  : 'Going West (by Tangerine Dream)',
-        ptoffs: 18*60 + 46.5994 
+        ptoffs: 18*60 + 46.5994,
+        descr : 'Tangerine Dream is a world-renowned synth band.',
       });
-// TODO: Insert bridge part
-//     mbp.addPage({
-//         tid   : mbp.pages[mbp.pages.length-1].tid,   // Copy track ID from last page
-//         title : mbp.pages[mbp.pages.length-1].title, // Copy title from last page
-//         artist: mbp.pages[0].artist,                 // Copy book artist
-//         audio : '04 - Perfect Dream pt. I.mp3',
-//         image : '04 - Perfect Dream pt. I - F.jpg',
-//         descr : 'Lorem ipsum...',
-//         part  : '(Bridge)',
-//         ptoffs: 24*60 + 34.676 
-//     });
     mbp.addPage({
         tid   : mbp.pages[mbp.pages.length-1].tid,   // Copy track ID from last page
         title : mbp.pages[mbp.pages.length-1].title, // Copy title from last page
         artist: mbp.pages[0].artist,                 // Copy book artist
-        audio : '04 - Perfect Dream pt. I.mp3',
-        image : '04 - Perfect Dream pt. I - G.jpg',
-        descr : 'Lorem ipsum...',
+        audio : mbp.pages[mbp.pages.length-1].audio, // Copy audio URL from last page
+        image : '04F - Perfect Dream pt. I.jpg',
+        part  : '[Bridge]',
+        ptoffs: 22*60 + 21.4241,
+        //descr : '',
+    });
+    mbp.addPage({
+        tid   : mbp.pages[mbp.pages.length-1].tid,   // Copy track ID from last page
+        title : mbp.pages[mbp.pages.length-1].title, // Copy title from last page
+        artist: mbp.pages[0].artist,                 // Copy book artist
+        audio : mbp.pages[mbp.pages.length-1].audio, // Copy audio URL from last page
+        image : '04G - Perfect Dream pt. I.jpg',
         part  : 'Klötzelmönch (Logwise Edit)',
-        ptoffs: 24*60 + 34.676 
+        ptoffs: 24*60 + 34.676,
+        descr : 'Die Sage vom Klötzelmönch is one of the many medieval legends '
+               +'told in Görlitz, and actually a quite disturbing one. The '
+               +'song, which is just a fragment, sounds much nicer than the '
+               +'legend would suggest. It was meant to be only an intro and '
+               +'the song was going to proceed to the dark side of the legend '
+               +'in the sequel.',
       });
     mbp.addPage({
         tid   : 5,
-        title : 'Perfect Dream pt. II (Stalker Ambient Mix)',
+        title : 'Perfect Dream pt. II',
         artist: mbp.pages[0].artist,                 // Copy book artist
         audio : '05 - Perfect Dream pt. II (Stalker Ambient Mix).mp3',
         image : '05 - Perfect Dream pt. II (Stalker Ambient Mix).jpg',
-        descr : 'Lorem ipsum...'
+        part  : '(Stalker Ambient Mix)', // HACK: Misusing part title as sub-title
+        descr : '"Stalker" is a 1979 movie by Russian director Andrey '
+               +'Tarkovski. The song uses samples from its avantgarde '
+               +'soundtrack.',
       });
     mbp.addPage({
         tid   : 6,
         title : 'Landeskrone pt II',
         artist: mbp.pages[0].artist,                 // Copy book artist
-        audio : '06 - Landeskrone pt II.mp3',
-        image : '06 - Landeskrone pt II.jpg',
-        descr : 'Lorem ipsum...'
+        audio : '06 - Landeskrone pt. II.mp3',
+        image : '06 - Landeskrone pt. II.jpg',
+        descr : 'Landeskrone, translating to "land\'s crown", is the local '
+               +'mountain of Görlitz.',
       });
     mbp.addPage({
         tid   : 7,
@@ -218,23 +235,26 @@
         artist: mbp.pages[0].artist,                 // Copy book artist
         audio : '07 - Haleakala.mp3',
         image : '07 - Haleakala.jpg',
-        descr : 'Lorem ipsum...'
+        descr : 'Haleakala, Hawaiian for "house of the sun", is a mountain on '
+                +'the island of Maui.',
       });
     mbp.addPage({
         tid   : 8,
-        title : 'Tierpark (Vendor Remix)',
+        title : 'Tierpark',
         artist: mbp.pages[0].artist,                 // Copy book artist
         audio : '08 - Tierpark (Vendor Remix).mp3',
         image : '08 - Tierpark (Vendor Remix).jpg',
-        descr : 'Lorem ipsum...'
+        part  : '(Vendor Remix)', // HACK: Misusing part title as sub-title
+        descr : 'Tierpark, literally "animal park", is German for zoo.',
       });
     mbp.addPage({
         tid   : 9,
-        title : 'Tierpark (Original Version)',
+        title : 'Tierpark',
         artist: mbp.pages[0].artist,                 // Copy book artist
         audio : '09 - Tierpark (Original Version).mp3',
         image : '09 - Tierpark (Original Version).jpg',
-        descr : 'Lorem ipsum...'
+        part  : '(Original Version)', // HACK: Misusing part title as sub-title
+        //descr : '',
       });
     mbp.addPage({
         tid   : 10,
@@ -242,9 +262,10 @@
         artist: mbp.pages[0].artist,                 // Copy book artist
         audio : '10 - Karamoon.mp3',
         image : '10 - Karamoon.jpg',
-        descr : 'Lorem ipsum...'
+        descr : 'Karamoon is the name of a land in a vintage adventure game '
+               +'for Commodore Amiga computers.',
       });
-    ;
+    mbp.addContentsPage();
 	</script>
 	<script type="module">
     import AudioMotionAnalyzer from 'https://cdn.skypack.dev/audiomotion-analyzer?min';
