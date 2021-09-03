@@ -12,6 +12,7 @@ $(function()
     alwaysShowControls: true,
     features:           ['playpause','current','progress','duration'],
     startVolume:        1,
+    autoRewind:         false,
     success: function(media,node) 
     {
       musicBookPlayer.initialize();
@@ -95,8 +96,9 @@ class MusicBookPlayer
    */
   initialize()
   {    
-    // Attach MediaElement player
+    // Attach and configure MediaElement player
     musicBookPlayer.mep = document.querySelector('#audio-player');
+    musicBookPlayer.mep.setVolume(1);
 
     // Initialize UI
     musicBookPlayer.enablePlayButton(false);
@@ -208,42 +210,57 @@ class MusicBookPlayer
    */
   makeContents()
   {
-    // Create TOC entry of cover page
-    let s = '<h1 class="track-title"><a href="javascript:musicBookPlayer.goto(0,false)">Cover</a></h1>\n';
+    // Make TOC header and cover page entry
+    let s = `<table class="toc">
+  <tr>
+    <td class="track-title" colspan="3">
+      <h1><a href="javascript:musicBookPlayer.goto(0,false)">Cover</a></h1>
+    </td>
+  </tr>`
     
-    // Create TOC entries of other pages
+    // Make TOC entries of other pages
     for (let i=1; i<this.pages.length; i++)
     {
       // Skip contents pages
       if (i==this.contentsPage)
         continue;
 
-      // Initialize
-      let l = 'javascript:musicBookPlayer.goto('+this.pages[i].pid+',true)';
-      let t = ''+this.pages[i].tid;
-      if (t.length<2)
-        t = '0'+t;
-      let p = this.pages[i].ptoffs!='undefined' 
-              && this.pages[i].audio==this.pages[i-1].audio; // 2nd, 3rd, etc. part
-      let v = p ? 'style="visibility:hidden; height:0;"' : '';
-      
-      // Create TOC entry HTML
-      s += '<div class="track-title-container" style="padding-top: 0.25rem;">\n';
-      s += '  <div class="track-number" '+v+'><a href="'+l+'">'+t+'</a></div>\n';
-      s += '  <div class="track-number-separator" '+v+'>-</div>\n';
-      s += '  <div>\n';
-      if (!p)
-      {
-        s += '    <h1 class="track-title"><a href="'+l+'">'+this.pages[i].title;
-        if (this.pages[i].part)
-          s+= ' <span class="part-title">'+this.pages[i].part+'</span>';
-        s += '</a></h1>\n';
-      }
-      else if (this.pages[i].part)
-        s += '    <h2 class="part-title"><a href="'+l+'">'+this.pages[i].part+'</a></h2>\n';
-      s += '  </div>\n';
-      s += '</div>\n';
+      // Template tag values
+      let p1    = this.pages[i].ptoffs!='undefined'                             // Page is first part of several
+                  && this.pages[i].audio!=this.pages[i-1].audio                 // ...
+                  && i<this.pages.length-1                                      // ...
+                  && this.pages[i].audio==this.pages[i+1].audio;                // ...
+      let p2    = this.pages[i].ptoffs!='undefined'                             // Page is 2nd, 3rd, etc. part
+                  && this.pages[i].audio==this.pages[i-1].audio;                // ...
+      let tid   = '' + (this.pages[i].tid<10 ? '0' : '') + this.pages[i].tid;   // Track number
+      let link  = `javascript:musicBookPlayer.goto(${this.pages[i].pid},true)`; // Hyperlink to page
+      let title = this.pages[i].title + (                                       // Title...
+                    !p1 && !p2 && this.pages[i].part                            // ...plus subtitle
+                    ? ` <span class="part-title">${this.pages[i].part}</span>`  // ...
+                    : ''                                                        // ...
+                  );                                                            // ...
+      let d =                                                                   // Tag values
+      {                                                                         // >>
+        tid  : !p2 ? `<a href="${link}">${tid}</a>` : '',                       //   Track number HTML
+        tnos : !p2 ? `<a href="${link}">&nbsp;-&nbsp;</a>` : '',                //   Track number separator HTML
+        title: !p2 ? `<h1><a href="${link}">${title}</a></h1>` : '',            //   Title HTML
+        part : p1 || p2                                                         //   Part HTML
+               ? `<h2><a href="${link}">${this.pages[i].part}</a></h2>`         //   ...
+               : ''                                                             //   ...
+      };                                                                        // <<
+
+      // Make TOC entry HTML
+      s += `
+  <tr>
+    <td class="track-number">${d.tid}</td>
+    <td class="track-number-separator">${d.tnos}</td>
+    <td class="track-title">${d.title}${d.part}</td>
+  </tr>`
     }
+    
+    // Make TOC footer
+    s += `
+</table>`;
     return s;
   }
   
@@ -336,13 +353,9 @@ class MusicBookPlayer
    */
   detectCurrentPage()
   {
-    // No current audio source -> return default
-    if (this.mep.currentSrc.endsWith('/media/dummy.mp3'))
-      return this.pages.length>0 ? 0 : -1;
-    
     // Find all pages for current audio source
     let cp = this.pages.filter( ({audio}) => 
-      audio.indexOf(this.mep.currentSrc)>=0
+      audio==this.mep.currentSrc
     );
 
     // No page for current audio source -> error

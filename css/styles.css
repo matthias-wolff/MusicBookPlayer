@@ -18,11 +18,15 @@ body { /* Page body */
   }
 }
 
-div, img, button, span, h1, h2, a { /* Reset some styles */
+div, img, button, table, td, h1, h2, p, a, span { /* Reset some styles */
   margin: 0;
   padding: 0;
   border: none;
   outline: none;
+}
+
+a {
+	color: #ececec;
 }
 
 /* == Music Book Player Layout ============================================== */
@@ -256,7 +260,7 @@ div.track-info {
   width: 100%;
 }
 
-div.track-title-container  {
+div.track-title-container {
 	display: flex;
   flex-direction: row;
   column-gap: 0.25em;
@@ -265,8 +269,8 @@ div.track-title-container  {
 
 .track-number, .track-number a,
 .track-number-separator, .track-number-separator a,
-.track-title, .track-title a {
-  font-weight: normal;
+.track-title h1, .track-title h1 a {
+	font-weight: normal;
   font-style: normal;
   font-size: 1rem;
   text-decoration: none;
@@ -274,8 +278,8 @@ div.track-title-container  {
   text-shadow: 1px 1px 1px rgba(0,0,0,0.5);
 }
 
-.part-title, .part-title a {
-  font-weight: normal;
+.track-title h2, .track-title h2 a, .part-title {
+	font-weight: normal;
   font-style: italic;
   font-size: 0.8rem;
   text-decoration: none;
@@ -308,11 +312,24 @@ div.page {
   /* TODO: ... */
 }
 
-#track-comment {
+#track-comment,
+.track-comment {
   margin-top: 0.5rem;
   margin-left: 0.5rem;
   margin-right: 0.5rem;
 	color: #ececec;
+}
+
+/* -- TOC -- */
+
+table.toc,
+table.toc td {
+  border-collapse: collapse;
+}
+
+table.toc td {
+	vertical-align: top;
+	padding-top: 0.35rem;
 }
 
 /* -- Auxiliary: asides -- */
