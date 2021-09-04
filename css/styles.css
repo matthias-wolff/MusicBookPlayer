@@ -156,11 +156,11 @@ div.mejs-controls { /* Player controls container */
 }
 
 .mbp-next button {
-  background-image: url(../img/next.png);
+  background-image: url(../img/next-disabled.png);
 }
 
 .mbp-contents button {
-  background-image: url(../img/contents.png);
+  background-image: url(../img/contents-disabled.png);
 }
 
 .mejs-time { /* Current time and duration indicators */
@@ -287,29 +287,44 @@ div.track-title-container {
   text-shadow: 1px 1px 1px rgba(0,0,0,0.5);
 }
 
+.error {
+	color: red;
+}
+
 /* == Content Layout ======================================================== */
 
-div.content {
-	display: flex;
-	flex-direction: row;
-	align-items: flex-start; /* center? */
+div.content-wrapper {
   margin-top: 9.5rem;
   width: 100%;
   min-height: calc(100vh - 9.5rem);
-  background: #030303; /* <- Track ambient color! */
+  background: #030303;       /* <- Track ambient color! */
+}
+
+div.content {
+	visibility: hidden; /* Made visible by MusicBookPlayer.initialize() */
+	display: flex;
+	flex-direction: row;
+	align-items: flex-start;
+  width: 100%;
+  height: 100%;
+  overflow-x: scroll;
+  -ms-overflow-style: none;  /* Hide scrollbar: IE and Edge */
+  scrollbar-width: none;     /* Hide scrollbar: Firefox */
+}
+
+div.content::-webkit-scrollbar { /* Hide scrollbar: Chrome, Safari and Opera */
+  display: none;
 }
 
 div.page {
   width: 100%;
+  min-width: 100%;
+  max-width: 100%;
 }
 
 .track-image,
 #track-image {
 	width: 100%;
-}
-
-#track-image {
-  /* TODO: ... */
 }
 
 #track-comment,

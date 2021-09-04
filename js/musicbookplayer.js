@@ -15,6 +15,7 @@ $(function()
     autoRewind:         false,
     success: function(media,node) 
     {
+      mbp.addContentsPage();
       musicBookPlayer.initialize();
     }
   });
@@ -61,6 +62,8 @@ class MusicBookPlayer
     musicBookPlayer.currentPage = -1;
     musicBookPlayer.contentsPage = -1;
     musicBookPlayer.pages = [];
+    musicBookPlayer.isScrolling = null;
+    musicBookPlayer.ignoreScrollEvents = false;
 
     // Detect MediaBookPlayer Javascript base URI
     let scripts = $('script');
@@ -83,8 +86,6 @@ class MusicBookPlayer
         descr : props.descr
       });
     
-    // TODO: Write HTML page
-
     // Return newly created object
     return musicBookPlayer;
   }
@@ -95,47 +96,80 @@ class MusicBookPlayer
    * callback <code>MediaElement.success</code>.
    */
   initialize()
-  {    
+  {
+    // Make contents division element visible
+    // HACK: Initially invisible to prevent graphic artifacts on reloading page
+    document.getElementById('content').style.visibility='visible';
+    
     // Attach and configure MediaElement player
     musicBookPlayer.mep = document.querySelector('#audio-player');
     musicBookPlayer.mep.setVolume(1);
-
-    // Initialize UI
-    musicBookPlayer.enablePlayButton(false);
-    musicBookPlayer.enablePrevButton(false);
-    musicBookPlayer.enableNextButton(false);
-
-    // Add event listeners
-    musicBookPlayer.mep.addEventListener('play', function(){
-      musicBookPlayer.updateUI();
-    });
-    musicBookPlayer.mep.addEventListener('playing', function(){
-      musicBookPlayer.updateUI();
-    });
-    musicBookPlayer.mep.addEventListener('canplay', function(){
-      musicBookPlayer.updateUI();
-    });
-    musicBookPlayer.mep.addEventListener('pause', function(){
-      musicBookPlayer.updateUI();
-    });
-    musicBookPlayer.mep.addEventListener('ended', function (){
-      musicBookPlayer.updateUI();
-      if (musicBookPlayer.currentPage < musicBookPlayer.pages.length-1)
-        musicBookPlayer.next(true);
-    });
-    musicBookPlayer.mep.addEventListener('progress', function(){
-      musicBookPlayer.updateUI();
-    });
-    musicBookPlayer.mep.addEventListener('timeupdate', function (){
-      musicBookPlayer.updateUI();
-    });
     
-    // Goto cover page
+    // Add audio event listeners
+    musicBookPlayer.mep.addEventListener('play', function(){
+        musicBookPlayer.updateUI();
+      });
+    musicBookPlayer.mep.addEventListener('playing', function(){
+        musicBookPlayer.updateUI();
+      });
+    musicBookPlayer.mep.addEventListener('canplay', function(){
+        musicBookPlayer.updateUI();
+      });
+    musicBookPlayer.mep.addEventListener('pause', function(){
+        musicBookPlayer.updateUI();
+      });
+    musicBookPlayer.mep.addEventListener('ended', function (){
+        musicBookPlayer.updateUI();
+        if (musicBookPlayer.currentPage < musicBookPlayer.pages.length-1)
+          musicBookPlayer.next(true);
+      });
+    musicBookPlayer.mep.addEventListener('progress', function(){
+        musicBookPlayer.updateUI();
+      });
+    musicBookPlayer.mep.addEventListener('timeupdate', function (){
+        musicBookPlayer.updateUI();
+      });
+    
+    // Add DOM element event listeners
+    document.getElementById('content').addEventListener('scroll', function()
+      {
+        if (musicBookPlayer.isScrolling)
+          window.clearTimeout(musicBookPlayer.isScrolling);
+        if (musicBookPlayer.ignoreScrollEvents)
+          return;
+        musicBookPlayer.isScrolling = setTimeout(
+          function() // Invoked when scrolling ended
+          {
+            // Detect page scrolled to
+            let cnte = document.getElementById('content');
+            let pos  = cnte.scrollLeft;  // Current position
+            let pmax = cnte.scrollWidth; // Scroll area width
+            let npg  = musicBookPlayer.pages.length;
+            let pid  = Math.round(cnte.scrollLeft/cnte.scrollWidth*npg);
+            
+            // Goto new page or reset scrolling position to current page
+            if (musicBookPlayer.currentPage!=pid)
+              musicBookPlayer.goto(pid);
+            else
+              musicBookPlayer.scrollTo(pid); // Reset scroll position to page
+           },66);
+      });
+    
+    // Goto cover page and reset content scroll position
     musicBookPlayer.goto(0);
+    musicBookPlayer.scrollTo(0);
   }
 
   // -- Book Pages --
 
+  /**
+   * TODO: Experimental - Clear the content division element.
+   */
+  clearContent()
+  {
+    document.getElementById('content').innerHTML='';
+  }
+  
   /**
    * Adds a new page to the MusicBookPlayer.
    * 
@@ -172,8 +206,14 @@ class MusicBookPlayer
     if (typeof page.part!='undefined' && typeof page.ptoffs=='undefined')
       page.ptoffs = 0;
       
-    // TODO: Create page HTML
-    
+    // Create page HTML
+    let img  = ``;
+    let cnte = document.getElementById('content');
+    cnte.innerHTML += `    <div class="page" id="page-${page.pid}">
+      <div class="track-image"><img class="track-image" src="${page.image}"></div>
+      <div class="track-comment">${page.descr}</div>
+    </div>
+`;
     // Add new page to list of pages
     this.pages = this.pages.concat(page);
     return page;
@@ -321,9 +361,13 @@ class MusicBookPlayer
   {
     if (typeof play=='undefined')
       play = !this.mep.paused;
-    if (this.mep.currentTime>2)
-      this.mep.setCurrentTime(0);
-    else if (this.currentPage>0)
+    if (this.mep.currentTime>2) // Back to beginning of page's audio
+    {
+      let ptoffs = this.pages[this.currentPage].ptoffs;
+      if (!ptoffs) ptoffs = 0;
+      this.mep.setCurrentTime(ptoffs);
+    }
+    else if (this.currentPage>0) // Previous page
       musicBookPlayer.goto(this.currentPage-1,this.currentPage>1 && play);
   }
 
@@ -344,6 +388,24 @@ class MusicBookPlayer
   
   // -- UI Helpers --
 
+  /**
+   * Scrolls the contents area to a given page.
+   * 
+   * @param pid One-based index of page, 0 for cover page (integer)
+   */
+  scrollTo(pid)
+  {
+    pid = Math.max(0,Math.min(pid,this.pages.length-1));
+    let cnte = document.getElementById('content');
+    let pos  = pid * cnte.scrollWidth / this.pages.length;
+    if (cnte.scrollLeft!=pos)
+    {
+      this.ignoreScrollEvents = true;
+      cnte.scrollLeft = pos;
+      this.ignoreScrollEvents = false;
+    }
+  }
+  
   /**
    * Detects the page from the current source and time index of the audio player
    * element.
@@ -389,12 +451,14 @@ class MusicBookPlayer
       musicBookPlayer.enablePlayButton(false);
       musicBookPlayer.enablePrevButton(false);
       musicBookPlayer.enableNextButton(false);
+      musicBookPlayer.enableCntsButton(false);
     }
     else
     {
       musicBookPlayer.enablePlayButton(musicBookPlayer.mep.readyState>=3);
       musicBookPlayer.enablePrevButton(cp>0);
       musicBookPlayer.enableNextButton(cp<musicBookPlayer.pages.length-1);
+      musicBookPlayer.enableCntsButton(true);
     }
     musicBookPlayer.fixTogglePlayPauseButton(this.mep.paused);
     
@@ -404,6 +468,8 @@ class MusicBookPlayer
 
     // Set current page
     musicBookPlayer.currentPage = cp;
+    if (cp>=0)
+      musicBookPlayer.scrollTo(cp);
 
     // Error state or cover page
     if (cp<1)
@@ -444,18 +510,12 @@ class MusicBookPlayer
     {
       $('#album-title'   )[0].innerHTML='<span class="error">Error</span>';
       $('#album-artist'  )[0].innerHTML='';
-      $('#track-image'   )[0].innerHTML='';
-      $('#track-comments')[0].innerHTML='';
       return;
     }
     
     // Normal state
-    let img = '<img class="track-image" src="'+musicBookPlayer.pages[cp].image+'">';
-    if (!musicBookPlayer.pages[cp].image) img='';
     $('#album-title'  )[0].innerHTML=musicBookPlayer.pages[0].title;
     $('#album-artist' )[0].innerHTML=musicBookPlayer.pages[cp].artist;
-    $('#track-image'  )[0].innerHTML=img;
-    $('#track-comment')[0].innerHTML=musicBookPlayer.pages[cp].descr;
   }
 
   /**
@@ -530,7 +590,7 @@ class MusicBookPlayer
   /**
    * Enables or disables the next part/track button.
    * 
-   * @param TNew state, <code>true</code> for enabled, <code>false</code> for 
+   * @param New state, <code>true</code> for enabled, <code>false</code> for 
    *        disabled.
    */
   enableNextButton(state)
@@ -541,6 +601,22 @@ class MusicBookPlayer
         btnNext.style['background-image'] = 'url(img/next.png)';
       else
         btnNext.style['background-image'] = 'url(img/next-disabled.png)';
+  }
+
+  /**
+   * Enables or disables the contents button.
+   * 
+   * @param New state, <code>true</code> for enabled, <code>false</code> for 
+   *        disabled.
+   */
+  enableCntsButton(state)
+  {
+    var btnCnts = document.querySelector('.mbp-contents button');
+    if (btnCnts)
+      if (state)
+        btnCnts.style['background-image'] = 'url(img/contents.png)';
+      else
+        btnCnts.style['background-image'] = 'url(img/contents-disabled.png)';
   }
 
   // -- Other Helpers --

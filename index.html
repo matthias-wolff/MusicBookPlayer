@@ -13,7 +13,6 @@
   <script type="text/javascript" src="js/mediaelement-and-player.min.js"></script>
   <script type="text/javascript" src="js/musicbookplayer.js"></script>
 </head>
-
 <body>
 
   <!-- Music Book Player -->
@@ -21,8 +20,8 @@
 	  <div class="audio-player">
 	    <div class="audio-player-header">
 	      <div class="album-info">
-	        <h1 id="album-title"></h1>
-	        <h2 id="album-artist"></h2>
+	        <h1 id="album-title">Music Book Player</h1>
+	        <h2 id="album-artist">by Matthias Wolff</h2>
 	      </div>
 	      <div id="spectrum-analyzer" class="spectrum-analyzer"></div>
 	    </div>
@@ -36,7 +35,7 @@
           <div class="track-number" id="track-number"></div>
           <div class="track-number-separator" id="track-number-separator"></div>
           <div class="track-title">
-            <h1 id="track-title"></h1>
+            <h1 id="track-title">Loading...</h1>
             <h2 id="part-title"></h2>
           </div>
         </div>
@@ -60,15 +59,11 @@
   </div>
 
   <!-- Music Book Content -->
-  <div class="content">
-    <div class="page" id="page-1">
-	    <div id="track-image"></div>
-	    <div id="track-comment"></div>
-    </div>
+  <div class="content-wrapper">
+    <div class="content" id="content"></div>
   </div>
   
   <!-- Credits, etc. -->
-  <!-- TODO: Move to extra MusicBook page -->
   <aside>
     <h1>Music Book Player</h1>
     <p>
@@ -91,14 +86,15 @@
   <aside>
     <h1>TODO</h1>
     <ul>
-      <li>FIXME: prev() does not work for parts (skips to 1st part)!</li>
+      <li>Move credits and TODOs to non-modal pseudo window</li>
+      <li>Animate MusicBookPlayer.scrollTo()</li>
       <li>Dynamically create HTML page</li>
-      <li>Implement swipe-able page gallery</li>
     </ul>
   </aside>
-  
+
   <!-- Scripts -->
 	<script type="text/javascript">
+	  console.log('1');
 	  var mbp = MusicBookPlayer.create({ // Music Book
 	      mediaBaseURI: '../musicbooks/2021 - Near Dark',
 	      title       : 'Near Dark',
@@ -270,7 +266,6 @@
         descr : 'Karamoon is the name of a land in a vintage adventure game '
                +'for Commodore Amiga computers.',
       });
-    mbp.addContentsPage();
 	</script>
 	<script type="module">
     import AudioMotionAnalyzer from 'https://cdn.skypack.dev/audiomotion-analyzer?min';
