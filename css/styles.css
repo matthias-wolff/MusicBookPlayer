@@ -131,7 +131,7 @@ div.mejs-controls { /* Player controls container */
 .mejs-controls .mejs-pause button,
 .mbp-prev button,
 .mbp-next button,
-.mbp-contents button {
+.mbp-cnts button {
   width: 33px;
   height: 33px;
   background-color: transparent;
@@ -153,14 +153,17 @@ div.mejs-controls { /* Player controls container */
 
 .mbp-prev button {
   background-image: url(../img/prev-disabled.png);
+  visibility: hidden; /* Made visible by MusicBookPlayer.initialize() */
 }
 
 .mbp-next button {
   background-image: url(../img/next-disabled.png);
+  visibility: hidden; /* Made visible by MusicBookPlayer.initialize() */
 }
 
-.mbp-contents button {
+.mbp-cnts button {
   background-image: url(../img/contents-disabled.png);
+  visibility: hidden; /* Made visible by MusicBookPlayer.initialize() */
 }
 
 .mejs-time { /* Current time and duration indicators */

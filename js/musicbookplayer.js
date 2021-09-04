@@ -99,8 +99,11 @@ class MusicBookPlayer
   {
     // Make contents division element visible
     // HACK: Initially invisible to prevent graphic artifacts on reloading page
-    document.getElementById('content').style.visibility='visible';
-    
+    document.querySelector('.content'        ).style.visibility = 'visible';
+    document.querySelector('.mbp-cnts button').style.visibility = 'visible';
+    document.querySelector('.mbp-next button').style.visibility = 'visible';
+    document.querySelector('.mbp-prev button').style.visibility = 'visible';
+
     // Attach and configure MediaElement player
     musicBookPlayer.mep = document.querySelector('#audio-player');
     musicBookPlayer.mep.setVolume(1);
@@ -361,10 +364,10 @@ class MusicBookPlayer
   {
     if (typeof play=='undefined')
       play = !this.mep.paused;
-    if (this.mep.currentTime>2) // Back to beginning of page's audio
+    let ptoffs = this.pages[this.currentPage].ptoffs;
+    if (!ptoffs) ptoffs = 0;
+    if (this.mep.currentTime>ptoffs+2) // Back to beginning of page's audio
     {
-      let ptoffs = this.pages[this.currentPage].ptoffs;
-      if (!ptoffs) ptoffs = 0;
       this.mep.setCurrentTime(ptoffs);
     }
     else if (this.currentPage>0) // Previous page
@@ -611,7 +614,7 @@ class MusicBookPlayer
    */
   enableCntsButton(state)
   {
-    var btnCnts = document.querySelector('.mbp-contents button');
+    var btnCnts = document.querySelector('.mbp-cnts button');
     if (btnCnts)
       if (state)
         btnCnts.style['background-image'] = 'url(img/contents.png)';
