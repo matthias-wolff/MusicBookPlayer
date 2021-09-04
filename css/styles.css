@@ -36,7 +36,7 @@ div.music-book-player {
   top: 0;
   background: #2c2d33;
   width: 100%;
-  height: 9.5rem;
+  height: 10rem;
 }
 
 @media (width >= 30rem) { /* Wide viewports... */
@@ -251,8 +251,11 @@ div.mejs-controls { /* Player controls container */
 
 div.track-controls {
   width: calc(100% - 0.65rem);
-	height: 2rem;
-	margin: 0.25rem 0.15rem 0.25rem 0.5rem;
+	height: 2.5rem;
+	margin-top: 0.25rem;
+	margin-right: 0.15rem;
+	margin-bottom: 0.25rem;
+	margin-left: 0.5rem;
   display: grid;
   grid-template-columns: auto 33px 33px 33px;
   gap: 0.1rem;
@@ -266,8 +269,8 @@ div.track-info {
 div.track-title-container {
 	display: flex;
   flex-direction: row;
-  column-gap: 0.25em;
   align-items: flex-start;
+  column-gap: 0.25em;
 }
 
 .track-number, .track-number a,
@@ -297,9 +300,9 @@ div.track-title-container {
 /* == Content Layout ======================================================== */
 
 div.content-wrapper {
-  margin-top: 9.5rem;
+  margin-top: 10rem;
   width: 100%;
-  min-height: calc(100vh - 9.5rem);
+  min-height: calc(100vh - 10rem);
   background: #030303;       /* <- Track ambient color! */
 }
 
