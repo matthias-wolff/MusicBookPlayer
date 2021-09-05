@@ -103,6 +103,9 @@ class MusicBookPlayer
     document.querySelector('.mbp-cnts button').style.visibility = 'visible';
     document.querySelector('.mbp-next button').style.visibility = 'visible';
     document.querySelector('.mbp-prev button').style.visibility = 'visible';
+    
+    // Remove loading animation CSS rule
+    MusicBookPlayer.getCssRule('div.content-wrapper').style.backgroundImage='';
 
     // Attach and configure MediaElement player
     musicBookPlayer.mep = document.querySelector('#audio-player');
@@ -164,14 +167,6 @@ class MusicBookPlayer
   }
 
   // -- Book Pages --
-
-  /**
-   * TODO: Experimental - Clear the content division element.
-   */
-  clearContent()
-  {
-    document.getElementById('content').innerHTML='';
-  }
   
   /**
    * Adds a new page to the MusicBookPlayer.
@@ -556,6 +551,10 @@ class MusicBookPlayer
    */
   enablePlayButton(state)
   {
+    let img  = state ? 'play.png' : 'play-disabled.png';
+    let rule = MusicBookPlayer.getCssRule('.mejs-controls .mejs-play button');
+    rule.style.backgroundImage = `url(../img/${img})`;
+    /* -- OLD -->     
     try
     {
       var rules = document.styleSheets[0].cssRules;
@@ -572,6 +571,7 @@ class MusicBookPlayer
     {
       // Ignore!
     }
+    /* <---- */
   }
 
   /**
@@ -623,6 +623,34 @@ class MusicBookPlayer
   }
 
   // -- Other Helpers --
+
+  /**
+   * Retrieves a rule from the MediaBookPlayer CSS file.
+   * 
+   * @param: The selector text
+   *         FIXME: Not robust; must match CSS rule definition exactly!
+   * @return The rule object or <code>null</code> if the rule was not found
+   */
+  static getCssRule(selectorText)
+  {
+    // Find MusicBookPlayer CSS link tag
+    let linkTag  = null;
+    let linkTags = $('link');
+    for (let i=0; i<linkTags.length; i++)
+      if (linkTags[i].href.endsWith('/MusicBookPlayer.js/css/styles.css'))
+        linkTag = linkTags[i];
+    
+    // Find and return CSS rule
+    let sheet = linkTag.sheet ? linkTag.sheet : linkTag.styleSheet;
+    var rules = sheet.cssRules;
+    for (var i=0; i<rules.length; i++)
+      // 
+      if (rules[i].selectorText==selectorText) 
+        return rules[i];
+
+    // Das war nüscht...
+    return null;
+  }
   
   /**
    * Normalizes a resource's URL.
