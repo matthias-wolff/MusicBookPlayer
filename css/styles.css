@@ -136,6 +136,7 @@ div.mejs-controls { /* Player controls container */
   height: 33px;
   background-color: transparent;
   background-repeat: no-repeat;
+  background-size: 33px 33px; 
 }
 
 .mejs-controls .mejs-play button,
@@ -144,25 +145,25 @@ div.mejs-controls { /* Player controls container */
 }
 
 .mejs-controls .mejs-play button {
-  background-image: url(../img/play.png);
+  background-image: url(../img/play.svg);
 }
  
 .mejs-controls .mejs-pause button { 
-	background-image: url(../img/pause.png);
+	background-image: url(../img/pause.svg);
 }
 
 .mbp-prev button {
-  background-image: url(../img/prev-disabled.png);
+  background-image: url(../img/prev-disabled.svg);
   visibility: hidden; /* Made visible by MusicBookPlayer.initialize() */
 }
 
 .mbp-next button {
-  background-image: url(../img/next-disabled.png);
+  background-image: url(../img/next-disabled.svg);
   visibility: hidden; /* Made visible by MusicBookPlayer.initialize() */
 }
 
 .mbp-cnts button {
-  background-image: url(../img/contents-disabled.png);
+  background-image: url(../img/contents-disabled.svg);
   visibility: hidden; /* Made visible by MusicBookPlayer.initialize() */
 }
 

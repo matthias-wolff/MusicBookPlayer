@@ -549,27 +549,9 @@ class MusicBookPlayer
    */
   enablePlayButton(state)
   {
-    let img  = state ? 'play.png' : 'play-disabled.png';
+    let img  = state ? 'play.svg' : 'play-disabled.svg';
     let rule = MusicBookPlayer.getCssRule('.mejs-controls .mejs-play button');
     rule.style.backgroundImage = `url(../img/${img})`;
-    /* -- OLD -->     
-    try
-    {
-      var rules = document.styleSheets[0].cssRules;
-      for (var i=0; i<rules.length; i++)
-        if (rules[i].selectorText=='.mejs-controls .mejs-play button')
-        {
-          if (state)
-            rules[i].style['background-image'] = 'url(../img/play.png)';
-          else
-            rules[i].style['background-image'] = 'url(../img/play-disabled.png)';
-        }
-    }
-    catch (e)
-    {
-      // Ignore!
-    }
-    /* <---- */
   }
 
   /**
@@ -583,9 +565,9 @@ class MusicBookPlayer
     var btnPrev = document.querySelector('.mbp-prev button');
     if (btnPrev)
       if (state)
-        btnPrev.style['background-image'] = 'url(img/prev.png)';
+        btnPrev.style['background-image'] = 'url(img/prev.svg)';
       else
-        btnPrev.style['background-image'] = 'url(img/prev-disabled.png)';
+        btnPrev.style['background-image'] = 'url(img/prev-disabled.svg)';
   }
 
   /**
@@ -599,9 +581,9 @@ class MusicBookPlayer
     var btnNext = document.querySelector('.mbp-next button');
     if (btnNext)
       if (state)
-        btnNext.style['background-image'] = 'url(img/next.png)';
+        btnNext.style['background-image'] = 'url(img/next.svg)';
       else
-        btnNext.style['background-image'] = 'url(img/next-disabled.png)';
+        btnNext.style['background-image'] = 'url(img/next-disabled.svg)';
   }
 
   /**
@@ -615,9 +597,9 @@ class MusicBookPlayer
     var btnCnts = document.querySelector('.mbp-cnts button');
     if (btnCnts)
       if (state)
-        btnCnts.style['background-image'] = 'url(img/contents.png)';
+        btnCnts.style['background-image'] = 'url(img/contents.svg)';
       else
-        btnCnts.style['background-image'] = 'url(img/contents-disabled.png)';
+        btnCnts.style['background-image'] = 'url(img/contents-disabled.svg)';
   }
   
   // -- Static Helpers --
