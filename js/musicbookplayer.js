@@ -53,41 +53,41 @@ class MusicBookPlayer
    */
   static create(props)
   {
-    // Return existing object
-    if (musicBookPlayer!=null)
-      return musicBookPlayer;
+    // Return existing object                                                   // ------------------------------------
+    if (musicBookPlayer!=null)                                                  // MusicBookPlayer singleton exists
+      return musicBookPlayer;                                                   //   Return it
 
-    // Create new object
-    musicBookPlayer = new MusicBookPlayer();
-    musicBookPlayer.currentPage = -1;
-    musicBookPlayer.contentsPage = -1;
-    musicBookPlayer.pages = [];
-    musicBookPlayer.isScrolling = null;
-    musicBookPlayer.ignoreScrollEvents = false;
+    // Create new object                                                        // ------------------------------------
+    musicBookPlayer = new MusicBookPlayer();                                    // The MusicBookPlayer singleton
+    musicBookPlayer.currentPage = -1;                                           // Current page ID (zero-based)
+    musicBookPlayer.contentsPage = -1;                                          // Contents page ID (zero-based)
+    musicBookPlayer.pages = [];                                                 // Array of pages
+    musicBookPlayer.scrollAniTimer = 0;                                         // Scroll animation timer ID
 
-    // Detect MediaBookPlayer Javascript base URI
-    let scripts = $('script');
-    for (var i=0; i<scripts.length; i++)
-      if (scripts[i].src.endsWith('musicbookplayer.js'))
-        musicBookPlayer.scriptBaseURI = scripts[i].baseURI;
+    // Detect MediaBookPlayer Javascript base URI                               // ------------------------------------
+    let scripts = $('script');                                                  // List HTML script tags
+    for (var i=0; i<scripts.length; i++)                                        //   Iterate script tags
+      if (scripts[i].src.endsWith('musicbookplayer.js'))                        //     MusicBookPlayer's script tags
+        musicBookPlayer.scriptBaseURI = scripts[i].baseURI;                     //       Get base URI
 
-    // Normalize mediaBaseURI
-    let mbu = new URL(props.mediaBaseURI,musicBookPlayer.scriptBaseURI);
-    musicBookPlayer.mediaBaseURI = mbu.toString();
-    if (!musicBookPlayer.mediaBaseURI.endsWith('/'))
-      musicBookPlayer.mediaBaseURI += '/';
+    // Normalize mediaBaseURI                                                   // -------------------------------------
+    let mbu = new URL(props.mediaBaseURI,musicBookPlayer.scriptBaseURI);        // Make absolute media base URL
+    musicBookPlayer.mediaBaseURI = mbu.toString();                              // Set field
+    if (!musicBookPlayer.mediaBaseURI.endsWith('/'))                            // Media base URL not ending on a slash
+      musicBookPlayer.mediaBaseURI += '/';                                      //   Append a slash
     
-    // Create cover page (first page of book)
-    musicBookPlayer.addPage({
-        title : props.title,
-        artist: props.artist,
-        audio : MusicBookPlayer.normalizeURL(musicBookPlayer.scriptBaseURI,'media/coverdummy.mp3'),
-        image : props.image,
-        descr : props.descr
-      });
+    // Create cover page (first page of book)                                   // ------------------------------------
+    let sbu = musicBookPlayer.scriptBaseURI;                                    // Shorcut script base URI field name
+    musicBookPlayer.addPage({                                                   // Add cover page >>
+        title : props.title,                                                    //   Music book title
+        artist: props.artist,                                                   //   Music book artist
+        audio : MusicBookPlayer.normalizeURL(sbu,'media/coverdummy.mp3'),       //   Cover page dummy audio file
+        image : props.image,                                                    //   Cover image
+        descr : props.descr                                                     //   Music book description
+      });                                                                       // <<
     
-    // Return newly created object
-    return musicBookPlayer;
+    // Return newly created object                                              // ------------------------------------
+    return musicBookPlayer;                                                     // Return singleton
   }
   
   /**
@@ -137,33 +137,13 @@ class MusicBookPlayer
       });
     
     // Add DOM element event listeners
-    document.getElementById('content').addEventListener('scroll', function()
-      {
-        if (musicBookPlayer.isScrolling)
-          window.clearTimeout(musicBookPlayer.isScrolling);
-        if (musicBookPlayer.ignoreScrollEvents)
-          return;
-        musicBookPlayer.isScrolling = setTimeout(
-          function() // Invoked when scrolling ended
-          {
-            // Detect page scrolled to
-            let cnte = document.getElementById('content');
-            let pos  = cnte.scrollLeft;  // Current position
-            let pmax = cnte.scrollWidth; // Scroll area width
-            let npg  = musicBookPlayer.pages.length;
-            let pid  = Math.round(cnte.scrollLeft/cnte.scrollWidth*npg);
-            
-            // Goto new page or reset scrolling position to current page
-            if (musicBookPlayer.currentPage!=pid)
-              musicBookPlayer.goto(pid);
-            else
-              musicBookPlayer.scrollTo(pid); // Reset scroll position to page
-           },66);
-      });
+    document.getElementById('content').addEventListener('scroll',
+        musicBookPlayer.handleScrollEvent.debounce(100)
+      );
     
-    // Goto cover page and reset content scroll position
+    // Reset content scroll position and goto cover page 
+    musicBookPlayer.scrollTo(0,true);
     musicBookPlayer.goto(0);
-    musicBookPlayer.scrollTo(0);
   }
 
   // -- Book Pages --
@@ -387,21 +367,73 @@ class MusicBookPlayer
   // -- UI Helpers --
 
   /**
+   * Content division element scroll event hander.
+   */
+  handleScrollEvent()
+  {
+    // Debounce                                                                 // ------------------------------------
+    if (musicBookPlayer.scrollAniTimer)                                         // Scroll animation in progress
+      return;                                                                   //   Ignore scroll event
+    
+    // Initialize                                                               // ------------------------------------
+    let cnte  = document.getElementById('content');                             // Get content division element
+    let spos  = cnte.scrollLeft;                                                // Current scroll position
+    let spmax = cnte.scrollWidth;                                               // Maximum scroll position
+    let pid   = Math.round(spos/spmax*musicBookPlayer.pages.length);            // Page ID for current scroll position
+
+    // Move to page                                                             // ------------------------------------
+    if (musicBookPlayer.currentPage!=pid)                                       // Scroll to other than current page
+      musicBookPlayer.goto(pid);                                                //   Goto and scroll to other page
+    else                                                                        // Scroll to current page
+      musicBookPlayer.scrollTo(pid);                                            //   Reset scroll position
+  }
+
+  /**
    * Scrolls the contents area to a given page.
    * 
-   * @param pid One-based index of page, 0 for cover page (integer)
+   * @param pid       One-based index of page, 0 for cover page (integer)
+   * @param immediate If <code>true</code>, skip scroll animation (boolean,
+   *                  default is <code>false</code>)
    */
-  scrollTo(pid)
+  scrollTo(pid,immediate=false)
   {
-    pid = Math.max(0,Math.min(pid,this.pages.length-1));
-    let cnte = document.getElementById('content');
-    let pos  = pid * cnte.scrollWidth / this.pages.length;
-    if (cnte.scrollLeft!=pos)
-    {
-      this.ignoreScrollEvents = true;
-      cnte.scrollLeft = pos;
-      this.ignoreScrollEvents = false;
-    }
+    // Debounce                                                                 // ------------------------------------
+    if (this.scrollAniTimer)                                                    // Scroll animation in progess
+    {                                                                           // >>
+      window.clearInterval(musicBookPlayer.scrollAniTimer);                     //   Cancel
+      musicBookPlayer.scrollAniTimer = null;                                    //   Clear timer ID
+    }                                                                           // <<
+    
+    // Intialize                                                                // ------------------------------------
+    pid = Math.max(0,Math.min(pid,this.pages.length-1));                        // Rectify page ID
+    let cnte = document.getElementById('content');                              // Content division element
+    let spos = cnte.scrollLeft;                                                 // Initial scroll position
+    let tpos = pid * cnte.scrollWidth / this.pages.length;                      // Target scroll position
+
+    // Compare scroll position with target                                      // ------------------------------------
+    if (spos==tpos)                                                             // Already on scroll target
+      return;                                                                   //   Nothing to be done
+
+    // Immediate operation                                                      // ------------------------------------
+    if (immediate)                                                              // Immediate operation
+    {                                                                           // >>
+      this.scrollAniTimer = -1;                                                 //   Disable scroll event handler
+      cnte.scrollLeft = tpos;                                                   //   Move to target position
+      this.scrollAniTimer = null;                                               //   Re-enable scroll event handler
+      return;                                                                   //   That was it...
+    }                                                                           // <<
+    
+    // Start scroll animation                                                   // ------------------------------------
+    this.scrollAniTimer = musicBookPlayer.setExpInverval(function(a)            // Start an exponential intervall
+      {                                                                         // >> (intervall callback function)
+        let pos = Math.round(spos + Math.round(a*(tpos-spos)));                 //   Scroll target of current step
+        cnte.scrollLeft = pos;                                                  //   Scroll content division element
+        if (pos==tpos)                                                          //   Target reached
+        {                                                                       //   >>
+          window.clearInterval(musicBookPlayer.scrollAniTimer);                 //     Cancel timer
+          musicBookPlayer.scrollAniTimer = null;                                //     Reset timer ID
+        }                                                                       //   <<
+      },10,50);                                                                 // << (25 fps, tau=40 ms);
   }
   
   /**
@@ -622,7 +654,40 @@ class MusicBookPlayer
         btnCnts.style['background-image'] = 'url(img/contents-disabled.png)';
   }
 
-  // -- Other Helpers --
+  // -- Animation Helpers --
+  
+  /**
+   * Creates a timer intervall providing an amplitude value exponentially
+   * increasing from 0 to 1 to the intervall callback function.
+   * 
+   * @param func  Call-back function. The first argument is an amplitude value
+   *              from the interval [0...1], further arguments can be committed
+   *              using the <code>args</code> parameters.
+   * @param delay Interval time in milliseconds
+   * @param tau   Time constant in milliseconds
+   * @param args  rguments to callback function (optional)
+   */
+  setExpInverval(func,delay,tau,args)
+  {
+    // Initialize                                                               // ------------------------------------
+    let context = this;                                                         // User callback function context
+    let counter = 0;                                                            // Interval counter
+    
+    // Wrap user callback function                                              // ------------------------------------
+    function funcWrapper(args)                                                  // Interval callback function wrapper
+    {                                                                           // >>
+      let t = (++counter)*delay;                                                //   Time elapsed since start
+      let a = (1-Math.exp(-t/tau));                                             //   Step-response amplitude
+      let p = [a];                                                              //   Make args. array for user callback
+      if (args) p = p.concat(args);                                             //   ...
+      func.apply(context,p);                                                    //   Invoke user callback function
+    }                                                                           // <<
+    
+    // Start timer                                                              // ------------------------------------
+    return window.setInterval(funcWrapper,delay,args);                          // Start and return timer
+  }
+  
+  // -- Static Helpers --
 
   /**
    * Retrieves a rule from the MediaBookPlayer CSS file.
@@ -665,20 +730,38 @@ class MusicBookPlayer
   {
     let url = new URL(resource,baseURL);
     return url.toString();
-//    let url = null;
-//    try
-//    {
-//      // resource is absolute (i.e., it includes an origin)
-//      url = new URL(resource);
-//    }
-//    catch (e)
-//    {
-//      // resource is relative (i.e., it does not include an origin)
-//      url = new URL(baseURL,resource);
-//    }
-//    return url.toString();
   }
-  
+
 }
+
+// -- Javascript Utilities --
+
+/**
+ * Generic lazy debouncer.
+ * 
+ * Usage: Invoke myfunction.debounce(wait) for any function. Parameter wait
+ *        is the debounce waiting time in milliseconds.
+ * 
+ * @see J. Albers-Zoller: SelfHTML, JavaScript/Tutorials/Debounce und Throttle.
+ *      https://wiki.selfhtml.org/wiki/JavaScript/Tutorials/Debounce_und_Throttle
+ * @see J. Ashkenas: Underscore.js.
+ *      https://underscorejs.org/
+ */
+Function.prototype.debounce = function(wait) 
+{
+  let timeout       = null;
+  let debouncedFunc = this;
+  return function()
+  {
+    let context = this;
+    function later(args) 
+    {
+      timeout = null;
+      debouncedFunc.apply(context, args);
+    };
+    clearTimeout(timeout);
+    timeout = setTimeout(later, wait, arguments);
+  };
+};
 
 // EOF
