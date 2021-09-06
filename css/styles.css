@@ -317,6 +317,9 @@ div.content {
   width: 100%;
   height: 100%;
   overflow-x: scroll;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  scroll-padding: 0;
   -ms-overflow-style: none;  /* Hide scrollbar: IE and Edge */
   scrollbar-width: none;     /* Hide scrollbar: Firefox */
 }
@@ -325,10 +328,12 @@ div.content::-webkit-scrollbar { /* Hide scrollbar: Chrome, Safari and Opera */
   display: none;
 }
 
-div.page {
+section {
   width: 100%;
   min-width: 100%;
   max-width: 100%;
+  scroll-snap-align: start;
+  scroll-margin: 0;
 }
 
 .track-image,
