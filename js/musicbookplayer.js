@@ -254,7 +254,10 @@ class MusicBookPlayer
       let p2    = this.pages[i].ptoffs!='undefined'                             // Page is 2nd, 3rd, etc. part
                   && this.pages[i].audio==this.pages[i-1].audio;                // ...
       let tid   = '' + (this.pages[i].tid<10 ? '0' : '') + this.pages[i].tid;   // Track number
-      let link  = `javascript:musicBookPlayer.goto(${this.pages[i].pid},true)`; // Hyperlink to page
+      let link  = 'javascript:'                                                 // Hyperlink to page
+                + `if (musicBookPlayer.currentPage!=${this.pages[i].pid})`      // ...
+                +   `musicBookPlayer.goto(${this.pages[i].pid},true);`          // ...
+                + `musicBookPlayer.scrollTo(${this.pages[i].pid});`;            // ...
       let title = this.pages[i].title + (                                       // Title...
                     !p1 && !p2 && this.pages[i].part                            // ...plus subtitle
                     ? ` <span class="part-title">${this.pages[i].part}</span>`  // ...
@@ -321,14 +324,11 @@ class MusicBookPlayer
   }
 
   /**
-   * Moves to the contents page. If no contents page exists, move to cover page.
+   * Scrolls to the contents page (and keeps the current page active).
    */
-  gotoContents()
+  contents()
   {
-    if (this.contentsPage>=0)
-      musicBookPlayer.goto(this.contentsPage);
-    else
-      musicBookPlayer.goto(0);
+    musicBookPlayer.scrollTo(this.contentsPage);
   }
   
   /**
@@ -349,7 +349,11 @@ class MusicBookPlayer
       this.mep.setCurrentTime(ptoffs);
     }
     else if (this.currentPage>0) // Previous page
+    {
+      if (this.currentPage==this.contentsPage) // HACK: Explicitly scroll to predecessor of contents
+        musicBookPlayer.scrollTo(this.currentPage-1);
       musicBookPlayer.goto(this.currentPage-1,this.currentPage>1 && play);
+    }
   }
 
   /**
@@ -370,16 +374,28 @@ class MusicBookPlayer
   // -- UI Helpers --
 
   /**
-   * Content division element scroll event hander.
+   * Retrieves the page ID for the current scroll position of the content 
+   * division element.
    */
-  handleScrollEvent()
+  pageIdFromScrollPos()
   {
     let cnte  = document.getElementById('content');                             // Get content division element
     let spos  = cnte.scrollLeft;                                                // Current scroll position
     let spmax = cnte.scrollWidth;                                               // Maximum scroll position
-    let pid   = Math.round(spos/spmax*musicBookPlayer.pages.length);            // Page ID for current scroll position
-    if (musicBookPlayer.currentPage!=pid)                                       // Scrolled to other than current page
-      musicBookPlayer.goto(pid);                                                //   Goto to other page
+    return Math.round(spos/spmax*musicBookPlayer.pages.length);                 // Page ID for current scroll position    
+  }
+  
+  /**
+   * Content division element scroll event hander.
+   */
+  handleScrollEvent()
+  {
+    let pid = musicBookPlayer.pageIdFromScrollPos();                            // Page ID for current scroll position
+    if (pid==musicBookPlayer.currentPage)                                       // Scrolled to current page
+      return;                                                                   //   Do nothing
+    if (pid==musicBookPlayer.contentsPage)                                      // Scrolled to contents page
+      return;                                                                   //   Do nothing
+    musicBookPlayer.goto(pid);                                                  // Change page
   }  
 
   /**
@@ -395,10 +411,10 @@ class MusicBookPlayer
     let cnte = document.getElementById('content');                              // Content division element
     let rule = MusicBookPlayer.getCssRule('div.content');                       // Get content div's CSS rule
     let sbeh = rule.style.scrollBehavior;                                       // Get scrolling behavior
-    if (immediate)                                                              // Immediate scrollig requested
+    if (immediate)                                                              // Immediate scrolling requested
       rule.style.scrollBehavior = 'auto';                                       //   Set scroll behavior in CSS rule
     cnte.scrollLeft = pid * cnte.scrollWidth / this.pages.length                // Scroll to page
-    if (immediate)                                                              // Immediate scrollig requested
+    if (immediate)                                                              // Immediate scrolling requested
       rule.style.scrollBehavior = sbeh;                                         //   Restore scrl. behavior in CSS rule
   }
   
@@ -462,10 +478,12 @@ class MusicBookPlayer
     if (musicBookPlayer.currentPage==cp && !force)
       return;
 
+    // Scroll to current page unless contents page is displayed
+    if ((cp>=0 && musicBookPlayer.pageIdFromScrollPos()!=this.contentsPage) || force)
+      musicBookPlayer.scrollTo(cp);
+
     // Set current page
     musicBookPlayer.currentPage = cp;
-    if (cp>=0)
-      musicBookPlayer.scrollTo(cp);
 
     // Error state or cover page
     if (cp<1)
