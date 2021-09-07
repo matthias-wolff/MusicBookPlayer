@@ -1,5 +1,7 @@
 /* == Page Layout =========================================================== */
 
+/* -- Page Structure and General Styles ------------------------------------- */
+
 body { /* Page body */
   position: sticky;
   margin: 0;
@@ -18,7 +20,35 @@ body { /* Page body */
   }
 }
 
-div, img, button, table, td, h1, h2, p, a, span { /* Reset some styles */
+header {
+  position: fixed;
+  top: 0;
+  background: #2c2d33;
+  width: 100%;
+  height: 10rem;
+}
+
+@media (width >= 30rem) { /* Wide viewports... */
+  header {
+    width: 30rem;
+  }
+}
+
+main {
+  display: block; /* for IE 9-11 */
+  position: relative;
+  margin-top: 10rem;
+  width: 100%;
+  min-height: calc(100vh - 10rem);
+  background-color: #030303;       /* <- Track ambient color! */
+  background-image: url(../img/loading.svg);
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+/* -- General Styles -------------------------------------------------------- */
+
+* {
   margin: 0;
   padding: 0;
   border: none;
@@ -29,21 +59,11 @@ a {
 	color: #ececec;
 }
 
+.error {
+  color: red;
+}
+
 /* == Music Book Player Layout ============================================== */
-
-div.music-book-player {
-  position: fixed;
-  top: 0;
-  background: #2c2d33;
-  width: 100%;
-  height: 10rem;
-}
-
-@media (width >= 30rem) { /* Wide viewports... */
-  div.music-book-player {
-    width: 30rem;
-  }
-}
 
 /* -- Audio Player Layout --------------------------------------------------- */
 
@@ -131,12 +151,16 @@ div.mejs-controls { /* Player controls container */
 .mejs-controls .mejs-pause button,
 .mbp-prev button,
 .mbp-next button,
-.mbp-cnts button {
+.mbp-cnts button,
+aside button {
   width: 33px;
   height: 33px;
   background-color: transparent;
   background-repeat: no-repeat;
   background-size: 33px 33px; 
+  cursor: pointer;
+  display: block;
+  text-indent: -9999px;
 }
 
 .mejs-controls .mejs-play button,
@@ -248,7 +272,7 @@ div.mejs-controls { /* Player controls container */
   text-align: center;
 }
 
-/* -- Track Controls -- */
+/* -- Track Controls -------------------------------------------------------- */
 
 div.track-controls {
   width: calc(100% - 0.65rem);
@@ -294,21 +318,7 @@ div.track-title-container {
   text-shadow: 1px 1px 1px rgba(0,0,0,0.5);
 }
 
-.error {
-	color: red;
-}
-
 /* == Content Layout ======================================================== */
-
-div.content-wrapper {
-  margin-top: 10rem;
-  width: 100%;
-  min-height: calc(100vh - 10rem);
-  background-color: #030303;       /* <- Track ambient color! */
-  background-image: url(../img/loading.svg);
-  background-repeat: no-repeat;
-  background-position: center center;
-}
 
 div.content {
 	visibility: hidden; /* Made visible by MusicBookPlayer.initialize() */
@@ -350,7 +360,7 @@ section {
 	color: #ececec;
 }
 
-/* -- TOC -- */
+/* -- TOC ------------------------------------------------------------------- */
 
 table.toc,
 table.toc td {
@@ -362,19 +372,43 @@ table.toc td {
 	padding-top: 0.35rem;
 }
 
-/* -- Auxiliary: asides -- */
+/* -- Credits, etc. --------------------------------------------------------- */
+
+div.credits {
+	visibility: hidden; /* Toggled by MusicBookPlayer.showCredits() */
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	background-color: transparent;
+	display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+  padding-top: 3rem;
+}
 
 aside {
+	position: relative;
   color: #7f6e00;
-  background: #fff8cc;
+  background: rgba(255,248,204,0.925);
   font-size: 9pt;
-  margin-top: 1rem;
-  margin-left: 0.5rem;
-  margin-right: 0.5rem;
-  padding: 0.5rem;
+  margin: 1rem 0.5rem 0 0.5rem;
+  padding: 0 0.5rem 0.5rem 0.5rem;
   border: 1px solid #7f6e00;
   border-radius: 0 0.5rem 0.5rem 0.5rem;
-  box-shadow: 0.5rem 0.5rem 1rem -0.5rem #999; 
+  box-shadow:2px 2px 3px rgba(0,0,0,0.35);
+}
+
+aside.with-close-button {
+	border-top-right-radius: 1.2rem;
+}
+
+aside button.close {
+	position: absolute;
+	top: 0.2rem;
+	right: 0.2rem;
+  background-image: url(../img/close.svg);
 }
 
 aside a {
@@ -383,13 +417,12 @@ aside a {
 
 aside h1 {
   color: #7f6e00;
-  font-size: 9pt;
+  font-size: 10pt;
   font-weight: bold;
-  margin: 0;
+  margin: 0.5rem 0 0 0;
 }
 
 aside ul {
-  margin: 0.3rem 0 0 0;
   padding-left: 1rem;
 }
 

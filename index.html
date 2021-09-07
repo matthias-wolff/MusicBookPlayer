@@ -16,7 +16,7 @@
 <body>
 
   <!-- Music Book Player -->
-  <div class="music-book-player">
+  <header>
 	  <div class="audio-player">
 	    <div class="audio-player-header">
 	      <div class="album-info">
@@ -56,41 +56,44 @@
         ></button>
       </div>
     </div>
-  </div>
+  </header>
 
   <!-- Music Book Content -->
-  <div class="content-wrapper">
+  <main>
     <div class="content" id="content"></div>
-  </div>
+    <div class="credits">
+		  <aside class="with-close-button">
+		    <button class="close"onclick="musicBookPlayer.showCredits(false);" title="Close" aria-label="Close"></button>
+		    <h1>Music Book Player</h1>
+		    <p>
+		      by <a target="_blank" href="https://www.b-tu.de/en/fg-kommunikationstechnik/team/staff/prof-dr-ing-habil-matthias-wolff">Matthias Wolff</a>,
+		      hosted on <a target="_blank" href="">GitHub</a>
+		    </p>
+		    <h1 style="margin-top: 0.35rem;">Based upon</h1>
+		    <ul>
+		      <li>
+		        <a target="_blank" href="https://github.com/mediaelement/mediaelement">MediaElement.js</a>
+		        <ul>
+		          <li><a target="_blank" href="https://github.com/mediaelement/mediaelement/tree/master/docs">Documentation</a></li>
+		          <li>designmodo: <a target="_blank" href="https://designmodo.com/audio-player/"> How to Create an Audio Player in jQuery, HTML5 &amp; CSS3.</a> (retrieved Aug. 27, 2021)</li>
+		          <li>design shack: <a target="_blank" href="https://designshack.net/articles/css/custom-html5-audio-element-ui/">Creating a Custom HTML5 Audio Element UI.</a> (retrieved Aug. 27, 2021)</li>
+		        </ul>
+		      </li>
+		      <li><a target="_blank" href="https://audiomotion.dev/#/">Spectrum Analyzer</a> by audioMotion</li>
+		      <li><a target="_blank" href="https://loading.io">Loading animation</a> by PlotDB Ltd.</li>
+		    </ul>
+		  </aside>
+		  <aside>
+		    <h1>TODO</h1>
+		    <ul>
+		      <li>Dynamically create HTML page</li>
+		    </ul>
+		  </aside>
+    </div>
+  </main>
   
   <!-- Credits, etc. -->
-  <aside>
-    <h1>Music Book Player</h1>
-    <p>
-      by <a target="_blank" href="https://www.b-tu.de/en/fg-kommunikationstechnik/team/staff/prof-dr-ing-habil-matthias-wolff">Matthias Wolff</a>,
-      hosted on <a target="_blank" href="">GitHub</a>
-    </p>
-    <h1 style="margin-top: 0.35rem;">Based upon</h1>
-    <ul>
-      <li>
-        <a target="_blank" href="https://github.com/mediaelement/mediaelement">MediaElement.js</a>
-        <ul>
-          <li><a target="_blank" href="https://github.com/mediaelement/mediaelement/tree/master/docs">Documentation</a></li>
-          <li>designmodo: <a target="_blank" href="https://designmodo.com/audio-player/"> How to Create an Audio Player in jQuery, HTML5 &amp; CSS3.</a> (retrieved Aug. 27, 2021)</li>
-          <li>design shack: <a target="_blank" href="https://designshack.net/articles/css/custom-html5-audio-element-ui/">Creating a Custom HTML5 Audio Element UI.</a> (retrieved Aug. 27, 2021)</li>
-        </ul>
-      </li>
-      <li><a target="_blank" href="https://audiomotion.dev/#/">Spectrum Analyzer</a> by audioMotion</li>
-      <li><a target="_blank" href="https://loading.io">Loading animation</a> by PlotDB Ltd.</li>
-    </ul>
-  </aside>
-  <aside>
-    <h1>TODO</h1>
-    <ul>
-      <li>Move credits and TODOs to non-modal pseudo window</li>
-      <li>Dynamically create HTML page</li>
-    </ul>
-  </aside>
+
 
   <!-- Scripts -->
 	<script type="text/javascript">

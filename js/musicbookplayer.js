@@ -108,7 +108,7 @@ class MusicBookPlayer
     document.querySelector('.mbp-prev button').style.visibility = 'visible';
     
     // Remove loading animation CSS rule
-    MusicBookPlayer.getCssRule('div.content-wrapper').style.backgroundImage='';
+    MusicBookPlayer.getCssRule('main').style.backgroundImage='';
 
     // Attach and configure MediaElement player
     musicBookPlayer.mep = document.querySelector('#audio-player');
@@ -188,10 +188,12 @@ class MusicBookPlayer
       page.ptoffs = 0;
       
     // Create page HTML
-    let img  = ``;
     let cnte = document.getElementById('content');
-    cnte.innerHTML += `    <section class="page" id="page-${page.pid}">
-      <div class="track-image"><img class="track-image" src="${page.image}"></div>
+    let img  = '';
+    if (page.image)
+      img = '\n'+`      <div class="track-image"><img class="track-image" src="${page.image}"></div>`;
+    let h = 
+    cnte.innerHTML += `    <section class="page" id="page-${page.pid}">${img}
       <div class="track-comment">${page.descr}</div>
     </section>
 `;
@@ -235,7 +237,7 @@ class MusicBookPlayer
     let s = `<table class="toc">
   <tr>
     <td class="track-title" colspan="3">
-      <h1><a href="javascript:musicBookPlayer.goto(0,false)">Cover</a></h1>
+      <h1><a href="javascript:musicBookPlayer.goto(0,false);">Cover</a></h1>
     </td>
   </tr>`
     
@@ -284,6 +286,11 @@ class MusicBookPlayer
     
     // Make TOC footer
     s += `
+  <tr>
+    <td class="track-title" colspan="3">
+      <h1><a href="javascript:musicBookPlayer.showCredits();">Credits</a></h1>
+    </td>
+  </tr>
 </table>`;
     return s;
   }
@@ -618,6 +625,18 @@ class MusicBookPlayer
         btnCnts.style['background-image'] = 'url(img/contents.svg)';
       else
         btnCnts.style['background-image'] = 'url(img/contents-disabled.svg)';
+  }
+
+  /**
+   * Shows or hides the credits pseudo window.
+   * 
+   * @param: visible New visibility state of credits (boolean, default 
+   *         <code>true</code>)
+   */
+  showCredits(visible=true)
+  {
+    let v = visible ? 'visible' : 'hidden';
+    MusicBookPlayer.getCssRule('div.credits').style.visibility = v;
   }
   
   // -- Static Helpers --
