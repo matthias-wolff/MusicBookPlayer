@@ -63,7 +63,7 @@ class MusicBookPlayer
     // Create new object                                                        // ------------------------------------
     musicBookPlayer = new MusicBookPlayer();                                    // The MusicBookPlayer singleton
     musicBookPlayer.currentPage = -1;                                           // Current page ID (zero-based)
-    musicBookPlayer.contentsPage = -1;                                          // Contents page ID (zero-based)
+    musicBookPlayer.tocPage = -1;                                               // TOC page ID (zero-based)
     musicBookPlayer.pages = [];                                                 // Array of pages
     musicBookPlayer.scrollAniTimer = 0;                                         // Scroll animation timer ID
 
@@ -80,7 +80,7 @@ class MusicBookPlayer
       musicBookPlayer.mediaBaseURI += '/';                                      //   Append a slash
     
     // Create cover page (first page of book)                                   // ------------------------------------
-    let sbu = musicBookPlayer.scriptBaseURI;                                    // Shorcut script base URI field name
+    let sbu = musicBookPlayer.scriptBaseURI;                                    // Shortcut script base URI field name
     musicBookPlayer.addPage({                                                   // Add cover page >>
         title : props.title,                                                    //   Music book title
         artist: props.artist,                                                   //   Music book artist
@@ -210,7 +210,7 @@ class MusicBookPlayer
    */
   addContentsPage()
   {
-    if (this.contentsPage<0)
+    if (this.tocPage<0)
     {
       musicBookPlayer.addPage({
         title : 'Contents',
@@ -221,9 +221,9 @@ class MusicBookPlayer
                   ),
         descr : musicBookPlayer.makeContents()
       }); 
-      this.contentsPage = this.pages.length-1;
+      this.tocPage = this.pages.length-1;
     }
-    return this.pages[this.contentsPage];
+    return this.pages[this.tocPage];
   }
 
   // -- DHTML --
@@ -237,7 +237,7 @@ class MusicBookPlayer
     let s = `<table class="toc">
   <tr>
     <td class="track-title" colspan="3">
-      <h1><a href="javascript:musicBookPlayer.goto(0,false);">Cover</a></h1>
+      <h1><a href="javascript:musicBookPlayer.tocGoto(0,false);">Cover</a></h1>
     </td>
   </tr>`
     
@@ -245,33 +245,30 @@ class MusicBookPlayer
     for (let i=1; i<this.pages.length; i++)
     {
       // Skip contents pages
-      if (i==this.contentsPage)
+      if (i==this.tocPage)
         continue;
 
       // Template tag values
-      let p1    = this.pages[i].ptoffs!='undefined'                             // Page is first part of several
-                  && this.pages[i].audio!=this.pages[i-1].audio                 // ...
-                  && i<this.pages.length-1                                      // ...
-                  && this.pages[i].audio==this.pages[i+1].audio;                // ...
-      let p2    = this.pages[i].ptoffs!='undefined'                             // Page is 2nd, 3rd, etc. part
-                  && this.pages[i].audio==this.pages[i-1].audio;                // ...
-      let tid   = '' + (this.pages[i].tid<10 ? '0' : '') + this.pages[i].tid;   // Track number
-      let link  = 'javascript:'                                                 // Hyperlink to page
-                + `if (musicBookPlayer.currentPage!=${this.pages[i].pid})`      // ...
-                +   `musicBookPlayer.goto(${this.pages[i].pid},true);`          // ...
-                + `musicBookPlayer.scrollTo(${this.pages[i].pid});`;            // ...
-      let title = this.pages[i].title + (                                       // Title...
+      let p1  = this.pages[i].ptoffs!='undefined'                               // Page is first part of several
+                && this.pages[i].audio!=this.pages[i-1].audio                   // ...
+                && i<this.pages.length-1                                        // ...
+                && this.pages[i].audio==this.pages[i+1].audio;                  // ...
+      let p2  = this.pages[i].ptoffs!='undefined'                               // Page is 2nd, 3rd, etc. part
+                && this.pages[i].audio==this.pages[i-1].audio;                  // ...
+      let tid = '' + (this.pages[i].tid<10 ? '0' : '') + this.pages[i].tid;     // Track number
+      let lnk = `javascript:musicBookPlayer.tocGoto(${this.pages[i].pid},true);`// Hyperlink to page
+      let tit = this.pages[i].title + (                                         // Title...
                     !p1 && !p2 && this.pages[i].part                            // ...plus subtitle
                     ? ` <span class="part-title">${this.pages[i].part}</span>`  // ...
                     : ''                                                        // ...
                   );                                                            // ...
       let d =                                                                   // Tag values
       {                                                                         // >>
-        tid  : !p2 ? `<a href="${link}">${tid}</a>` : '',                       //   Track number HTML
-        tnos : !p2 ? `<a href="${link}">&nbsp;-&nbsp;</a>` : '',                //   Track number separator HTML
-        title: !p2 ? `<h1><a href="${link}">${title}</a></h1>` : '',            //   Title HTML
+        tid  : !p2 ? `<a href="${lnk}">${tid}</a>` : '',                        //   Track number HTML
+        tnos : !p2 ? `<a href="${lnk}">&nbsp;-&nbsp;</a>` : '',                 //   Track number separator HTML
+        title: !p2 ? `<h1><a href="${lnk}">${tit}</a></h1>` : '',               //   Title HTML
         part : p1 || p2                                                         //   Part HTML
-               ? `<h2><a href="${link}">${this.pages[i].part}</a></h2>`         //   ...
+               ? `<h2><a href="${lnk}">${this.pages[i].part}</a></h2>`          //   ...
                : ''                                                             //   ...
       };                                                                        // <<
 
@@ -331,11 +328,29 @@ class MusicBookPlayer
   }
 
   /**
-   * Scrolls to the contents page (and keeps the current page active).
+   * Scrolls to the TOC page (and keeps the current page active).
    */
-  contents()
+  gotoToc()
   {
-    musicBookPlayer.scrollTo(this.contentsPage);
+    musicBookPlayer.scrollTo(this.tocPage);
+  }
+  
+  /**
+   * Moves from the TOC page to another page. If parameter <code>pid</code>
+   * refers to the current page, just scroll back and do not rewind audio.
+   * 
+   * @param pid One-based index of page, 0 for cover page (integer)
+   * @param play If <code>true</code>, play page's audio file, if 
+   *        <code>false</code>, stop playing, if <code>undefined</code>, retain
+   *        playing state. 
+   */
+  tocGoto(pid,play)
+  {
+    if (musicBookPlayer.currentPage==musicBookPlayer.tocPage)                   // Currently on TOC page
+      musicBookPlayer.goto(pid,play);                                           //    Normal goto
+    if (musicBookPlayer.currentPage!=pid)                                       // Move to other than current page
+      musicBookPlayer.goto(pid,play);                                           //    Normal goto
+    musicBookPlayer.scrollTo(pid);                                              // Scroll to current page
   }
   
   /**
@@ -357,7 +372,7 @@ class MusicBookPlayer
     }
     else if (this.currentPage>0) // Previous page
     {
-      if (this.currentPage==this.contentsPage) // HACK: Explicitly scroll to predecessor of contents
+      if (this.currentPage==this.tocPage) // HACK: Explicitly scroll to predecessor of contents
         musicBookPlayer.scrollTo(this.currentPage-1);
       musicBookPlayer.goto(this.currentPage-1,this.currentPage>1 && play);
     }
@@ -400,7 +415,7 @@ class MusicBookPlayer
     let pid = musicBookPlayer.pageIdFromScrollPos();                            // Page ID for current scroll position
     if (pid==musicBookPlayer.currentPage)                                       // Scrolled to current page
       return;                                                                   //   Do nothing
-    if (pid==musicBookPlayer.contentsPage)                                      // Scrolled to contents page
+    if (pid==musicBookPlayer.tocPage)                                      // Scrolled to contents page
       return;                                                                   //   Do nothing
     musicBookPlayer.goto(pid);                                                  // Change page
   }  
@@ -485,8 +500,10 @@ class MusicBookPlayer
     if (musicBookPlayer.currentPage==cp && !force)
       return;
 
-    // Scroll to current page unless contents page is displayed
-    if ((cp>=0 && musicBookPlayer.pageIdFromScrollPos()!=this.contentsPage) || force)
+    // Scroll to current page unless contents page is displayed while different
+    // page is active
+    let stayOnToc = musicBookPlayer.pageIdFromScrollPos()==this.tocPage;
+    if (cp>=0 && (!stayOnToc || force))
       musicBookPlayer.scrollTo(cp);
 
     // Set current page
