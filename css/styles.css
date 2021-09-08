@@ -12,7 +12,7 @@ body { /* Page body */
   background: #f0f0f0; 
 }
 
-@media (width >= 30rem) { /* Wide viewports... */
+@media (min-width: 30rem) { /* Wide viewports... */
   body { /* ...Limit body width */
 	  width: 30rem;
 	  margin-left: auto;
@@ -28,7 +28,7 @@ header {
   height: 10rem;
 }
 
-@media (width >= 30rem) { /* Wide viewports... */
+@media (min-width: 30rem) { /* Wide viewports... */
   header {
     width: 30rem;
   }
