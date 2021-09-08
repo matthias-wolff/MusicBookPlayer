@@ -1,7 +1,6 @@
 // Music Book Player - Javascripts
 // Matthias Wolff
 
-  
 // == Document Loaded Callback =================================================
 
 $(function()
@@ -20,102 +19,6 @@ $(function()
   });
 });
 
-// == Constants ================================================================
-
-const bodyTemplate = `
-  <!-- Begin of <MusicBookPlayerURL>/html/bodytemplate.html -->
- 
-  <!-- Music Book Player -->
-  <header>
-    <div class="audio-player">
-      <div class="audio-player-header">
-        <div class="album-info">
-          <h1 id="album-title">Music Book Player</h1>
-          <h2 id="album-artist">by Matthias Wolff</h2>
-        </div>
-        <div id="spectrum-analyzer" class="spectrum-analyzer"></div>
-      </div>
-      <audio id="audio-player" 
-        style="width:100%; height:40%;" controls="controls" 
-        src="https://www-docs.b-tu.de/fg-kommunikationstechnik/public/matthias.wolff/MusicBookPlayer.js/media/coverdummy.mp3">
-      </audio>
-    </div>
-    <div class="track-controls">
-      <div class="track-info">
-        <div class="track-title-container">
-          <div class="track-number" id="track-number"></div>
-          <div class="track-number-separator" id="track-number-separator"></div>
-          <div class="track-title">
-            <h1 id="track-title">Loading...</h1>
-            <h2 id="part-title"></h2>
-          </div>
-        </div>
-      </div>
-      <div class="mejs-button mbp-prev" onclick="musicBookPlayer.prev();">
-        <button type="button" aria-controls="mep_0" 
-          title="Previous Track/Part" aria-label="Previous Part/Track"
-        ></button>
-      </div>
-      <div class="mejs-button mbp-next" onclick="musicBookPlayer.next();">
-        <button type="button" aria-controls="mep_0" 
-          title="Next Track/Part" aria-label="Next Part/Track"
-        ></button>
-      </div>
-      <div class="mejs-button mbp-cnts" onclick="musicBookPlayer.gotoToc();">
-        <button type="button" aria-controls="mep_0" 
-          title="Contents/Cover Page" aria-label="Contents/Cover Page"
-        ></button>
-      </div>
-    </div>
-  </header>
-
-  <!-- Music Book Content -->
-  <main>
-    <div class="content" id="content"></div>
-    <div class="credits">
-      <aside class="with-close-button">
-        <button class="close"onclick="musicBookPlayer.showCredits(false);" title="Close" aria-label="Close"></button>
-        <h1>Music Book Player</h1>
-        <p>
-          by <a target="_blank" href="https://www.b-tu.de/en/fg-kommunikationstechnik/team/staff/prof-dr-ing-habil-matthias-wolff">Matthias Wolff</a>,
-          hosted on <a target="_blank" href="https://github.com/matthias-wolff/MusicBookPlayer.js">GitHub</a>
-        </p>
-        <h1 style="margin-top: 0.35rem;">Based upon</h1>
-        <ul>
-          <li>
-            <a target="_blank" href="https://github.com/mediaelement/mediaelement">MediaElement.js</a>
-            <ul>
-              <li><a target="_blank" href="https://github.com/mediaelement/mediaelement/tree/master/docs">Documentation</a>. (retrieved Aug. 27, 2021)</li>
-              <li>designmodo: <a target="_blank" href="https://designmodo.com/audio-player/"> How to Create an Audio Player in jQuery, HTML5 &amp; CSS3</a>. (retrieved Aug. 27, 2021)</li>
-              <li>design shack: <a target="_blank" href="https://designshack.net/articles/css/custom-html5-audio-element-ui/">Creating a Custom HTML5 Audio Element UI</a>. (retrieved Aug. 27, 2021)</li>
-            </ul>
-          </li>
-          <li><a target="_blank" href="https://audiomotion.dev/#/">Spectrum Analyzer</a> by audioMotion</li>
-          <li>
-            Lazy debouncer
-            <ul>
-              <li>J. Albers-Zoller: <a target="_blank" href="https://wiki.selfhtml.org/wiki/JavaScript/Tutorials/Debounce_und_Throttle">SelfHTML, JavaScript/Tutorials/Debounce und Throttle</a>. (retrieved Sept. 8, 2021)</li>
-              <li>J. Ashkenas: <a target="_blank" href="https://underscorejs.org/">Underscore.js</a>. (retrieved Sept. 8, 2021)</li>
-            </ul>
-          </li>
-          <li><a target="_blank" href="https://loading.io">Loading animation</a> by PlotDB Ltd.</li>
-        </ul>
-      </aside>
-      <aside>
-        <h1>TODO</h1>
-        <ul>
-          <li>Dynamically create spectrum analyzer loader code</li>
-        </ul>
-      </aside>
-    </div>
-  </main>
-  
-  <!-- Scripts -->
-<!-- [[MUSICBOOK_DEF]] -->
-
-  <!-- End of <MusicBookPlayerURL>/html/bodytemplate.html -->
-`;
-
 // == Music Book Player Class ==================================================
 
 /**
@@ -127,7 +30,7 @@ var musicBookPlayer = null;
  * The MusicBookPlayer class
  */
 class MusicBookPlayer
-{
+{  
   // -- Public API --
   
   /**
@@ -255,7 +158,106 @@ class MusicBookPlayer
     return page;
   }
 
-  // -- One-Time Initialization --
+  // -- Constructor and One-Time Initialization --
+
+  /**
+   * Creates a new Music Book Player.
+   */
+  constructor() 
+  {
+    this.html = `
+      <!-- Begin of <MusicBookPlayerURL>/html/bodytemplate.html -->
+      
+      <!-- Music Book Player -->
+      <header>
+        <div class="audio-player">
+          <div class="audio-player-header">
+            <div class="album-info">
+              <h1 id="album-title">Music Book Player</h1>
+              <h2 id="album-artist">by Matthias Wolff</h2>
+            </div>
+            <div id="spectrum-analyzer" class="spectrum-analyzer"></div>
+          </div>
+          <audio id="audio-player" 
+            style="width:100%; height:40%;" controls="controls" 
+            src="https://www-docs.b-tu.de/fg-kommunikationstechnik/public/matthias.wolff/MusicBookPlayer.js/media/coverdummy.mp3">
+          </audio>
+        </div>
+        <div class="track-controls">
+          <div class="track-info">
+            <div class="track-title-container">
+              <div class="track-number" id="track-number"></div>
+              <div class="track-number-separator" id="track-number-separator"></div>
+              <div class="track-title">
+                <h1 id="track-title">Loading...</h1>
+                <h2 id="part-title"></h2>
+              </div>
+            </div>
+          </div>
+          <div class="mejs-button mbp-prev" onclick="musicBookPlayer.prev();">
+            <button type="button" aria-controls="mep_0" 
+              title="Previous Track/Part" aria-label="Previous Part/Track"
+            ></button>
+          </div>
+          <div class="mejs-button mbp-next" onclick="musicBookPlayer.next();">
+            <button type="button" aria-controls="mep_0" 
+              title="Next Track/Part" aria-label="Next Part/Track"
+            ></button>
+          </div>
+          <div class="mejs-button mbp-cnts" onclick="musicBookPlayer.gotoToc();">
+            <button type="button" aria-controls="mep_0" 
+              title="Contents/Cover Page" aria-label="Contents/Cover Page"
+            ></button>
+          </div>
+        </div>
+      </header>
+
+      <!-- Music Book Content -->
+      <main>
+        <div class="content" id="content"></div>
+        <div class="credits">
+          <aside class="with-close-button">
+            <button class="close"onclick="musicBookPlayer.showCredits(false);" title="Close" aria-label="Close"></button>
+            <h1>Music Book Player</h1>
+            <p>
+              by <a target="_blank" href="https://www.b-tu.de/en/fg-kommunikationstechnik/team/staff/prof-dr-ing-habil-matthias-wolff">Matthias Wolff</a>,
+              hosted on <a target="_blank" href="https://github.com/matthias-wolff/MusicBookPlayer.js">GitHub</a>
+            </p>
+            <h1 style="margin-top: 0.35rem;">Based upon</h1>
+            <ul>
+              <li>
+                <a target="_blank" href="https://github.com/mediaelement/mediaelement">MediaElement.js</a>
+                <ul>
+                  <li><a target="_blank" href="https://github.com/mediaelement/mediaelement/tree/master/docs">Documentation</a>. (retrieved Aug. 27, 2021)</li>
+                  <li>designmodo: <a target="_blank" href="https://designmodo.com/audio-player/"> How to Create an Audio Player in jQuery, HTML5 &amp; CSS3</a>. (retrieved Aug. 27, 2021)</li>
+                  <li>design shack: <a target="_blank" href="https://designshack.net/articles/css/custom-html5-audio-element-ui/">Creating a Custom HTML5 Audio Element UI</a>. (retrieved Aug. 27, 2021)</li>
+                </ul>
+              </li>
+              <li><a target="_blank" href="https://audiomotion.dev/#/">Spectrum Analyzer</a> by audioMotion</li>
+              <li>
+                Lazy debouncer
+                <ul>
+                  <li>J. Albers-Zoller: <a target="_blank" href="https://wiki.selfhtml.org/wiki/JavaScript/Tutorials/Debounce_und_Throttle">SelfHTML, JavaScript/Tutorials/Debounce und Throttle</a>. (retrieved Sept. 8, 2021)</li>
+                  <li>J. Ashkenas: <a target="_blank" href="https://underscorejs.org/">Underscore.js</a>. (retrieved Sept. 8, 2021)</li>
+                </ul>
+              </li>
+              <li><a target="_blank" href="https://loading.io">Loading animation</a> by PlotDB Ltd.</li>
+            </ul>
+          </aside>
+          <aside>
+            <h1>TODO</h1>
+            <ul>
+              <li>Test on different brwosers</li>
+            </ul>
+          </aside>
+        </div>
+      </main>
+      
+      <!-- Scripts -->
+    <!-- [[MUSICBOOK_DEF]] -->
+      <!-- End of <MusicBookPlayerURL>/html/bodytemplate.html -->
+    `;
+  }
   
   /**
    * Initializes the MusicBookPlayer pseudo-singleton. The method is to be 
@@ -377,7 +379,7 @@ class MusicBookPlayer
   editHtmlBody()
   {
     let elem  = document.querySelector('body');
-    let parts = bodyTemplate.split('<!-- [[MUSICBOOK_DEF]] -->');
+    let parts = musicBookPlayer.html.split('<!-- [[MUSICBOOK_DEF]] -->');
     elem.innerHTML = parts[0]+elem.innerHTML+parts[1];
   }
   
