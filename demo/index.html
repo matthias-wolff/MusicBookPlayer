@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <meta charset="utf-8"/>
+  <meta http-equiv="Content-Type" content="text/html"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/> 
+  <link rel="shortcut icon" href="https://matthias-wolff.github.io/MusicBookPlayer.js/img/MusicBookPlayer.ico"/>
+  <link rel="icon" href="https://matthias-wolff.github.io/MusicBookPlayer.js/img/MusicBookPlayer.ico"/>
+  <link rel="stylesheet" type="text/css" media="screen" href="https://matthias-wolff.github.io/MusicBookPlayer.js/css/styles.css"/>
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+  <script type="text/javascript" src="https://matthias-wolff.github.io/MusicBookPlayer.js/js/mediaelement-and-player.min.js"></script>
+  <script type="text/javascript" src="https://matthias-wolff.github.io/MusicBookPlayer.js/js/musicbookplayer.js"></script>
+</head>
+<body>
+
+  <!-- Initialize Music Book here -->  
+  <script type="text/javascript">
+    MusicBookPlayer.create({ // Create music book and player
+        //mediaBaseURI: document.baseURI, // NOTE: Can be omitted when document base URI
+        title : 'Perfect Dream',
+        artist: 'Matthias Wolff',
+        image : 'Perfect Dream.jpg', 
+        //descr : '',
+      });
+    let page1 = MusicBookPlayer.addPage({
+        tid   : 1,
+        title : 'Perfect Dream pt. I',
+        audio : '01 - Perfect Dream pt. I.mp3',
+        image : '01A - Perfect Dream pt. I.jpg',
+        part  : 'In the White Mountains',
+        ptoffs: 0,
+        //descr : '',
+      });
+    MusicBookPlayer.addPage({
+        tid   : page1.tid,
+        title : page1.title,
+        audio : page1.audio,
+        image : '01B - Perfect Dream pt. I.jpg',
+        part  : 'Mystery Track',
+        ptoffs: 6*60 + 0.515,
+        //descr : '',
+      });
+    MusicBookPlayer.addPage({
+        tid   : page1.tid,
+        title : page1.title,
+        audio : page1.audio,
+        image : '01C - Perfect Dream pt. I.jpg',
+        part  : 'Iceland',
+        ptoffs: 9*60 + 26.6772,
+        //descr : '',
+      });
+    MusicBookPlayer.addPage({
+        tid   : page1.tid,
+        title : page1.title,
+        audio : page1.audio,
+        image : '01D - Perfect Dream pt. I.jpg',
+        part  : 'Lönscher Park',
+        ptoffs: 13*60 + 11.6844,
+        descr : 'Lönscher Park is an arcane park in Görlitz.',
+      });
+    MusicBookPlayer.addPage({
+        tid   : page1.tid,
+        title : page1.title,
+        audio : page1.audio,
+        image : '01E - Perfect Dream pt. I.jpg',
+        part  : 'Going West',
+        ptoffs: 18*60 + 46.5994,
+        descr : 'Going West theme composed by <a '
+               +'href="http://www.tangerinedream.org/" target="_blank">'
+               +'Tangerine Dream</a>, a world-renowned synth band.',
+      });
+    MusicBookPlayer.addPage({
+        tid   : page1.tid,
+        title : page1.title,
+        audio : page1.audio,
+        image : '01F - Perfect Dream pt. I.jpg',
+        part  : '[Bridge]',
+        ptoffs: 22*60 + 21.4241,
+        //descr : '',
+    });
+    MusicBookPlayer.addPage({
+        tid   : page1.tid,
+        title : page1.title,
+        audio : page1.audio,
+        image : '01G - Perfect Dream pt. I.jpg',
+        part  : 'Klötzelmönch (Logwise Edit)',
+        ptoffs: 24*60 + 34.676,
+        descr : 'Die Sage vom Klötzelmönch is one of the many medieval legends '
+               +'told in Görlitz, and actually a quite disturbing one. The '
+               +'song, which is just a fragment, sounds much nicer than the '
+               +'legend would suggest. It was meant to be only an intro and '
+               +'the song was going to proceed to the dark side of the legend '
+               +'in the sequel.',
+      });
+    MusicBookPlayer.addPage({
+        tid   : 2,
+        title : 'Perfect Dream pt. II',
+        audio : '02 - Perfect Dream pt. II (Stalker Ambient Mix).mp3',
+        image : '02 - Perfect Dream pt. II (Stalker Ambient Mix).jpg',
+        part  : '(Stalker Ambient Mix)', // HACK: Misusing part title as sub-title
+        descr : '"Stalker" is a 1979 movie by Russian director Andrey '
+               +'Tarkovski. The song uses samples from its avantgarde '
+               +'soundtrack.',
+      });
+  </script>
+
+  <!-- Create spectrum analyzer (must be on end of page body1!) -->
+  <script src="https://matthias-wolff.github.io/MusicBookPlayer.js/js/audioMotion.js" type="module"></script>
+
+</body>
+</html>
