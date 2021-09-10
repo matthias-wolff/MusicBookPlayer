@@ -7,7 +7,15 @@ A music book is playlist of audio files (also called _tracks_) including a HTML/
 2. Audio track or part pages (Nx)
 3. Table of contents (1x, created automatically)
 
+In a browser, a music book will be displayed like this (click on images to enlarge):
+
+| Cover page example | Part page example | Contents page example | 
+| :---: |  :---: |  :---: | 
+| <img src="docs/img/MusicBookPlayer_Screenshot_01.jpg" style="width:20rem" alt="MusicBookPlayer: Cover page example"/> | <img src="docs/img/MusicBookPlayer_Screenshot_01.jpg" style="width:20rem" alt="MusicBookPlayer: Cover page example"/> | <img src="docs/img/MusicBookPlayer_Screenshot_01.jpg" style="width:20rem" alt="MusicBookPlayer: Cover page example"/> |
+
 ## Create Your Own Music Book
+The `MusicBookPlayer.js` library is to allow you creating your own music books. It is optimized for smartphones but it will work on tables and desktop devices as well.
+
 ### Requirements
 To host your own music books, you need the following
 1. a webserver
