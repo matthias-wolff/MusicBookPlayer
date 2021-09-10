@@ -28,9 +28,9 @@ The `MusicBookPlayer.js` library is to allow you creating your own music books. 
 ### 2.1&emsp;Prerequisites
 To setup your own music book, you need the following:
 1. a bunch of audio files<sup>1)</sup>
-2. a cover image<sup>2)</sup>
-3. a images for each page of the book<sup>2)</sup>
-4. optionally, a description text of the book and for each page of the book<sup>3)</sup>
+2. a cover image for the book<sup>2)</sup>
+3. an image for each page of the book<sup>2)</sup>
+4. optionally, a description text for the book and for each page<sup>3)</sup>
 
 <sup>1)</sup> preferably MP3s<br>
 <sup>2)</sup> preferably square JPEGs, e.g. 600 x 600 px<br>
