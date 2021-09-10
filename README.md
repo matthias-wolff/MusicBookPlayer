@@ -41,7 +41,7 @@ See the [demo](demo folder) for a working example.
 <a id="setup"></a>
 ### 2.2&emsp;Setup
 1. Create a folder for the music book on your local device or your webserver and copy the audio and image files to that folder (see [demo](demo folder) for an example)
-2. Create an `imdex.html` file containing the following HTML code in the music book folder:
+2. Create an `index.html` file containing the following HTML code in the music book folder:
 ```html
 <video autoplay controls class="player" id="player1" height="360"
 	width="100%" loop muted poster="/path/to/poster.jpg"
