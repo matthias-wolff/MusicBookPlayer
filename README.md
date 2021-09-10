@@ -38,7 +38,7 @@ To setup your own music book, you need the following:
 <sup>2)</sup> preferably square JPEGs, e.g. 600 x 600 px<br>
 <sup>3)</sup> may contain HTML markup
 
-See the [demo](demo folder) for a working example.
+See the [./demo/](demo folder) for a working example.
 
 <a id="setup"></a>
 ### 2.2&emsp;Setup
