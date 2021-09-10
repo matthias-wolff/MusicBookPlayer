@@ -42,8 +42,8 @@ See the [demo](demo folder) for a working example.
 
 <a id="setup"></a>
 ### 2.2&emsp;Setup
-1. Create a folder for the music book on your local device or your webserver and copy the audio and image files to that folder (see [demo](demo folder) for an example)
-2. Create an `index.html` file containing the following HTML code in the music book folder:
+1. Create a folder for the music book on your local device or your webserver and copy the audio and image files to that folder (see [demo](demo folder) for an example).
+2. Create an `index.html` file containing the following code in the music book folder:
 ```html
 <!DOCTYPE html>
 <html lang="en-US">
@@ -86,7 +86,7 @@ See the [demo](demo folder) for a working example.
 </html>
 ```
 3. _Optionally:_ If you want to host an own installation of `MusicBookPlayer.js`, check out or fork the `MusicBookPlayer.js` library and copy the contents to a local folder or to a folder on your webserver. In the `index.html` file of your music book, replace all occurrances of `https://matthias-wolff.github.io/MusicBookPlayer.js/` by the URL of your copy of the `MusicBookPlayer.js` library.<br>**Note:** All `*.md` files and the `demo` folder of your copy can be deleted.
-4. ...
+4. Initialize your music book in Javascript section `<!-- Initialize Music Book here -->` of `index.html` (see [API Documentation](#apidoc) below).
 
 <a id="apidoc"></a>
 ## 3&emsp;API Documentation
@@ -94,3 +94,4 @@ See the [demo](demo folder) for a working example.
 
 <a id="references"></a>
 ## References
+<span style="background-color:#FFFF00;"><b>[TODO:</b> ...<b>]</b></span>
