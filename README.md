@@ -38,11 +38,11 @@ To setup your own music book, you need the following:
 <sup>2)</sup> preferably square JPEGs, e.g. 600 x 600 px<br>
 <sup>3)</sup> may contain HTML markup
 
-See the [./demo/](demo folder) for a working example.
+See the [demo folder](demo/) for a working example.
 
 <a id="setup"></a>
 ### 2.2&emsp;Setup
-1. Create a folder for the music book on your local device or your webserver and copy the audio and image files to that folder (see [demo](demo folder) for an example).
+1. Create a folder for the music book on your local device or your webserver and copy the audio and image files to that folder (see [demo folder](demo/) for an example).
 2. Create an `index.html` file containing the following code in the music book folder:
 ```html
 <!DOCTYPE html>
