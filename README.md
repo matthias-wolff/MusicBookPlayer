@@ -1,11 +1,13 @@
 # MusicBookPlayer.js
 DHTML audio player displaying booklet pages for audio tracks
 
+<a id="contents"></a>**Contents**<br>
 [1&emsp;Introduction](#intruduction)<br>
 [2&emsp;Create Your Own Music Book](#cyomb)<br>
 &emsp;&ensp;[2.1&emsp;Prerequisites](#prerequisites)<br>
 &emsp;&ensp;[2.2&emsp;Setup](#setup)<br>
-[3&emsp;API Documentation](#apidoc)
+[3&emsp;API Documentation](#apidoc)<br>
+[References](#references)
 
 <a id="intruduction"></a>
 ## 1&emsp;Introduction
@@ -43,14 +45,52 @@ See the [demo](demo folder) for a working example.
 1. Create a folder for the music book on your local device or your webserver and copy the audio and image files to that folder (see [demo](demo folder) for an example)
 2. Create an `index.html` file containing the following HTML code in the music book folder:
 ```html
-<video autoplay controls class="player" id="player1" height="360"
-	width="100%" loop muted poster="/path/to/poster.jpg"
-	preload="none" src="/path/to/media.mp4"
-	style="max-width: 100%" tabindex="0" title="MediaElement">
-</video>
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <meta charset="utf-8"/>
+  <meta http-equiv="Content-Type" content="text/html"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/> 
+  <link rel="shortcut icon" href="https://matthias-wolff.github.io/MusicBookPlayer.js/img/MusicBookPlayer.ico"/>
+  <link rel="icon" href="https://matthias-wolff.github.io/MusicBookPlayer.js/img/MusicBookPlayer.ico"/>
+  <link rel="stylesheet" type="text/css" media="screen" href="https://matthias-wolff.github.io/MusicBookPlayer.js/css/styles.css"/>
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+  <script type="text/javascript" src="https://matthias-wolff.github.io/MusicBookPlayer.js/js/mediaelement-and-player.min.js"></script>
+  <script type="text/javascript" src="https://matthias-wolff.github.io/MusicBookPlayer.js/js/musicbookplayer.js"></script>
+</head>
+<body>
+
+  <!-- Initialize Music Book here -->  
+  <script type="text/javascript">
+    MusicBookPlayer.create({              // Create music book (see API description below)
+        //mediaBaseURI: document.baseURI, // Can be omitted when document base URI
+        title : 'Music book title',       // Mandatory
+        artist: 'Music book artist',      // Mandatory
+        image : 'CoverImage.jpg',         // Mandatory 
+        descr : 'Music book descripion',  // Optional
+      });
+    MusicBookPlayer.addPage({             // Add a page (see API description below)
+        tid   : 1,                        // Mandatory: Track ID
+        title : 'Track title',            // Mandatory
+        audio : 'TrackAudio.mp3',         // Mandatory for tracks
+        image : 'TrackImage.jpg',         // Mandatory
+        descr : 'Track description',      // Optional
+      });
+    // More pages...
+  </script>
+
+  <!-- Create spectrum analyzer (must be on end of page body1!) -->
+  <script src="https://matthias-wolff.github.io/MusicBookPlayer.js/js/audioMotion.js" type="module"></script>
+
+</body>
+</html>
 ```
 3. _Optionally:_ If you want to host an own installation of `MusicBookPlayer.js`, check out or fork the `MusicBookPlayer.js` library and copy the contents to a local folder or to a folder on your webserver. In the `index.html` file of your music book, replace all occurrances of `https://matthias-wolff.github.io/MusicBookPlayer.js/` by the URL of your copy of the `MusicBookPlayer.js` library.<br>**Note:** All `*.md` files and the `demo` folder of your copy can be deleted.
 4. ...
 
 <a id="apidoc"></a>
-## API Documentation
+## 3&emsp;API Documentation
+<span style="background-color:#FFFF00;"><b>[TODO:</b> ...<b>]</b></span>
+
+<a id="references"></a>
+## References
