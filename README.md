@@ -36,9 +36,12 @@ To setup your own music book, you need the following:
 <sup>2)</sup> preferably square JPEGs, e.g. 600 x 600 px<br>
 <sup>3)</sup> may contain HTML markup
 
+See the [demo](demo folder) for a working example.
+
 <a id="setup"></a>
 ### 2.2&emsp;Setup
-
+1. Create a folder for the music book on your local device or your webserver and copy the audio and image files to that folder (see [demo](demo folder) for an example)
+2. Create an `imdex.html` file containing the following HTML code in the music book folder:
 ```html
 <video autoplay controls class="player" id="player1" height="360"
 	width="100%" loop muted poster="/path/to/poster.jpg"
@@ -46,5 +49,8 @@ To setup your own music book, you need the following:
 	style="max-width: 100%" tabindex="0" title="MediaElement">
 </video>
 ```
+3. _Optionally:_ If you want to host an own installation of `MusicBookPlayer.js`, check out or fork the `MusicBookPlayer.js` library and copy the contents to a local folder or to a folder on your webserver. In the `index.html` file of your music book, replace all occurrances of `https://www-docs.b-tu.de/fg-kommunikationstechnik/public/matthias.wolff/MusicBookPlayer.js` by the URL of your copy of the `MusicBookPlayer.js` library.<br>**Note:** All `*.md` files and the `demo` folder of your copy can be deleted.
+4. ...
+
 <a id="apidoc"></a>
 ## API Documentation
