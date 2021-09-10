@@ -22,20 +22,20 @@ A music book is playlist of audio files (also called _tracks_) including a HTML/
 
 <a id="cyomb"></a>
 ## 2&emsp;Create Your Own Music Book
-The `MusicBookPlayer.js` library is to allow you creating your own music books. It is optimized for smartphones but it will work on tables and desktop devices as well.
+The `MusicBookPlayer.js` library is to allow you creating your own music books. It is optimized for smartphones but it will work on tablets and desktop devices as well.
 
 <a id="prerequisites"></a>
 ### 2.1&emsp;Prerequisites
 To host your own music books, you need the following
 1. a webserver
-2. a bunch of audio files, preferably in the MP3 format<sup>1)</sup>
+2. a bunch of audio files<sup>1)</sup>
 3. a cover image<sup>2)</sup>
 4. a images for each page of the book<sup>2)</sup>
 5. optionally, a description text of the book and for each page of the book<sup>3)</sup>
 
-<sup>1)</sup> preferably in the MP3 format<br>
-<sup>2)</sup> peferably square, e.g. 600 x 600 px, and in the JPEG format<br>
-<sup>3)</sup> description texts may contain HTML markup
+<sup>1)</sup> preferably MP3s<br>
+<sup>2)</sup> peferably square JPEGs, e.g. 600 x 600 px<br>
+<sup>3)</sup> may contain HTML markup
 
 <a id="setup"></a>
 ### 2.2&emsp;Setup
