@@ -1,4 +1,32 @@
-/**
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: musicbookplayer.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: musicbookplayer.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
  * @file Music Book Player - Javascripts
  * @author Matthias Wolff
  */
@@ -27,90 +55,90 @@ $(function()
  * The music book player HTML page body.
  */
 const musicBookPlayer_html = `
-<!-- Begin of <MusicBookPlayerURL>/html/bodytemplate.html -->
+&lt;!-- Begin of &lt;MusicBookPlayerURL>/html/bodytemplate.html -->
 
-<!-- Music Book Player -->
-<header>
-  <div class="audio-player">
-    <div class="audio-player-header">
-      <div class="album-info">
-        <h1 id="album-title">Music Book Player</h1>
-         <h2 id="album-artist">by Matthias Wolff</h2>
-      </div>
-      <div id="spectrum-analyzer" class="spectrum-analyzer"></div>
-    </div>
-    <audio id="audio-player" 
+&lt;!-- Music Book Player -->
+&lt;header>
+  &lt;div class="audio-player">
+    &lt;div class="audio-player-header">
+      &lt;div class="album-info">
+        &lt;h1 id="album-title">Music Book Player&lt;/h1>
+         &lt;h2 id="album-artist">by Matthias Wolff&lt;/h2>
+      &lt;/div>
+      &lt;div id="spectrum-analyzer" class="spectrum-analyzer">&lt;/div>
+    &lt;/div>
+    &lt;audio id="audio-player" 
       style="width:100%; height:40%;" controls="controls" 
       src="https://matthias-wolff.github.io/MusicBookPlayer.js/media/coverdummy.mp3">
-    </audio>
-  </div>
-  <div class="track-controls">
-    <div class="track-info">
-      <div class="track-title-container">
-        <div class="track-number" id="track-number"></div>
-         <div class="track-number-separator" id="track-number-separator"></div>
-         <div class="track-title">
-           <h1 id="track-title">Loading...</h1>
-           <h2 id="part-title"></h2>
-        </div>
-      </div>
-    </div>
-    <div class="mejs-button mbp-prev" onclick="musicBookPlayer.prev();">
-      <button type="button" aria-controls="mep_0" 
+    &lt;/audio>
+  &lt;/div>
+  &lt;div class="track-controls">
+    &lt;div class="track-info">
+      &lt;div class="track-title-container">
+        &lt;div class="track-number" id="track-number">&lt;/div>
+         &lt;div class="track-number-separator" id="track-number-separator">&lt;/div>
+         &lt;div class="track-title">
+           &lt;h1 id="track-title">Loading...&lt;/h1>
+           &lt;h2 id="part-title">&lt;/h2>
+        &lt;/div>
+      &lt;/div>
+    &lt;/div>
+    &lt;div class="mejs-button mbp-prev" onclick="musicBookPlayer.prev();">
+      &lt;button type="button" aria-controls="mep_0" 
         title="Previous Track/Part" aria-label="Previous Part/Track"
-      ></button>
-    </div>
-    <div class="mejs-button mbp-next" onclick="musicBookPlayer.next();">
-      <button type="button" aria-controls="mep_0" 
+      >&lt;/button>
+    &lt;/div>
+    &lt;div class="mejs-button mbp-next" onclick="musicBookPlayer.next();">
+      &lt;button type="button" aria-controls="mep_0" 
         title="Next Track/Part" aria-label="Next Part/Track"
-      ></button>
-    </div>
-    <div class="mejs-button mbp-cnts" onclick="musicBookPlayer.gotoToc();">
-      <button type="button" aria-controls="mep_0" 
+      >&lt;/button>
+    &lt;/div>
+    &lt;div class="mejs-button mbp-cnts" onclick="musicBookPlayer.gotoToc();">
+      &lt;button type="button" aria-controls="mep_0" 
         title="Contents/Cover Page" aria-label="Contents/Cover Page"
-      ></button>
-    </div>
-  </div>
-</header>
+      >&lt;/button>
+    &lt;/div>
+  &lt;/div>
+&lt;/header>
 
-<!-- Music Book Content -->
-<main>
-  <div class="content" id="content"></div>
-  <div class="credits">
-    <aside class="with-close-button">
-      <button class="close"onclick="musicBookPlayer.showCredits(false);" title="Close" aria-label="Close"></button>
-      <h1>Music Book Player</h1>
-      <p>
-        by <a target="_blank" href="https://www.b-tu.de/en/fg-kommunikationstechnik/team/staff/prof-dr-ing-habil-matthias-wolff">Matthias Wolff</a>,
-        hosted on <a target="_blank" href="https://github.com/matthias-wolff/MusicBookPlayer.js">GitHub</a>
-      </p>
-      <h1 style="margin-top: 0.35rem;">Based upon</h1>
-      <ul>
-        <li>
-          <a target="_blank" href="https://github.com/mediaelement/mediaelement">MediaElement.js</a>
-          <ul>
-            <li><a target="_blank" href="https://github.com/mediaelement/mediaelement/tree/master/docs">Documentation</a>. (retrieved Aug. 27, 2021)</li>
-            <li>designmodo: <a target="_blank" href="https://designmodo.com/audio-player/"> How to Create an Audio Player in jQuery, HTML5 &amp; CSS3</a>. (retrieved Aug. 27, 2021)</li>
-            <li>design shack: <a target="_blank" href="https://designshack.net/articles/css/custom-html5-audio-element-ui/">Creating a Custom HTML5 Audio Element UI</a>. (retrieved Aug. 27, 2021)</li>
-          </ul>
-        </li>
-        <li><a target="_blank" href="https://audiomotion.dev/#/">Spectrum Analyzer</a> by audioMotion</li>
-        <li>
+&lt;!-- Music Book Content -->
+&lt;main>
+  &lt;div class="content" id="content">&lt;/div>
+  &lt;div class="credits">
+    &lt;aside class="with-close-button">
+      &lt;button class="close"onclick="musicBookPlayer.showCredits(false);" title="Close" aria-label="Close">&lt;/button>
+      &lt;h1>Music Book Player&lt;/h1>
+      &lt;p>
+        by &lt;a target="_blank" href="https://www.b-tu.de/en/fg-kommunikationstechnik/team/staff/prof-dr-ing-habil-matthias-wolff">Matthias Wolff&lt;/a>,
+        hosted on &lt;a target="_blank" href="https://github.com/matthias-wolff/MusicBookPlayer.js">GitHub&lt;/a>
+      &lt;/p>
+      &lt;h1 style="margin-top: 0.35rem;">Based upon&lt;/h1>
+      &lt;ul>
+        &lt;li>
+          &lt;a target="_blank" href="https://github.com/mediaelement/mediaelement">MediaElement.js&lt;/a>
+          &lt;ul>
+            &lt;li>&lt;a target="_blank" href="https://github.com/mediaelement/mediaelement/tree/master/docs">Documentation&lt;/a>. (retrieved Aug. 27, 2021)&lt;/li>
+            &lt;li>designmodo: &lt;a target="_blank" href="https://designmodo.com/audio-player/"> How to Create an Audio Player in jQuery, HTML5 &amp;amp; CSS3&lt;/a>. (retrieved Aug. 27, 2021)&lt;/li>
+            &lt;li>design shack: &lt;a target="_blank" href="https://designshack.net/articles/css/custom-html5-audio-element-ui/">Creating a Custom HTML5 Audio Element UI&lt;/a>. (retrieved Aug. 27, 2021)&lt;/li>
+          &lt;/ul>
+        &lt;/li>
+        &lt;li>&lt;a target="_blank" href="https://audiomotion.dev/#/">Spectrum Analyzer&lt;/a> by audioMotion&lt;/li>
+        &lt;li>
           Lazy debouncer
-          <ul>
-            <li>J. Albers-Zoller: <a target="_blank" href="https://wiki.selfhtml.org/wiki/JavaScript/Tutorials/Debounce_und_Throttle">SelfHTML, JavaScript/Tutorials/Debounce und Throttle</a>. (retrieved Sept. 8, 2021)</li>
-            <li>J. Ashkenas: <a target="_blank" href="https://underscorejs.org/">Underscore.js</a>. (retrieved Sept. 8, 2021)</li>
-          </ul>
-        </li>
-        <li><a target="_blank" href="https://loading.io">Loading animation</a> by PlotDB Ltd.</li>
-      </ul>
-    </aside>
-  </div>
-</main>
+          &lt;ul>
+            &lt;li>J. Albers-Zoller: &lt;a target="_blank" href="https://wiki.selfhtml.org/wiki/JavaScript/Tutorials/Debounce_und_Throttle">SelfHTML, JavaScript/Tutorials/Debounce und Throttle&lt;/a>. (retrieved Sept. 8, 2021)&lt;/li>
+            &lt;li>J. Ashkenas: &lt;a target="_blank" href="https://underscorejs.org/">Underscore.js&lt;/a>. (retrieved Sept. 8, 2021)&lt;/li>
+          &lt;/ul>
+        &lt;/li>
+        &lt;li>&lt;a target="_blank" href="https://loading.io">Loading animation&lt;/a> by PlotDB Ltd.&lt;/li>
+      &lt;/ul>
+    &lt;/aside>
+  &lt;/div>
+&lt;/main>
 
-<!-- Scripts -->
-<!-- [[MUSICBOOK_DEF]] -->
-<!-- End of <MusicBookPlayerURL>/html/bodytemplate.html -->
+&lt;!-- Scripts -->
+&lt;!-- [[MUSICBOOK_DEF]] -->
+&lt;!-- End of &lt;MusicBookPlayerURL>/html/bodytemplate.html -->
 `;
 
 /**
@@ -133,15 +161,15 @@ class MusicBookPlayer
    * 
    * @param {Object} props - Music book properties
    * @param {string} props.mediaBaseURI - mediaBaseURI Absolute base URI of the 
-   *        book's media files (optional, default <code>undefined</code>: use 
+   *        book's media files (optional, default &lt;code>undefined&lt;/code>: use 
    *        document base URI)
    * @param {string} props.title - Music book title
    * @param {string} props.artist - Artist name
    * @param {string} props.image - Cover image file name relative to 
-   *        <code>mediaBaseURI</code>
+   *        &lt;code>mediaBaseURI&lt;/code>
    * @param {string} props.descr - Description text (optional, may contain HTML)
    * @return The pseudo-singleton, (object, also stored in global variable 
-   *         <code>musicBookPlayer</code>)
+   *         &lt;code>musicBookPlayer&lt;/code>)
    */
   static create(props)
   {
@@ -159,13 +187,13 @@ class MusicBookPlayer
 
     // Detect MediaBookPlayer Javascript base URI                               // ------------------------------------
     let scripts = $('script');                                                  // List HTML script tags
-    for (var i=0; i<scripts.length; i++)                                        //   Iterate script tags
+    for (var i=0; i&lt;scripts.length; i++)                                        //   Iterate script tags
       if (scripts[i].src.endsWith('js/musicbookplayer.js'))                     //     MusicBookPlayer's script tags
       {                                                                         //     >>
         let uri = scripts[i].src.replace('js/musicbookplayer.js','')            //       Get source and remove file
         musicBookPlayer.scriptBaseURI = uri;                                    //       Set field
         break;                                                                  //       Stop iterating
-      }                                                                         //     <<
+      }                                                                         //     &lt;&lt;
 
     // Normalize mediaBaseURI                                                   // -------------------------------------
     let mbu = document.baseURI;                                                 // Default: document base URI
@@ -186,7 +214,7 @@ class MusicBookPlayer
         audio : MusicBookPlayer.normalizeURL(sbu,'media/coverdummy.mp3'),       //   Cover page dummy audio file
         image : props.image,                                                    //   Cover image
         descr : props.descr                                                     //   Music book description
-      });                                                                       // <<
+      });                                                                       // &lt;&lt;
     
     // Return newly created object                                              // ------------------------------------
     return musicBookPlayer;                                                     // Return singleton
@@ -197,21 +225,21 @@ class MusicBookPlayer
    * 
    * @param {Object} props - Page properties
    * @param {integer} props.tid - One-based track number
-   * @param {string} props.title - Page&mdash;i.e., track or part&mdash;title
+   * @param {string} props.title - Page&amp;mdash;i.e., track or part&amp;mdash;title
    * @param {string} props.artist-  Artist name (optional, default 
-   *        <code>undefined</code>: use book's artist)
-   * @param {string} props.audio - Audio file name <sup>1) 2)</sup>
-   * @param {string} props.image - Image file name <sup>2)</sup>
+   *        &lt;code>undefined&lt;/code>: use book's artist)
+   * @param {string} props.audio - Audio file name &lt;sup>1) 2)&lt;/sup>
+   * @param {string} props.image - Image file name &lt;sup>2)&lt;/sup>
    * @param {string} props.descr - Description text (optional, may contain HTML)
    * @param {string} props.part - Part title (optional, default 
-   *        <code>undefined</code>: page is a whole track rather than a part of 
+   *        &lt;code>undefined&lt;/code>: page is a whole track rather than a part of 
    *        a track)
    * @param {float} props.poffs - The time offset in seconds if the page is part
-   *        of a track (optional, default <code>undefined</code>: page is a 
+   *        of a track (optional, default &lt;code>undefined&lt;/code>: page is a 
    *        whole track)
-   * @see Footnotes:<br>
-   *      <sup>1)</sup> mandatory, URL must be unique!<br>
-   *      <sup>2)</sup> absolute or relative to <code>mediaBaseURI</code>
+   * @see Footnotes:&lt;br>
+   *      &lt;sup>1)&lt;/sup> mandatory, URL must be unique!&lt;br>
+   *      &lt;sup>2)&lt;/sup> absolute or relative to &lt;code>mediaBaseURI&lt;/code>
    * @return The newly created page
    */
   static addPage(props)
@@ -230,18 +258,18 @@ class MusicBookPlayer
     else
       page.image = '';
     if (typeof page.descr=='undefined') page.descr='';
-    if (typeof page.part!='undefined' && typeof page.ptoffs=='undefined')
+    if (typeof page.part!='undefined' &amp;&amp; typeof page.ptoffs=='undefined')
       page.ptoffs = 0;
       
     // Create page HTML
     let cnte = document.getElementById('content');
     let img  = '';
     if (page.image)
-      img = '\n'+`      <div class="track-image"><img class="track-image" src="${page.image}"></div>`;
+      img = '\n'+`      &lt;div class="track-image">&lt;img class="track-image" src="${page.image}">&lt;/div>`;
     let h = 
-    cnte.innerHTML += `    <section class="page" id="page-${page.pid}">${img}
-      <div class="track-comment">${page.descr}</div>
-    </section>
+    cnte.innerHTML += `    &lt;section class="page" id="page-${page.pid}">${img}
+      &lt;div class="track-comment">${page.descr}&lt;/div>
+    &lt;/section>
 `;
 
     // Add new page to list of pages
@@ -254,7 +282,7 @@ class MusicBookPlayer
   /**
    * Initializes the MusicBookPlayer pseudo-singleton. The method is to be 
    * invoked only after the underlying MediaElement has been loaded, i.e., in 
-   * callback <code>MediaElement.success</code>.
+   * callback &lt;code>MediaElement.success&lt;/code>.
    */
   static initialize()
   {
@@ -294,7 +322,7 @@ class MusicBookPlayer
       });
     musicBookPlayer.mep.addEventListener('ended', function (){
         musicBookPlayer.updateUI();
-        if (musicBookPlayer.currentPage < musicBookPlayer.pages.length-1)
+        if (musicBookPlayer.currentPage &lt; musicBookPlayer.pages.length-1)
           musicBookPlayer.next(true);
       });
     musicBookPlayer.mep.addEventListener('progress', function(){
@@ -329,7 +357,7 @@ class MusicBookPlayer
       document.querySelector(`#page-${tocPage.pid} .track-comment`).innerHTML   //   Update HTML 
         = tocPage.descr;                                                        //   ...
       return tocPage;                                                           //   Return existing TOC page
-    }                                                                           // <<
+    }                                                                           // &lt;&lt;
 
     let tocPage = MusicBookPlayer.addPage({                                     // Add new TOC page >>
       title: 'Contents',                                                        //   Title
@@ -338,7 +366,7 @@ class MusicBookPlayer
                  'media/contentsdummy.mp3'                                      //   ...
                 ),                                                              //   ...
       descr: musicBookPlayer.makeToc(),                                         //   Description: Write TOC
-    });                                                                         // <<
+    });                                                                         // &lt;&lt;
     musicBookPlayer.tocPage = tocPage.pid;                                      // Set TOC page ID field
     return tocPage;                                                             // Return newly created TOC page
   }
@@ -355,14 +383,14 @@ class MusicBookPlayer
   {
     title  = title  ? title.toString().toUpperCase() : '[UNKNOWN TITLE]';       // Music book title
     artist = artist ? artist.toString() : "Unknown Artist";                     // Artist name
-    let headElem = document.querySelector('head');                              // DOM element of <head> tag
-    let elem     = document.querySelector(`head title`);                        // DOM element of <title> tag
+    let headElem = document.querySelector('head');                              // DOM element of &lt;head> tag
+    let elem     = document.querySelector(`head title`);                        // DOM element of &lt;title> tag
     if (!elem)                                                                  // No title tag present
     {                                                                           // >>
       elem = document.createElement('title');                                   //   Create title tag
       elem.innerText = `:: ${title} :: ${artist}`;                              //   Set title text
       headElem.appendChild(elem);                                               //   Append title tag to head tag
-    }                                                                           // <<
+    }                                                                           // &lt;&lt;
   }
 
   /**
@@ -371,7 +399,7 @@ class MusicBookPlayer
   editHtmlBody()
   {
     let elem  = document.querySelector('body');
-    let parts = musicBookPlayer_html.split('<!-- [[MUSICBOOK_DEF]] -->');
+    let parts = musicBookPlayer_html.split('&lt;!-- [[MUSICBOOK_DEF]] -->');
     elem.innerHTML = parts[0]+elem.innerHTML+parts[1];
   }
   
@@ -381,15 +409,15 @@ class MusicBookPlayer
   makeToc()
   {
     // Make TOC header and cover page entry
-    let s = `<table class="toc">
-  <tr>
-    <td class="track-title" colspan="3">
-      <h1><a href="javascript:musicBookPlayer.tocGoto(0,false);">Cover</a></h1>
-    </td>
-  </tr>`
+    let s = `&lt;table class="toc">
+  &lt;tr>
+    &lt;td class="track-title" colspan="3">
+      &lt;h1>&lt;a href="javascript:musicBookPlayer.tocGoto(0,false);">Cover&lt;/a>&lt;/h1>
+    &lt;/td>
+  &lt;/tr>`
     
     // Make TOC entries of other pages
-    for (let i=1; i<this.pages.length; i++)
+    for (let i=1; i&lt;this.pages.length; i++)
     {
       // Skip contents pages
       if (i==this.tocPage)
@@ -397,45 +425,45 @@ class MusicBookPlayer
 
       // Template tag values
       let p1  = this.pages[i].ptoffs!='undefined'                               // Page is first part of several
-                && this.pages[i].audio!=this.pages[i-1].audio                   // ...
-                && i<this.pages.length-1                                        // ...
-                && this.pages[i].audio==this.pages[i+1].audio;                  // ...
+                &amp;&amp; this.pages[i].audio!=this.pages[i-1].audio                   // ...
+                &amp;&amp; i&lt;this.pages.length-1                                        // ...
+                &amp;&amp; this.pages[i].audio==this.pages[i+1].audio;                  // ...
       let p2  = this.pages[i].ptoffs!='undefined'                               // Page is 2nd, 3rd, etc. part
-                && this.pages[i].audio==this.pages[i-1].audio;                  // ...
-      let tid = '' + (this.pages[i].tid<10 ? '0' : '') + this.pages[i].tid;     // Track number
+                &amp;&amp; this.pages[i].audio==this.pages[i-1].audio;                  // ...
+      let tid = '' + (this.pages[i].tid&lt;10 ? '0' : '') + this.pages[i].tid;     // Track number
       let lnk = `javascript:musicBookPlayer.tocGoto(${this.pages[i].pid},true);`// Hyperlink to page
       let tit = this.pages[i].title + (                                         // Title...
-                    !p1 && !p2 && this.pages[i].part                            // ...plus subtitle
-                    ? ` <span class="part-title">${this.pages[i].part}</span>`  // ...
+                    !p1 &amp;&amp; !p2 &amp;&amp; this.pages[i].part                            // ...plus subtitle
+                    ? ` &lt;span class="part-title">${this.pages[i].part}&lt;/span>`  // ...
                     : ''                                                        // ...
                   );                                                            // ...
       let d =                                                                   // Tag values
       {                                                                         // >>
-        tid  : !p2 ? `<a href="${lnk}">${tid}</a>` : '',                        //   Track number HTML
-        tnos : !p2 ? `<a href="${lnk}">&nbsp;-&nbsp;</a>` : '',                 //   Track number separator HTML
-        title: !p2 ? `<h1><a href="${lnk}">${tit}</a></h1>` : '',               //   Title HTML
+        tid  : !p2 ? `&lt;a href="${lnk}">${tid}&lt;/a>` : '',                        //   Track number HTML
+        tnos : !p2 ? `&lt;a href="${lnk}">&amp;nbsp;-&amp;nbsp;&lt;/a>` : '',                 //   Track number separator HTML
+        title: !p2 ? `&lt;h1>&lt;a href="${lnk}">${tit}&lt;/a>&lt;/h1>` : '',               //   Title HTML
         part : p1 || p2                                                         //   Part HTML
-               ? `<h2><a href="${lnk}">${this.pages[i].part}</a></h2>`          //   ...
+               ? `&lt;h2>&lt;a href="${lnk}">${this.pages[i].part}&lt;/a>&lt;/h2>`          //   ...
                : ''                                                             //   ...
-      };                                                                        // <<
+      };                                                                        // &lt;&lt;
 
       // Make TOC entry HTML
       s += `
-  <tr>
-    <td class="track-number">${d.tid}</td>
-    <td class="track-number-separator">${d.tnos}</td>
-    <td class="track-title">${d.title}${d.part}</td>
-  </tr>`
+  &lt;tr>
+    &lt;td class="track-number">${d.tid}&lt;/td>
+    &lt;td class="track-number-separator">${d.tnos}&lt;/td>
+    &lt;td class="track-title">${d.title}${d.part}&lt;/td>
+  &lt;/tr>`
     }
     
     // Make TOC footer
     s += `
-  <tr>
-    <td class="track-title" colspan="3">
-      <h1><a href="javascript:musicBookPlayer.showCredits();">Credits</a></h1>
-    </td>
-  </tr>
-</table>`;
+  &lt;tr>
+    &lt;td class="track-title" colspan="3">
+      &lt;h1>&lt;a href="javascript:musicBookPlayer.showCredits();">Credits&lt;/a>&lt;/h1>
+    &lt;/td>
+  &lt;/tr>
+&lt;/table>`;
     return s;
   }
   
@@ -445,8 +473,8 @@ class MusicBookPlayer
    * Moves to the specified page.
    * 
    * @param pid One-based index of page, 0 for cover page (integer)
-   * @param play If <code>true</code>, play page's audio file, if 
-   *        <code>false</code>, stop playing, if <code>undefined</code>, retain
+   * @param play If &lt;code>true&lt;/code>, play page's audio file, if 
+   *        &lt;code>false&lt;/code>, stop playing, if &lt;code>undefined&lt;/code>, retain
    *        playing state. 
    */
   goto(pid,play)
@@ -483,12 +511,12 @@ class MusicBookPlayer
   }
   
   /**
-   * Moves from the TOC page to another page. If parameter <code>pid</code>
+   * Moves from the TOC page to another page. If parameter &lt;code>pid&lt;/code>
    * refers to the current page, just scroll back and do not rewind audio.
    * 
    * @param pid One-based index of page, 0 for cover page (integer)
-   * @param play If <code>true</code>, play page's audio file, if 
-   *        <code>false</code>, stop playing, if <code>undefined</code>, retain
+   * @param play If &lt;code>true&lt;/code>, play page's audio file, if 
+   *        &lt;code>false&lt;/code>, stop playing, if &lt;code>undefined&lt;/code>, retain
    *        playing state. 
    */
   tocGoto(pid,play)
@@ -503,8 +531,8 @@ class MusicBookPlayer
   /**
    * Moves to the previous page if any.
    * 
-   * @param play If <code>true</code>, play page's audio file, if 
-   *        <code>false</code>, stop playing, if <code>undefined</code>, retain
+   * @param play If &lt;code>true&lt;/code>, play page's audio file, if 
+   *        &lt;code>false&lt;/code>, stop playing, if &lt;code>undefined&lt;/code>, retain
    *        playing state. 
    */
   prev(play)
@@ -521,22 +549,22 @@ class MusicBookPlayer
     {
       if (this.currentPage==this.tocPage) // HACK: Explicitly scroll to predecessor of contents
         musicBookPlayer.scrollTo(this.currentPage-1);
-      musicBookPlayer.goto(this.currentPage-1,this.currentPage>1 && play);
+      musicBookPlayer.goto(this.currentPage-1,this.currentPage>1 &amp;&amp; play);
     }
   }
 
   /**
    * Moves to the next page if any.
    * 
-   * @param play If <code>true</code>, play page's audio file, if 
-   *        <code>false</code>, stop playing, if <code>undefined</code>, retain
+   * @param play If &lt;code>true&lt;/code>, play page's audio file, if 
+   *        &lt;code>false&lt;/code>, stop playing, if &lt;code>undefined&lt;/code>, retain
    *        playing state. 
    */
   next(play)
   {
     if (typeof play=='undefined')
       play = !this.mep.paused;
-    if (this.currentPage<this.pages.length-1)
+    if (this.currentPage&lt;this.pages.length-1)
       musicBookPlayer.goto(this.currentPage+1,play);
   }
   
@@ -571,8 +599,8 @@ class MusicBookPlayer
    * Scrolls the contents area to a given page.
    * 
    * @param pid       One-based index of page, 0 for cover page (integer)
-   * @param immediate If <code>true</code>, skip scroll animation (boolean,
-   *                  default is <code>false</code>)
+   * @param immediate If &lt;code>true&lt;/code>, skip scroll animation (boolean,
+   *                  default is &lt;code>false&lt;/code>)
    */
   scrollTo(pid,immediate=false)
   {
@@ -611,8 +639,8 @@ class MusicBookPlayer
 
     // Several parts -> find current part by part time offset
     let ct = this.mep.currentTime;
-    for (let i=0; i<cp.length-1; i++)
-      if (ct>=cp[i].ptoffs && ct<cp[i+1].ptoffs)
+    for (let i=0; i&lt;cp.length-1; i++)
+      if (ct>=cp[i].ptoffs &amp;&amp; ct&lt;cp[i+1].ptoffs)
         return cp[i].pid;
     return cp[cp.length-1].pid;
   }
@@ -620,14 +648,14 @@ class MusicBookPlayer
   /**
    * Updates the UI.
    * 
-   * @param  Force update (default is <code>false</code>)
+   * @param  Force update (default is &lt;code>false&lt;/code>)
    */
   updateUI(force=false)
   {
     let cp = musicBookPlayer.detectCurrentPage();
     
     // Update button states
-    if (cp<0)
+    if (cp&lt;0)
     {
       musicBookPlayer.enablePlayButton(false);
       musicBookPlayer.enablePrevButton(false);
@@ -638,26 +666,26 @@ class MusicBookPlayer
     {
       musicBookPlayer.enablePlayButton(musicBookPlayer.mep.readyState>=3);
       musicBookPlayer.enablePrevButton(cp>0);
-      musicBookPlayer.enableNextButton(cp<musicBookPlayer.pages.length-1);
+      musicBookPlayer.enableNextButton(cp&lt;musicBookPlayer.pages.length-1);
       musicBookPlayer.enableCntsButton(true);
     }
     musicBookPlayer.fixTogglePlayPauseButton(this.mep.paused);
     
     // If page did not change and not forced -> that was it...
-    if (musicBookPlayer.currentPage==cp && !force)
+    if (musicBookPlayer.currentPage==cp &amp;&amp; !force)
       return;
 
     // Scroll to current page unless contents page is displayed while different
     // page is active
     let stayOnToc = musicBookPlayer.pageIdFromScrollPos()==this.tocPage;
-    if (cp>=0 && (!stayOnToc || force))
+    if (cp>=0 &amp;&amp; (!stayOnToc || force))
       musicBookPlayer.scrollTo(cp);
 
     // Set current page
     musicBookPlayer.currentPage = cp;
 
     // Error state or cover page
-    if (cp<1)
+    if (cp&lt;1)
     {
       $('#track-number'          )[0].innerHTML='';
       $('#track-number-separator')[0].innerHTML='';
@@ -691,9 +719,9 @@ class MusicBookPlayer
     }
     
     // Error state
-    if (cp<0)
+    if (cp&lt;0)
     {
-      $('#album-title'   )[0].innerHTML='<span class="error">Error</span>';
+      $('#album-title'   )[0].innerHTML='&lt;span class="error">Error&lt;/span>';
       $('#album-artist'  )[0].innerHTML='';
       return;
     }
@@ -706,7 +734,7 @@ class MusicBookPlayer
   /**
    * HACK: Fix toggling of MediaElement's play/pause button.
    * 
-   * @param: play If <code>true</code>, show "play" icon, otherwise show "pause"
+   * @param: play If &lt;code>true&lt;/code>, show "play" icon, otherwise show "pause"
    *         icon.
    */
   fixTogglePlayPauseButton(play)
@@ -717,7 +745,7 @@ class MusicBookPlayer
     try
     {
       let cls = btndiv.className.split(' ');
-      for (let i=0; i<cls.length; i++)
+      for (let i=0; i&lt;cls.length; i++)
         if (cls[i]=='mejs-play' || cls[i]=='mejs-pause')
           cls[i] = 'mejs-'+(play ? 'play' : 'pause');
       cls = cls.join(' ');
@@ -733,7 +761,7 @@ class MusicBookPlayer
   /**
    * Enables or disables the play button.
    * 
-   * @param New state, <code>true</code> for enabled, <code>false</code> for 
+   * @param New state, &lt;code>true&lt;/code> for enabled, &lt;code>false&lt;/code> for 
    *        disabled.
    */
   enablePlayButton(state)
@@ -746,7 +774,7 @@ class MusicBookPlayer
   /**
    * Enables or disables the previous part/track button.
    * 
-   * @param New state, <code>true</code> for enabled, <code>false</code> for 
+   * @param New state, &lt;code>true&lt;/code> for enabled, &lt;code>false&lt;/code> for 
    *        disabled.
    */
   enablePrevButton(state)
@@ -762,7 +790,7 @@ class MusicBookPlayer
   /**
    * Enables or disables the next part/track button.
    * 
-   * @param New state, <code>true</code> for enabled, <code>false</code> for 
+   * @param New state, &lt;code>true&lt;/code> for enabled, &lt;code>false&lt;/code> for 
    *        disabled.
    */
   enableNextButton(state)
@@ -778,7 +806,7 @@ class MusicBookPlayer
   /**
    * Enables or disables the contents button.
    * 
-   * @param New state, <code>true</code> for enabled, <code>false</code> for 
+   * @param New state, &lt;code>true&lt;/code> for enabled, &lt;code>false&lt;/code> for 
    *        disabled.
    */
   enableCntsButton(state)
@@ -795,7 +823,7 @@ class MusicBookPlayer
    * Shows or hides the credits pseudo window.
    * 
    * @param: visible New visibility state of credits (boolean, default 
-   *         <code>true</code>)
+   *         &lt;code>true&lt;/code>)
    */
   showCredits(visible=true)
   {
@@ -810,21 +838,21 @@ class MusicBookPlayer
    * 
    * @param: The selector text
    *         FIXME: Not robust; must match CSS rule definition exactly!
-   * @return The rule object or <code>null</code> if the rule was not found
+   * @return The rule object or &lt;code>null&lt;/code> if the rule was not found
    */
   static getCssRule(selectorText)
   {
     // Find MusicBookPlayer CSS link tag
     let linkTag  = null;
     let linkTags = $('link');
-    for (let i=0; i<linkTags.length; i++)
+    for (let i=0; i&lt;linkTags.length; i++)
       if (linkTags[i].href.endsWith('/MusicBookPlayer.js/css/styles.css'))
         linkTag = linkTags[i];
     
     // Find and return CSS rule
     let sheet = linkTag.sheet ? linkTag.sheet : linkTag.styleSheet;
     var rules = sheet.cssRules;
-    for (var i=0; i<rules.length; i++)
+    for (var i=0; i&lt;rules.length; i++)
       if (rules[i].selectorText==selectorText) 
         return rules[i];
 
@@ -837,9 +865,9 @@ class MusicBookPlayer
    * 
    * @param baseURL  Base URL
    * @param resource Absolute or relative resource path
-   * @return <code>resource</code> if the committed value is a full URL, or the
-   *         concatenation of <code>baseURL</code> and <code>resource</code>
-   *         if the committed value of <code>resource</code> was relative
+   * @return &lt;code>resource&lt;/code> if the committed value is a full URL, or the
+   *         concatenation of &lt;code>baseURL&lt;/code> and &lt;code>resource&lt;/code>
+   *         if the committed value of &lt;code>resource&lt;/code> was relative
    */
   static normalizeURL(baseURL,resource)
   {
@@ -866,7 +894,7 @@ class MusicBookPlayer
       path[path.length-1].endsWith('.htm')                                      //   .htm
     ){                                                                          // >> (i.e. with an HTML file name)
       path = path.slice(0,path.length-1);                                       //   Remove file name
-    }                                                                           // <<
+    }                                                                           // &lt;&lt;
     path = origin+path.join('/');                                               // Make URL path
     if (!path.endsWith('/'))                                                    // Not ending with a slash
       path += '/';                                                              //   Append a slash
@@ -926,8 +954,30 @@ if (!String.prototype.endsWith)
     }
     position -= searchString.length;
     var lastIndex = subjectString.indexOf(searchString, position);
-    return lastIndex !== -1 && lastIndex === position;
+    return lastIndex !== -1 &amp;&amp; lastIndex === position;
   };
 }
 
-// EOF
+// EOF</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="MusicBookPlayer.html">MusicBookPlayer</a></li></ul><h3>Global</h3><ul><li><a href="global.html#musicBookPlayer">musicBookPlayer</a></li><li><a href="global.html#musicBookPlayer_html">musicBookPlayer_html</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Sat Sep 11 2021 23:55:41 GMT+0200 (Mitteleuropäische Sommerzeit)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
