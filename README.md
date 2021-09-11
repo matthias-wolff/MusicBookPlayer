@@ -88,8 +88,54 @@ To setup your own music book, you need the following:
 
 <a id="apidoc"></a>
 ## 3&emsp;API Documentation
-You will only need the two static methods described in the following. The complete documentation of `MusicBookPlayer.js` can be found [here](ttps://matthias-wolff.github.io/MusicBookPlayer.js/docs/index.html).
-<span style="background-color:#FFFF00;"><b>[TODO:</b> ...<b>]</b></span>
+You will only need the two static methods described in the following. The complete documentation of `MusicBookPlayer.js` can be found [here](https://matthias-wolff.github.io/MusicBookPlayer.js/docs/index.html).
+
+### `static MusicBookPayer.create(props)`
+Creates the MusicBookPlayer pseudo-singleton. If the object is already existing, the method just returns it. If the singleton is not yet existing, the method creates it and writes the MusicBookPlayer HTML page into the current document. 
+
+#### Parameters:
+<table>
+  <tr><th>Name</th><th>Type</th><th>Description</th></tr>
+  <tr><td>props</td><td>Object</td><td>Music book properties</td></tr>
+  <tr><td></td><td></td><td><i>Properties</i><table>
+    <tr><th>Name</th><th>Type</th><th>Description</th></tr>
+    <tr><td>mediaBaseURI</td><td>string</td><td>Absolute base URI of the book's media files (optional,<br>default undefined: use document base URI)</td></tr>
+    <tr><td>title</td><td>string</td><td>Music book title</td></tr>
+    <tr><td>artist</td><td>string</td><td>Artist name</td></tr>
+    <tr><td>image</td><td>string</td><td>Cover image file name relative to mediaBaseURI</td></tr>
+    <tr><td>descr</td><td>string</td><td>Description text (optional, may contain HTML)</td></tr>
+  </table></td></tr>
+</table>
+
+#### Returns:
+The pseudo-singleton, (object, also stored in global variable musicBookPlayer) 
+
+### `static MusicBookPayer.addPage(props)`
+Adds a new page to the MusicBookPlayer. 
+
+#### Parameters:
+<table>
+  <tr><th>Name</th><th>Type</th><th>Description</th></tr>
+  <tr><td>props</td><td>Object</td><td>Page properties</td></tr>
+  <tr><td></td><td></td><td><i>Properties</i><table>
+    <tr><th>Name</th><th>Type</th><th>Description</th></tr>
+    <tr><td>props.tid</td><td>integer</td><td>One-based track number</td></tr>
+    <tr><td>title</td><td>string</td><td>Page&mdash;i.e., track or part&mdash;title</td></tr>
+    <tr><td>artist</td><td>string</td><td>Artist name (optional, default undefined: use book's artist)</td></tr>
+    <tr><td>audio</td><td>string</td><td>Audio file name <sup>1) 2)</sup></td></tr>
+    <tr><td>image</td><td>string</td><td>Image file name <sup>2)</sup></td></tr>
+    <tr><td>descr</td><td>string</td><td>Description text (optional, may contain HTML)</td></tr>
+    <tr><td>part</td><td>string</td><td>Part title (optional, default undefined: page is a whole track rather<br>than a part of a track)</td></tr>
+    <tr><td>poffs</td><td>float</td><td>The time offset in seconds if the page is part of a track (optional,<br>default undefined: page is a whole track)</td></tr>
+  </table>
+  Footnotes:<br>
+  <sup>1)</sup> mandatory, URL must be unique!<br>
+  <sup>2)</sup> absolute or relative to mediaBaseURI
+  </td></tr>
+</table>
+
+#### Returns:
+The newly created page
 
 <a id="references"></a>
 ## References
