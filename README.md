@@ -88,6 +88,7 @@ To setup your own music book, you need the following:
 
 <a id="apidoc"></a>
 ## 3&emsp;API Documentation
+You will only need the two static methods described in the following. The complete documentation of `MusicBookPlayer.js` can be found [here](docs/index.html).
 <span style="background-color:#FFFF00;"><b>[TODO:</b> ...<b>]</b></span>
 
 <a id="references"></a>
