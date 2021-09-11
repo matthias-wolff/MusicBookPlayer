@@ -1,5 +1,5 @@
 # MusicBookPlayer.js
-DHTML audio player displaying booklet pages for audio tracks
+DHTML audio player displaying booklet pages for audio tracks. 
 
 <a id="contents"></a>**Contents**<br>
 [1&emsp;Introduction](#intruduction)<br>
@@ -11,6 +11,8 @@ DHTML audio player displaying booklet pages for audio tracks
 
 <a id="intruduction"></a>
 ## 1&emsp;Introduction
+First have a look at the [demo](https://matthias-wolff.github.io/MusicBookPlayer.js/demo).
+
 A music book is playlist of audio files (also called _tracks_) including a HTML/Javascript-based player. A music book consists of one or several _pages_ per audio file. Each page displays an image and, optionally, a description text. If there are several pages for one audio file, we will call the respective audio segments _parts_. Each part is defined by an offset in its audio file. The structure of a music book is as follows:
 1. Cover page (1x)
 2. Audio track or part pages (Nx)
@@ -119,7 +121,7 @@ Adds a new page to the MusicBookPlayer.
   <tr><td>props</td><td>Object</td><td>Page properties</td></tr>
   <tr><td></td><td></td><td><i>Properties</i><table>
     <tr><th>Name</th><th>Type</th><th>Description</th></tr>
-    <tr><td>props.tid</td><td>integer</td><td>One-based track number</td></tr>
+    <tr><td>tid</td><td>integer</td><td>One-based track number</td></tr>
     <tr><td>title</td><td>string</td><td>Page&mdash;i.e., track or part&mdash;title</td></tr>
     <tr><td>artist</td><td>string</td><td>Artist name (optional, default undefined: use book's artist)</td></tr>
     <tr><td>audio</td><td>string</td><td>Audio file name <sup>1) 2)</sup></td></tr>
