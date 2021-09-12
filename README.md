@@ -103,14 +103,14 @@ Creates the MusicBookPlayer pseudo-singleton. If the object is already existing,
 #### Parameters:
 <table>
   <tr><th>Name</th><th>Type</th><th>Description</th></tr>
-  <tr><td>props</td><td>Object</td><td>Music book properties</td></tr>
-  <tr><td></td><td></td><td><i>Properties</i><table>
-    <tr><th>Name</th><th>Type</th><th>Description</th></tr>
-    <tr><td>mediaBaseURI</td><td>string</td><td>Absolute base URI of the book's media files (optional,<br>default undefined: use document base URI)</td></tr>
-    <tr><td>title</td><td>string</td><td>Music book title</td></tr>
-    <tr><td>artist</td><td>string</td><td>Artist name</td></tr>
-    <tr><td>image</td><td>string</td><td>Cover image file name relative to mediaBaseURI</td></tr>
-    <tr><td>descr</td><td>string</td><td>Description text (optional, may contain HTML)</td></tr>
+  <tr><td><code>props</code></td><td>Object</td><td>Music book properties</td></tr>
+  <tr><td></td><td></td><td><b><i>Properties</i></b><table>
+    <tr><th>Name</th><th>Type</th><th>Attributes</th><th>Description</th></tr>
+    <tr><td><code>mediaBaseURI</code></td><td>string</td><td>&lt;optional&gt;</td><td>Absolute base URI of the book's<br> media files, i.e., audio and image<br> files. If omitted, the HTML document<br> base URI will be used, which means<br> that themedia files are located in the<br> same folder as <code>index.html</code>.</td></tr>
+    <tr><td><code>title</code></td><td>string</td><td> </td><td>Music book title</td></tr>
+    <tr><td><code>artist</code></td><td>string</td><td> </td><td>Artist name</td></tr>
+    <tr><td><code>image</code></td><td>string</td><td> </td><td>Cover image file name relative to<br> <code>mediaBaseURI</code></td></tr>
+    <tr><td><code>descr</code></td><td>string</td><td>&lt;optional&gt;</td><td>Description text, may contain HTML</td></tr>
   </table></td></tr>
 </table>
 
@@ -123,21 +123,21 @@ Adds a new audio page to the MusicBookPlayer.
 #### Parameters:
 <table>
   <tr><th>Name</th><th>Type</th><th>Description</th></tr>
-  <tr><td>props</td><td>Object</td><td>Page properties</td></tr>
-  <tr><td></td><td></td><td><i>Properties</i><table>
-    <tr><th>Name</th><th>Type</th><th>Description</th></tr>
-    <tr><td>tid</td><td>integer</td><td>One-based track number</td></tr>
-    <tr><td>title</td><td>string</td><td>Page&mdash;i.e., track or part&mdash;title</td></tr>
-    <tr><td>artist</td><td>string</td><td>Artist name (optional, default undefined: use book's artist)</td></tr>
-    <tr><td>audio</td><td>string</td><td>Audio file name <sup>1) 2)</sup></td></tr>
-    <tr><td>image</td><td>string</td><td>Image file name <sup>2)</sup></td></tr>
-    <tr><td>descr</td><td>string</td><td>Description text (optional, may contain HTML)</td></tr>
-    <tr><td>part</td><td>string</td><td>Part title (optional, default undefined: page is a whole track rather<br>than a part of a track)</td></tr>
-    <tr><td>poffs</td><td>float</td><td>The time offset in seconds if the page is part of a track (optional,<br>default undefined: page is a whole track)</td></tr>
+  <tr><td><code>props</code></td><td>Object</td><td>Page properties</td></tr>
+  <tr><td></td><td></td><td><b><i>Properties</i></b><table>
+    <tr><th>Name</th><th>Type</th><th>Attributes</th><th>Description</th></tr>
+    <tr><td><code>tid</code></td><td>integer</td><td> </td><td>One-based track number</td></tr>
+    <tr><td><code>title</code></td><td>string</td><td> </td><td>Page title</td></tr>
+    <tr><td><code>artist</code></td><td>string</td><td>&lt;optional&gt;</td><td>Artist name. If omitted, the book's<br> artist name will be used.</td></tr>
+    <tr><td><code>audio</code></td><td>string</td><td> </td><td>Audio file name <sup>1) 2)</sup></td></tr>
+    <tr><td><code>image</code></td><td>string</td><td> </td><td>Image file name <sup>2)</sup></td></tr>
+    <tr><td><code>descr</code></td><td>string</td><td>&lt;optional&gt;</td><td>Description text, may contain HTML</td></tr>
+    <tr><td><code>part</code></td><td>string</td><td>&lt;optional&gt;</td><td>Part title. If omitted, the page is a whole<br> track rather than a part of a track.</td></tr>
+    <tr><td><code>poffs</code></td><td>float</td><td>&lt;optional&gt;</td><td>The time offset in seconds if the page is<br> part of a track</td></tr>
   </table>
   Footnotes:<br>
   <sup>1)</sup> mandatory, URL must be unique!<br>
-  <sup>2)</sup> absolute or relative to mediaBaseURI
+  <sup>2)</sup> absolute or relative to <code>mediaBaseURI</code>
   </td></tr>
 </table>
 
@@ -146,4 +146,14 @@ The newly created page
 
 <a id="references"></a>
 ## References
-<span style="background-color:#FFFF00;"><b>[TODO:</b> ...<b>]</b></span>
+* [jQuery](https://jquery.com/)
+* [MediaElement.js](https://github.com/mediaelement/mediaelement)
+  * [Documentation](https://github.com/mediaelement/mediaelement/tree/master/docs). (retrieved Aug. 27, 2021)
+  * designmodo: [How to Create an Audio Player in jQuery, HTML5 & CSS3](https://designmodo.com/audio-player/). (retrieved Aug. 27, 2021)
+  * design shack: [Creating a Custom HTML5 Audio Element UI](https://designshack.net/articles/css/custom-html5-audio-element-ui/). (retrieved Aug. 27, 2021)
+* [Spectrum Analyzer](https://audiomotion.dev/#/) by audioMotion
+* Lazy debouncer:
+  * J. Albers-Zoller: [SelfHTML, JavaScript/Tutorials/Debounce und Throttle](https://wiki.selfhtml.org/wiki/JavaScript/Tutorials/Debounce_und_Throttle). (retrieved Sept. 8, 2021)
+  * J. Ashkenas: [Underscore.js](https://underscorejs.org/">Underscore.js). (retrieved Sept. 8, 2021)
+* [Loading animation](https://loading.io) by PlotDB Ltd.
+
