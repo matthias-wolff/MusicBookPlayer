@@ -136,7 +136,7 @@ Adds a new audio page to the MusicBookPlayer.
     <tr><td><code>poffs</code></td><td>float</td><td>&lt;optional&gt;</td><td>The time offset in seconds if the page is<br> part of a track</td></tr>
   </table>
   Footnotes:<br>
-  <sup>1)</sup> mandatory, URL must be unique!<br>
+  <sup>1)</sup> Mandatory for tracks. Omit for parts! Track URL must be unique!<br>
   <sup>2)</sup> absolute or relative to <code>mediaBaseURI</code>
   </td></tr>
 </table>
