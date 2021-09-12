@@ -212,7 +212,8 @@ class MusicBookPlayer
    * @param {float} [props.poffs=undefined] - The time offset in seconds if the 
    *        page is part of a track
    * @see Footnotes:<br>
-   *      <sup>1)</sup> mandatory, URL must be unique!<br>
+   *      <sup>1)</sup> Mandatory for tracks. Omit for parts! Track URL must be 
+   *      unique!<br>
    *      <sup>2)</sup> absolute or relative to <code>mediaBaseURI</code>
    * @return The newly created page
    */
