@@ -86,6 +86,7 @@ const musicBookPlayer_html = `
       </p>
       <h1 style="margin-top: 0.35rem;">Based upon</h1>
       <ul>
+        <li><a target="_blank" href="https://jquery.com/">jQuery</a></li>
         <li>
           <a target="_blank" href="https://github.com/mediaelement/mediaelement">MediaElement.js</a>
           <ul>
@@ -132,16 +133,18 @@ class MusicBookPlayer
    * current document.
    * 
    * @param {Object} props - Music book properties
-   * @param {string} props.mediaBaseURI - mediaBaseURI Absolute base URI of the 
-   *        book's media files (optional, default <code>undefined</code>: use 
-   *        document base URI)
+   * @param {string} [props.mediaBaseURI=undefined] - Absolute base URI of the 
+   *        book's media files, i.e., audio and image files. If omitted, the 
+   *        HTML document base URI will be used, which means that the media 
+   *        files are located in the same folder as <code>index.html</code>.
    * @param {string} props.title - Music book title
    * @param {string} props.artist - Artist name
    * @param {string} props.image - Cover image file name relative to 
    *        <code>mediaBaseURI</code>
-   * @param {string} props.descr - Description text (optional, may contain HTML)
-   * @return The pseudo-singleton, (object, also stored in global variable 
-   *         <code>musicBookPlayer</code>)
+   * @param {string} [props.descr=undefined] - Description text, may contain 
+   *        HTML
+   * @return The pseudo-singleton object. The object is also stored in a global 
+   *         variable named <code>musicBookPlayer</code>.
    */
   static create(props)
   {
@@ -180,7 +183,7 @@ class MusicBookPlayer
     
     // Create cover page (first page of book)                                   // ------------------------------------
     let sbu = musicBookPlayer.scriptBaseURI;                                    // Shortcut script base URI field name
-    MusicBookPlayer.addPage({                                                   // Add cover page >>
+    MusicBookPlayer.addAudioPage({                                                   // Add cover page >>
         title : props.title,                                                    //   Music book title
         artist: props.artist,                                                   //   Music book artist
         audio : MusicBookPlayer.normalizeURL(sbu,'media/coverdummy.mp3'),       //   Cover page dummy audio file
@@ -193,28 +196,27 @@ class MusicBookPlayer
   }
   
   /**
-   * Adds a new page to the MusicBookPlayer.
+   * Adds a new audio page to the MusicBookPlayer.
    * 
    * @param {Object} props - Page properties
-   * @param {integer} props.tid - One-based track number
-   * @param {string} props.title - Page&mdash;i.e., track or part&mdash;title
-   * @param {string} props.artist-  Artist name (optional, default 
-   *        <code>undefined</code>: use book's artist)
+   * @param {integer} props.tid - One-based track number.
+   * @param {string} props.title - Page title
+   * @param {string} [props.artist=undefined] -  Artist name. If omitted, the
+   *        book's artist name will be used.
    * @param {string} props.audio - Audio file name <sup>1) 2)</sup>
    * @param {string} props.image - Image file name <sup>2)</sup>
-   * @param {string} props.descr - Description text (optional, may contain HTML)
-   * @param {string} props.part - Part title (optional, default 
-   *        <code>undefined</code>: page is a whole track rather than a part of 
-   *        a track)
-   * @param {float} props.poffs - The time offset in seconds if the page is part
-   *        of a track (optional, default <code>undefined</code>: page is a 
-   *        whole track)
+   * @param {string} [props.descr=undefined] - Description text, may contain 
+   *        HTML
+   * @param {string} [props.part=undefined] - Part title. If omitted, the 
+   *        page is a whole track rather than a part of a track.
+   * @param {float} [props.poffs=undefined] - The time offset in seconds if the 
+   *        page is part of a track
    * @see Footnotes:<br>
    *      <sup>1)</sup> mandatory, URL must be unique!<br>
    *      <sup>2)</sup> absolute or relative to <code>mediaBaseURI</code>
    * @return The newly created page
    */
-  static addPage(props)
+  static addAudioPage(props)
   {
     // Get singleton instance
     let mbp = musicBookPlayer;
@@ -331,7 +333,7 @@ class MusicBookPlayer
       return tocPage;                                                           //   Return existing TOC page
     }                                                                           // <<
 
-    let tocPage = MusicBookPlayer.addPage({                                     // Add new TOC page >>
+    let tocPage = MusicBookPlayer.addAudioPage({                                     // Add new TOC page >>
       title: 'Contents',                                                        //   Title
       audio: MusicBookPlayer.normalizeURL(                                      //   Dummy audio file
                   musicBookPlayer.scriptBaseURI,                                //   ...

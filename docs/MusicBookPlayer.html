@@ -93,7 +93,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="musicbookplayer.js.html">musicbookplayer.js</a>, <a href="musicbookplayer.js.html#line124">line 124</a>
+        <a href="musicbookplayer.js.html">musicbookplayer.js</a>, <a href="musicbookplayer.js.html#line125">line 125</a>
     </li></ul></dd>
     
 
@@ -149,7 +149,7 @@
     
 
     
-    <h4 class="name" id=".addContentsPage"><span class="type-signature">(static) </span>addContentsPage<span class="signature">()</span><span class="type-signature"></span></h4>
+    <h4 class="name" id=".addAudioPage"><span class="type-signature">(static) </span>addAudioPage<span class="signature">(props)</span><span class="type-signature"></span></h4>
     
 
     
@@ -157,105 +157,7 @@
 
 
 <div class="description">
-    Adds an contents page displaying a hyperlinked list of pages. If a contentspage is already existing, the method does nothing.
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="musicbookplayer.js.html">musicbookplayer.js</a>, <a href="musicbookplayer.js.html#line323">line 323</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    The newly created or existing contents page
-</div>
-
-
-
-    
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id=".addPage"><span class="type-signature">(static) </span>addPage<span class="signature">(props)</span><span class="type-signature"></span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Adds a new page to the MusicBookPlayer.
+    Adds a new audio page to the MusicBookPlayer.
 </div>
 
 
@@ -321,6 +223,8 @@
         <th>Type</th>
 
         
+        <th>Attributes</th>
+        
 
         
 
@@ -346,10 +250,18 @@
             </td>
 
             
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
 
             
 
-            <td class="description last">One-based track number</td>
+            <td class="description last">One-based track number.</td>
         </tr>
 
     
@@ -369,17 +281,25 @@
             </td>
 
             
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
 
             
 
-            <td class="description last">Page&mdash;i.e., track or part&mdash;title</td>
+            <td class="description last">Page title</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>artist-</code></td>
+                <td class="name"><code>artist</code></td>
             
 
             <td class="type">
@@ -392,10 +312,20 @@
             </td>
 
             
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
 
             
 
-            <td class="description last">Artist name (optional, default        <code>undefined</code>: use book's artist)</td>
+            <td class="description last">Artist name. If omitted, the       book's artist name will be used.</td>
         </tr>
 
     
@@ -414,6 +344,14 @@
             
             </td>
 
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
             
 
             
@@ -438,6 +376,14 @@
             </td>
 
             
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
 
             
 
@@ -461,10 +407,20 @@
             </td>
 
             
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
 
             
 
-            <td class="description last">Description text (optional, may contain HTML)</td>
+            <td class="description last">Description text, may contain        HTML</td>
         </tr>
 
     
@@ -484,10 +440,20 @@
             </td>
 
             
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
 
             
 
-            <td class="description last">Part title (optional, default        <code>undefined</code>: page is a whole track rather than a part of        a track)</td>
+            <td class="description last">Part title. If omitted, the        page is a whole track rather than a part of a track.</td>
         </tr>
 
     
@@ -507,10 +473,20 @@
             </td>
 
             
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
 
             
 
-            <td class="description last">The time offset in seconds if the page is part       of a track (optional, default <code>undefined</code>: page is a        whole track)</td>
+            <td class="description last">The time offset in seconds if the        page is part of a track</td>
         </tr>
 
     
@@ -558,7 +534,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="musicbookplayer.js.html">musicbookplayer.js</a>, <a href="musicbookplayer.js.html#line217">line 217</a>
+        <a href="musicbookplayer.js.html">musicbookplayer.js</a>, <a href="musicbookplayer.js.html#line219">line 219</a>
     </li></ul></dd>
     
 
@@ -595,6 +571,104 @@
         
 <div class="param-desc">
     The newly created page
+</div>
+
+
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".addContentsPage"><span class="type-signature">(static) </span>addContentsPage<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Adds an contents page displaying a hyperlinked list of pages. If a contentspage is already existing, the method does nothing.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="musicbookplayer.js.html">musicbookplayer.js</a>, <a href="musicbookplayer.js.html#line325">line 325</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    The newly created or existing contents page
 </div>
 
 
@@ -685,6 +759,8 @@
         <th>Type</th>
 
         
+        <th>Attributes</th>
+        
 
         
 
@@ -710,10 +786,20 @@
             </td>
 
             
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
 
             
 
-            <td class="description last">mediaBaseURI Absolute base URI of the        book's media files (optional, default <code>undefined</code>: use        document base URI)</td>
+            <td class="description last">Absolute base URI of the        book's media files, i.e., audio and image files. If omitted, the        HTML document base URI will be used, which means that the media        files are located in the same folder as <code>index.html</code>.</td>
         </tr>
 
     
@@ -732,6 +818,14 @@
             
             </td>
 
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
             
 
             
@@ -756,6 +850,14 @@
             </td>
 
             
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
 
             
 
@@ -778,6 +880,14 @@
             
             </td>
 
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
             
 
             
@@ -802,10 +912,20 @@
             </td>
 
             
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
 
             
 
-            <td class="description last">Description text (optional, may contain HTML)</td>
+            <td class="description last">Description text, may contain        HTML</td>
         </tr>
 
     
@@ -853,7 +973,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="musicbookplayer.js.html">musicbookplayer.js</a>, <a href="musicbookplayer.js.html#line146">line 146</a>
+        <a href="musicbookplayer.js.html">musicbookplayer.js</a>, <a href="musicbookplayer.js.html#line149">line 149</a>
     </li></ul></dd>
     
 
@@ -882,7 +1002,7 @@
 
         
 <div class="param-desc">
-    The pseudo-singleton, (object, also stored in global variable         <code>musicBookPlayer</code>)
+    The pseudo-singleton object. The object is also stored in a global         variable named <code>musicBookPlayer</code>.
 </div>
 
 
@@ -951,7 +1071,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="musicbookplayer.js.html">musicbookplayer.js</a>, <a href="musicbookplayer.js.html#line815">line 815</a>
+        <a href="musicbookplayer.js.html">musicbookplayer.js</a>, <a href="musicbookplayer.js.html#line817">line 817</a>
     </li></ul></dd>
     
 
@@ -1111,7 +1231,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="musicbookplayer.js.html">musicbookplayer.js</a>, <a href="musicbookplayer.js.html#line859">line 859</a>
+        <a href="musicbookplayer.js.html">musicbookplayer.js</a>, <a href="musicbookplayer.js.html#line861">line 861</a>
     </li></ul></dd>
     
 
@@ -1209,7 +1329,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="musicbookplayer.js.html">musicbookplayer.js</a>, <a href="musicbookplayer.js.html#line259">line 259</a>
+        <a href="musicbookplayer.js.html">musicbookplayer.js</a>, <a href="musicbookplayer.js.html#line261">line 261</a>
     </li></ul></dd>
     
 
@@ -1359,7 +1479,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="musicbookplayer.js.html">musicbookplayer.js</a>, <a href="musicbookplayer.js.html#line844">line 844</a>
+        <a href="musicbookplayer.js.html">musicbookplayer.js</a>, <a href="musicbookplayer.js.html#line846">line 846</a>
     </li></ul></dd>
     
 
@@ -1457,7 +1577,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="musicbookplayer.js.html">musicbookplayer.js</a>, <a href="musicbookplayer.js.html#line597">line 597</a>
+        <a href="musicbookplayer.js.html">musicbookplayer.js</a>, <a href="musicbookplayer.js.html#line599">line 599</a>
     </li></ul></dd>
     
 
@@ -1555,7 +1675,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="musicbookplayer.js.html">musicbookplayer.js</a>, <a href="musicbookplayer.js.html#line371">line 371</a>
+        <a href="musicbookplayer.js.html">musicbookplayer.js</a>, <a href="musicbookplayer.js.html#line373">line 373</a>
     </li></ul></dd>
     
 
@@ -1705,7 +1825,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="musicbookplayer.js.html">musicbookplayer.js</a>, <a href="musicbookplayer.js.html#line354">line 354</a>
+        <a href="musicbookplayer.js.html">musicbookplayer.js</a>, <a href="musicbookplayer.js.html#line356">line 356</a>
     </li></ul></dd>
     
 
@@ -1837,7 +1957,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="musicbookplayer.js.html">musicbookplayer.js</a>, <a href="musicbookplayer.js.html#line784">line 784</a>
+        <a href="musicbookplayer.js.html">musicbookplayer.js</a>, <a href="musicbookplayer.js.html#line786">line 786</a>
     </li></ul></dd>
     
 
@@ -1969,7 +2089,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="musicbookplayer.js.html">musicbookplayer.js</a>, <a href="musicbookplayer.js.html#line768">line 768</a>
+        <a href="musicbookplayer.js.html">musicbookplayer.js</a>, <a href="musicbookplayer.js.html#line770">line 770</a>
     </li></ul></dd>
     
 
@@ -2101,7 +2221,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="musicbookplayer.js.html">musicbookplayer.js</a>, <a href="musicbookplayer.js.html#line739">line 739</a>
+        <a href="musicbookplayer.js.html">musicbookplayer.js</a>, <a href="musicbookplayer.js.html#line741">line 741</a>
     </li></ul></dd>
     
 
@@ -2233,7 +2353,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="musicbookplayer.js.html">musicbookplayer.js</a>, <a href="musicbookplayer.js.html#line752">line 752</a>
+        <a href="musicbookplayer.js.html">musicbookplayer.js</a>, <a href="musicbookplayer.js.html#line754">line 754</a>
     </li></ul></dd>
     
 
@@ -2321,7 +2441,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="musicbookplayer.js.html">musicbookplayer.js</a>, <a href="musicbookplayer.js.html#line712">line 712</a>
+        <a href="musicbookplayer.js.html">musicbookplayer.js</a>, <a href="musicbookplayer.js.html#line714">line 714</a>
     </li></ul></dd>
     
 
@@ -2471,7 +2591,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="musicbookplayer.js.html">musicbookplayer.js</a>, <a href="musicbookplayer.js.html#line452">line 452</a>
+        <a href="musicbookplayer.js.html">musicbookplayer.js</a>, <a href="musicbookplayer.js.html#line454">line 454</a>
     </li></ul></dd>
     
 
@@ -2559,7 +2679,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="musicbookplayer.js.html">musicbookplayer.js</a>, <a href="musicbookplayer.js.html#line480">line 480</a>
+        <a href="musicbookplayer.js.html">musicbookplayer.js</a>, <a href="musicbookplayer.js.html#line482">line 482</a>
     </li></ul></dd>
     
 
@@ -2647,7 +2767,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="musicbookplayer.js.html">musicbookplayer.js</a>, <a href="musicbookplayer.js.html#line560">line 560</a>
+        <a href="musicbookplayer.js.html">musicbookplayer.js</a>, <a href="musicbookplayer.js.html#line562">line 562</a>
     </li></ul></dd>
     
 
@@ -2735,7 +2855,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="musicbookplayer.js.html">musicbookplayer.js</a>, <a href="musicbookplayer.js.html#line381">line 381</a>
+        <a href="musicbookplayer.js.html">musicbookplayer.js</a>, <a href="musicbookplayer.js.html#line383">line 383</a>
     </li></ul></dd>
     
 
@@ -2867,7 +2987,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="musicbookplayer.js.html">musicbookplayer.js</a>, <a href="musicbookplayer.js.html#line535">line 535</a>
+        <a href="musicbookplayer.js.html">musicbookplayer.js</a>, <a href="musicbookplayer.js.html#line537">line 537</a>
     </li></ul></dd>
     
 
@@ -2955,7 +3075,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="musicbookplayer.js.html">musicbookplayer.js</a>, <a href="musicbookplayer.js.html#line549">line 549</a>
+        <a href="musicbookplayer.js.html">musicbookplayer.js</a>, <a href="musicbookplayer.js.html#line551">line 551</a>
     </li></ul></dd>
     
 
@@ -3087,7 +3207,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="musicbookplayer.js.html">musicbookplayer.js</a>, <a href="musicbookplayer.js.html#line510">line 510</a>
+        <a href="musicbookplayer.js.html">musicbookplayer.js</a>, <a href="musicbookplayer.js.html#line512">line 512</a>
     </li></ul></dd>
     
 
@@ -3249,7 +3369,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="musicbookplayer.js.html">musicbookplayer.js</a>, <a href="musicbookplayer.js.html#line577">line 577</a>
+        <a href="musicbookplayer.js.html">musicbookplayer.js</a>, <a href="musicbookplayer.js.html#line579">line 579</a>
     </li></ul></dd>
     
 
@@ -3337,7 +3457,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="musicbookplayer.js.html">musicbookplayer.js</a>, <a href="musicbookplayer.js.html#line800">line 800</a>
+        <a href="musicbookplayer.js.html">musicbookplayer.js</a>, <a href="musicbookplayer.js.html#line802">line 802</a>
     </li></ul></dd>
     
 
@@ -3487,7 +3607,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="musicbookplayer.js.html">musicbookplayer.js</a>, <a href="musicbookplayer.js.html#line494">line 494</a>
+        <a href="musicbookplayer.js.html">musicbookplayer.js</a>, <a href="musicbookplayer.js.html#line496">line 496</a>
     </li></ul></dd>
     
 
@@ -3619,7 +3739,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="musicbookplayer.js.html">musicbookplayer.js</a>, <a href="musicbookplayer.js.html#line625">line 625</a>
+        <a href="musicbookplayer.js.html">musicbookplayer.js</a>, <a href="musicbookplayer.js.html#line627">line 627</a>
     </li></ul></dd>
     
 
@@ -3671,7 +3791,7 @@
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Sat Sep 11 2021 23:55:42 GMT+0200 (Mitteleuropäische Sommerzeit)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Sun Sep 12 2021 21:25:44 GMT+0200 (Mitteleuropäische Sommerzeit)
 </footer>
 
 <script> prettyPrint(); </script>
