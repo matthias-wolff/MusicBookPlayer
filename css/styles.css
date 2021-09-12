@@ -41,7 +41,6 @@ main {
   width: 100%;
   min-height: calc(100vh - 10rem);
   background-color: #030303;       /* <- Track ambient color! */
-  background-image: url(../img/loading.svg);
   background-repeat: no-repeat;
   background-position: center center;
 }

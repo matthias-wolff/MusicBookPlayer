@@ -74,9 +74,9 @@ const musicBookPlayer_html = `
 </header>
 
 <!-- Music Book Content -->
-<main>
+<main style="background-image:url(§{scriptBaseURI}img/loading.svg);">
   <div class="content" id="content"></div>
-  <div class="credits">
+  <div class="credits" id="credits">
     <aside class="with-close-button">
       <button class="close"onclick="musicBookPlayer.showCredits(false);" title="Close" aria-label="Close"></button>
       <h1>Music Book Player</h1>
@@ -110,7 +110,7 @@ const musicBookPlayer_html = `
 </main>
 
 <!-- Scripts -->
-<!-- [[MUSICBOOK_DEF]] -->
+<!-- §{MUSICBOOK_DEF} -->
 <!-- End of <MusicBookPlayerURL>/html/bodytemplate.html -->
 `;
 
@@ -276,7 +276,7 @@ class MusicBookPlayer
     document.querySelector('.mbp-prev button').style.visibility = 'visible';
     
     // Remove loading animation CSS rule
-    MusicBookPlayer.getCssRule('main').style.backgroundImage='';
+    document.getElementsByTagName('main')[0].style['background-image']='';
 
     // Attach and configure MediaElement player
     musicBookPlayer.mep = document.querySelector('#audio-player');
@@ -374,7 +374,9 @@ class MusicBookPlayer
   editHtmlBody()
   {
     let elem  = document.querySelector('body');
-    let parts = musicBookPlayer_html.split('<!-- [[MUSICBOOK_DEF]] -->');
+    let html  = musicBookPlayer_html;
+    html = html.replace('§{scriptBaseURI}',this.scriptBaseURI)
+    let parts = html.split('<!-- §{MUSICBOOK_DEF} -->');
     elem.innerHTML = parts[0]+elem.innerHTML+parts[1];
   }
   
@@ -581,13 +583,11 @@ class MusicBookPlayer
   {
     pid = Math.max(0,Math.min(pid,this.pages.length-1));                        // Rectify page ID
     let cnte = document.getElementById('content');                              // Content division element
-    let rule = MusicBookPlayer.getCssRule('div.content');                       // Get content div's CSS rule
-    let sbeh = rule.style.scrollBehavior;                                       // Get scrolling behavior
     if (immediate)                                                              // Immediate scrolling requested
-      rule.style.scrollBehavior = 'auto';                                       //   Set scroll behavior in CSS rule
+      cnte.style.scrollBehavior = 'auto';                                       //   Set immediate scroll behavior
     cnte.scrollLeft = pid * cnte.scrollWidth / this.pages.length                // Scroll to page
     if (immediate)                                                              // Immediate scrolling requested
-      rule.style.scrollBehavior = sbeh;                                         //   Restore scrl. behavior in CSS rule
+      cnte.style.scrollBehavior = '';                                           //   Restore scrl. behavior to CSS rule
   }
   
   /**
@@ -741,9 +741,17 @@ class MusicBookPlayer
    */
   enablePlayButton(state)
   {
-    let img  = state ? 'play.svg' : 'play-disabled.svg';
-    let rule = MusicBookPlayer.getCssRule('.mejs-controls .mejs-play button');
-    rule.style.backgroundImage = `url(../img/${img})`;
+    try
+    {
+      let img  = state ? 'play.svg' : 'play-disabled.svg';
+      let rule = MusicBookPlayer.getCssRule('.mejs-controls .mejs-play button');
+      rule.style.backgroundImage = `url(../img/${img})`;
+    }
+    catch (e)
+    {
+      // Probably CSS cross-origin access error -> ignore
+      console.log(e);
+    }
   }
 
   /**
@@ -803,7 +811,7 @@ class MusicBookPlayer
   showCredits(visible=true)
   {
     let v = visible ? 'visible' : 'hidden';
-    MusicBookPlayer.getCssRule('div.credits').style.visibility = v;
+    document.getElementById('credits').style.visibility = v;
   }
   
   // -- Static Helpers --
@@ -873,8 +881,7 @@ class MusicBookPlayer
     path = origin+path.join('/');                                               // Make URL path
     if (!path.endsWith('/'))                                                    // Not ending with a slash
       path += '/';                                                              //   Append a slash
-    console.log('"'+resource+'" -> "'+path+'"');
-    return path;                                                                // Return base URL path
+     return path;                                                                // Return base URL path
   }
 
 }
