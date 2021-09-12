@@ -1,28 +1,29 @@
-# MusicBookPlayer.js
+# MusicBookPlayer.js&ensp;[&rang;&rang;&thinsp;Demo](https://matthias-wolff.github.io/MusicBookPlayer.js/demo)
 DHTML audio player displaying booklet pages for audio tracks. 
+
+| Cover Page Example | Track Page Example | Contents Page Example | 
+| :---: |  :---: |  :---: | 
+| <img src="docs/img/MusicBookPlayer_Screenshot_01.jpg" style="width:20rem" alt="MusicBookPlayer: Cover page example"/><br>&nbsp; | <img src="docs/img/MusicBookPlayer_Screenshot_02.jpg" style="width:20rem" alt="MusicBookPlayer: Cover page example"/><br>&nbsp;(click on images to enlarge) | <img src="docs/img/MusicBookPlayer_Screenshot_03.jpg" style="width:20rem" alt="MusicBookPlayer: Cover page example"/><br>&nbsp; |
 
 <a id="contents"></a>**Contents**<br>
 [1&emsp;Introduction](#intruduction)<br>
 [2&emsp;Create Your Own Music Book](#cyomb)<br>
 &emsp;&ensp;[2.1&emsp;Prerequisites](#prerequisites)<br>
 &emsp;&ensp;[2.2&emsp;Setup](#setup)<br>
+&emsp;&ensp;[2.2&emsp;Customization](#customization)<br>
 [3&emsp;API Documentation](#apidoc)<br>
 [References](#references)
 
 <a id="intruduction"></a>
 ## 1&emsp;Introduction
-First have a look at the [demo](https://matthias-wolff.github.io/MusicBookPlayer.js/demo).
+A music book is playlist of audio tracks, each accompanied by an image and an optional description text &ndash; much like a good old-fashioned audio CD with a booklet. Each audio track may be split into several _parts_ which show their own images and description texts. A music book is structured as follows:
+1. Cover page (1&times;)
+2. Audio pages (<var>n</var>&times;, one per audio track or serveral part pages per audio track)
+3. Contents page (1&times;, created automatically)
 
-A music book is playlist of audio files (also called _tracks_) including a HTML/Javascript-based player. A music book consists of one or several _pages_ per audio file. Each page displays an image and, optionally, a description text. If there are several pages for one audio file, we will call the respective audio segments _parts_. Each part is defined by an offset in its audio file. The structure of a music book is as follows:
-1. Cover page (1x)
-2. Audio track or part pages (Nx)
-3. Table of contents (1x, created automatically)
+`MusicBookPlayer.js` is a DHTML/Javascript-based player for music books. It features audio controls (play/pause, time rail), play list controls (next, previous, contents), and a [live audio spectrum analyzer](https://audiomotion.dev/#/) &ndash; see screenshots above.
 
-`MusicBookPlayer.js` features audio controls (play/pause, time rail), play list contols (next, previous, contents), and a [live audio spectrum analyzer](https://audiomotion.dev/#/). In a browser, a music book will be displayed like this (click on images to enlarge):
-
-| Cover page example | Part page example | Contents page example | 
-| :---: |  :---: |  :---: | 
-| <img src="docs/img/MusicBookPlayer_Screenshot_01.jpg" style="width:20rem" alt="MusicBookPlayer: Cover page example"/> | <img src="docs/img/MusicBookPlayer_Screenshot_02.jpg" style="width:20rem" alt="MusicBookPlayer: Cover page example"/> | <img src="docs/img/MusicBookPlayer_Screenshot_03.jpg" style="width:20rem" alt="MusicBookPlayer: Cover page example"/> |
+**[Click here to see a demo](https://matthias-wolff.github.io/MusicBookPlayer.js/demo).**
 
 <a id="cyomb"></a>
 ## 2&emsp;Create Your Own Music Book
@@ -42,7 +43,7 @@ To setup your own music book, you need the following:
 
 <a id="setup"></a>
 ### 2.2&emsp;Setup
-1. Create a folder for the music book on your local device or your webserver and copy the audio and image files to that folder (see [demo folder](demo/) for an example).
+1. Create a folder for the music book on your local device or your webserver and copy the audio and image filesyour book to that folder (see [demo folder](demo/) for an example).
 2. Create an `index.html` file containing the following code in the music book folder:
 ```html
 <!DOCTYPE html>
@@ -69,14 +70,14 @@ To setup your own music book, you need the following:
         image : 'CoverImage.jpg',         // Mandatory 
         descr : 'Music book descripion',  // Optional
       });
-    MusicBookPlayer.addPage({             // Add a page (see API description below)
+    MusicBookPlayer.addAudioPage({        // Add an audio page (see API description below)
         tid   : 1,                        // Mandatory: Track ID
         title : 'Track title',            // Mandatory
         audio : 'TrackAudio.mp3',         // Mandatory for tracks
         image : 'TrackImage.jpg',         // Mandatory
         descr : 'Track description',      // Optional
       });
-    // More pages...
+    // More audio pages...
   </script>
 
   <!-- Create spectrum analyzer (must be on end of page body1!) -->
@@ -87,6 +88,10 @@ To setup your own music book, you need the following:
 ```
 3. _Optionally:_ If you want to host an own installation of `MusicBookPlayer.js`, check out or fork the `MusicBookPlayer.js` library and copy the contents to a local folder or to a folder on your webserver. In the `index.html` file of your music book, replace all occurrances of `https://matthias-wolff.github.io/MusicBookPlayer.js/` by the URL of your copy of the `MusicBookPlayer.js` library.<br>**Note:** All `*.md` files and the `demo` folder of your copy can be deleted.
 4. Initialize your music book in Javascript section `<!-- Initialize Music Book here -->` of `index.html` (see [API Documentation](#apidoc) below).
+
+<a id="customization"></a>
+### 2.3&emsp;Customization
+The player skin is competely controlled by a stylesheet. Download [`css/styles.css`](css/styles.css), modify it to your needs and have your HTML include your style file instead of the default one &ndash; that's it.
 
 <a id="apidoc"></a>
 ## 3&emsp;API Documentation
@@ -112,8 +117,8 @@ Creates the MusicBookPlayer pseudo-singleton. If the object is already existing,
 #### Returns:
 The pseudo-singleton, (object, also stored in global variable musicBookPlayer) 
 
-### `static MusicBookPayer.addPage(props)`
-Adds a new page to the MusicBookPlayer. 
+### `static MusicBookPayer.addAudioPage(props)`
+Adds a new audio page to the MusicBookPlayer. 
 
 #### Parameters:
 <table>
