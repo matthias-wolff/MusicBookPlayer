@@ -12,6 +12,7 @@ DHTML audio player displaying booklet pages for audio tracks.
 &emsp;&ensp;[2.2&emsp;Setup](#setup)<br>
 &emsp;&ensp;[2.2&emsp;Customization](#customization)<br>
 [3&emsp;API Documentation](#apidoc)<br>
+[4&emsp;Tested Configurations](#testedConfigs)<br>
 [References](#references)
 
 <a id="intruduction"></a>
@@ -143,6 +144,15 @@ Adds a new audio page to the MusicBookPlayer.
 
 #### Returns:
 The newly created page
+
+<a id="testedConfigs"></a>
+## 4&emsp;Tested Configurations
+|                                                                                      | Browser | Version | OS         | Particular Issues |
+| ------------------------------------------------------------------------------------ | :------ | :------ | :--------- | :---------------- |
+| ![Firefox](https://matthias-wolff.github.io/MusicBookPlayer.js/docs/img/firefox.png) | Firefox | 91.4    | Android    | _none_            |
+| ![Firefox](https://matthias-wolff.github.io/MusicBookPlayer.js/docs/img/firefox.png) | Firefox | 92      | Windows 10 | _none_            |
+
+More to be tested. **Help wanted** (see [issue #2](https://github.com/matthias-wolff/MusicBookPlayer.js/issues/2))!
 
 <a id="references"></a>
 ## References
