@@ -11,9 +11,9 @@ $(function()
   new MediaElementPlayer(document.querySelector('#audio-player'), 
   {
     alwaysShowControls: true,
-    features:           ['playpause','current','progress','duration'],
-    startVolume:        1,
-    autoRewind:         false,
+    features          : ['playpause','current','progress','duration'],
+    startVolume       : 1,
+    autoRewind        : false,
     success: function(media,node) 
     {
       MusicBookPlayer.initialize();
@@ -43,8 +43,8 @@ const musicBookPlayer_html = `
     </div>
     <audio id="audio-player" 
       style="width:100%; height:40%;" controls="controls" 
-      src="https://matthias-wolff.github.io/MusicBookPlayer.js/media/coverdummy.mp3">
-    </audio>
+      src="https://matthias-wolff.github.io/MusicBookPlayer.js/media/coverdummy.mp3"
+    ></audio>
   </div>
   <div class="track-controls">
     <div class="track-info">
@@ -424,7 +424,7 @@ class MusicBookPlayer
   {
     let elem  = document.querySelector('body');
     let html  = musicBookPlayer_html;
-    html = html.replace('§{scriptBaseURI}',this.scriptBaseURI)
+    html = html.replace(/§{scriptBaseURI}/g,this.scriptBaseURI)
     let parts = html.split('<!-- §{MUSICBOOK_DEF} -->');
     elem.innerHTML = parts[0]+elem.innerHTML+parts[1];
   }

@@ -3,7 +3,6 @@
 /* -- Page Structure and General Styles ------------------------------------- */
 
 body { /* Page body */
-  position: sticky;
   margin: 0;
   padding: 0;
   border: none;
@@ -21,6 +20,7 @@ body { /* Page body */
 }
 
 header {
+	z-index: 9999;
   position: fixed;
   top: 0;
   background: #2c2d33;
