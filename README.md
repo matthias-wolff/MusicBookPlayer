@@ -91,11 +91,11 @@ To setup your own music book, you need the following:
 
 <a id="customization"></a>
 ### 2.3&emsp;Customization
-The player skin is competely controlled by a stylesheet. Download [`css/styles.css`](css/styles.css), modify it to your needs and have your HTML include your style file instead of the default one &ndash; that's it.
+The player skin is competely controlled by a stylesheet. Download [`css/styles.css`](https://github.com/matthias-wolff/MusicBookPlayer.js/blob/main/css/styles.css), modify it to your needs and have your HTML include your style file instead of the default one &ndash; that's it.
 
 <a id="apidoc"></a>
 ## 3&emsp;API Documentation
-You will only need the two static methods described in the following. The complete documentation of `MusicBookPlayer.js` can be found [here](https://matthias-wolff.github.io/MusicBookPlayer.js/docs/MusicBookPlayer.html).
+You will only need the two static methods described in the following. The complete documentation can be found [here](https://matthias-wolff.github.io/MusicBookPlayer.js/docs/MusicBookPlayer.js/1.0.0/MusicBookPlayer.html).
 
 ### `static MusicBookPayer.create(props)`
 Creates the MusicBookPlayer pseudo-singleton. If the object is already existing, the method just returns it. If the singleton is not yet existing, the method creates it and writes the MusicBookPlayer HTML page into the current document. 
