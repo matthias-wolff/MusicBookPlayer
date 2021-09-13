@@ -1,5 +1,5 @@
 # MusicBookPlayer.js&ensp;[&rang;&rang;&thinsp;Demo](https://matthias-wolff.github.io/MusicBookPlayer.js/demo)
-DHTML audio player displaying booklet pages for audio tracks. 
+DHTML audio player displaying booklet pages for audio tracks and parts of audio tracks. 
 
 | Cover Page Example | Track Page Example | Contents Page Example | 
 | :---: |  :---: |  :---: | 
