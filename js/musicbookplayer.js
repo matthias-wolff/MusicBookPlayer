@@ -358,6 +358,8 @@ class MusicBookPlayer
         musicBookPlayer.handleScrollEvent.debounce(100)
       );
     
+    // TODO: Replace click event handler in mediaelement-and-player.min.js:1652
+    
     // Reset content scroll position and goto cover page 
     musicBookPlayer.scrollTo(0,true);
     musicBookPlayer.goto(0);
