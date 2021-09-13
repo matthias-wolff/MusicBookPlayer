@@ -358,7 +358,7 @@ class MusicBookPlayer
         musicBookPlayer.handleScrollEvent.debounce(100)
       );
     
-    // TODO: Replace click event handler in mediaelement-and-player.min.js:1652
+    // TODO: Replace click event handler in mediaelement-and-player.min.js:1652 (see bug #5)
     
     // Reset content scroll position and goto cover page 
     musicBookPlayer.scrollTo(0,true);
@@ -383,7 +383,7 @@ class MusicBookPlayer
       return tocPage;                                                           //   Return existing TOC page
     }                                                                           // <<
 
-    let tocPage = MusicBookPlayer.addAudioPage({                                     // Add new TOC page >>
+    let tocPage = MusicBookPlayer.addAudioPage({                                // Add new TOC page >>
       title: 'Contents',                                                        //   Title
       audio: MusicBookPlayer.normalizeURL(                                      //   Dummy audio file
                   musicBookPlayer.scriptBaseURI,                                //   ...
