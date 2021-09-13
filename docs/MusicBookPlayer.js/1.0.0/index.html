@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Home</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Home</h1>
+
+    
+
+
+
+    
+
+
+    <h3>MusicBookPlayer.js 1.0.0</h3>
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+    <section>
+        <article><h1>MusicBookPlayer.js <a href="https://matthias-wolff.github.io/MusicBookPlayer.js/demo">⟩⟩ Demo</a></h1>
+<p>DHTML audio player displaying booklet pages for audio tracks.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Cover Page Example</th>
+<th style="text-align:center">Track Page Example</th>
+<th style="text-align:center">Contents Page Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><img src="https://matthias-wolff.github.io/MusicBookPlayer.js/docs/img/MusicBookPlayer_Screenshot_01.jpg" style="width:20rem" alt="MusicBookPlayer: Cover page example"/><br> </td>
+<td style="text-align:center"><img src="https://matthias-wolff.github.io/MusicBookPlayer.js/docs/img/MusicBookPlayer_Screenshot_02.jpg" style="width:20rem" alt="MusicBookPlayer: Cover page example"/><br> (click on images to enlarge)</td>
+<td style="text-align:center"><img src="https://matthias-wolff.github.io/MusicBookPlayer.js/docs/img/MusicBookPlayer_Screenshot_03.jpg" style="width:20rem" alt="MusicBookPlayer: Cover page example"/><br> </td>
+</tr>
+</tbody>
+</table>
+<p><a id="contents"></a><strong>Contents</strong><br>
+<a href="#intruduction">1 Introduction</a><br>
+<a href="#cyomb">2 Create Your Own Music Book</a><br>
+  <a href="#prerequisites">2.1 Prerequisites</a><br>
+  <a href="#setup">2.2 Setup</a><br>
+  <a href="#customization">2.2 Customization</a><br>
+<a href="#apidoc">3 API Documentation</a><br>
+<a href="#references">References</a></p>
+<p><a id="intruduction"></a></p>
+<h2>1 Introduction</h2>
+<p>A music book is playlist of audio tracks, each accompanied by an image and an optional description text – much like a good old-fashioned audio CD with a booklet. Each audio track may be split into several <em>parts</em> which show their own images and description texts. A music book is structured as follows:</p>
+<ol>
+<li>Cover page (1×)</li>
+<li>Audio pages (<var>n</var>×, one per audio track or serveral part pages per audio track)</li>
+<li>Contents page (1×, created automatically)</li>
+</ol>
+<p><code>MusicBookPlayer.js</code> is a DHTML/Javascript-based player for music books. It features audio controls (play/pause, time rail), play list controls (next, previous, contents), and a <a href="https://audiomotion.dev/#/">live audio spectrum analyzer</a> – see screenshots above.</p>
+<p><strong><a href="https://matthias-wolff.github.io/MusicBookPlayer.js/demo">Click here to see a demo</a>.</strong></p>
+<p><a id="cyomb"></a></p>
+<h2>2 Create Your Own Music Book</h2>
+<p>The <code>MusicBookPlayer.js</code> library is to allow you creating your own music books. It is optimized for smartphones but it will work on tablets and desktop devices as well. <code>MusicBookPlayer.js</code> will run locally and on webservers.</p>
+<p><a id="prerequisites"></a></p>
+<h3>2.1 Prerequisites</h3>
+<p>To setup your own music book, you need the following:</p>
+<ol>
+<li>a bunch of audio files<sup>1)</sup></li>
+<li>a cover image for the book<sup>2)</sup></li>
+<li>an image for each page of the book<sup>2)</sup></li>
+<li>optionally, a description text for the book and for each page<sup>3)</sup></li>
+</ol>
+<p><sup>1)</sup> preferably MP3s<br>
+<sup>2)</sup> preferably square JPEGs, e.g. 600 x 600 px<br>
+<sup>3)</sup> may contain HTML markup</p>
+<p><a id="setup"></a></p>
+<h3>2.2 Setup</h3>
+<ol>
+<li>Create a folder for the music book on your local device or your webserver and copy the audio and image filesyour book to that folder (see <a href="demo/">demo folder</a> for an example).</li>
+<li>Create an <code>index.html</code> file containing the following code in the music book folder:</li>
+</ol>
+<pre class="prettyprint source lang-html"><code>&lt;!DOCTYPE html>
+&lt;html lang=&quot;en-US&quot;>
+&lt;head>
+  &lt;meta charset=&quot;utf-8&quot;/>
+  &lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html&quot;/>
+  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;/> 
+  &lt;link rel=&quot;shortcut icon&quot; href=&quot;https://matthias-wolff.github.io/MusicBookPlayer.js/img/MusicBookPlayer.ico&quot;/>
+  &lt;link rel=&quot;icon&quot; href=&quot;https://matthias-wolff.github.io/MusicBookPlayer.js/img/MusicBookPlayer.ico&quot;/>
+  &lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; media=&quot;screen&quot; href=&quot;https://matthias-wolff.github.io/MusicBookPlayer.js/css/styles.css&quot;/>
+  &lt;script type=&quot;text/javascript&quot; src=&quot;https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js&quot;>&lt;/script>
+  &lt;script type=&quot;text/javascript&quot; src=&quot;https://matthias-wolff.github.io/MusicBookPlayer.js/js/mediaelement-and-player.min.js&quot;>&lt;/script>
+  &lt;script type=&quot;text/javascript&quot; src=&quot;https://matthias-wolff.github.io/MusicBookPlayer.js/js/musicbookplayer.js&quot;>&lt;/script>
+&lt;/head>
+&lt;body>
+
+  &lt;!-- Initialize Music Book here -->  
+  &lt;script type=&quot;text/javascript&quot;>
+    MusicBookPlayer.create({              // Create music book (see API description below)
+        //mediaBaseURI: document.baseURI, // Can be omitted when document base URI
+        title : 'Music book title',       // Mandatory
+        artist: 'Music book artist',      // Mandatory
+        image : 'CoverImage.jpg',         // Mandatory 
+        descr : 'Music book descripion',  // Optional
+      });
+    MusicBookPlayer.addAudioPage({        // Add an audio page (see API description below)
+        tid   : 1,                        // Mandatory: Track ID
+        title : 'Track title',            // Mandatory
+        audio : 'TrackAudio.mp3',         // Mandatory for tracks
+        image : 'TrackImage.jpg',         // Mandatory
+        descr : 'Track description',      // Optional
+      });
+    // More audio pages...
+  &lt;/script>
+
+  &lt;!-- Create spectrum analyzer (must be on end of page body1!) -->
+  &lt;script src=&quot;https://matthias-wolff.github.io/MusicBookPlayer.js/js/audioMotion.js&quot; type=&quot;module&quot;>&lt;/script>
+
+&lt;/body>
+&lt;/html>
+</code></pre>
+<ol start="3">
+<li><em>Optionally:</em> If you want to host an own installation of <code>MusicBookPlayer.js</code>, check out or fork the <code>MusicBookPlayer.js</code> library and copy the contents to a local folder or to a folder on your webserver. In the <code>index.html</code> file of your music book, replace all occurrances of <code>https://matthias-wolff.github.io/MusicBookPlayer.js/</code> by the URL of your copy of the <code>MusicBookPlayer.js</code> library.<br><strong>Note:</strong> All <code>*.md</code> files and the <code>demo</code> folder of your copy can be deleted.</li>
+<li>Initialize your music book in Javascript section <code>&lt;!-- Initialize Music Book here --&gt;</code> of <code>index.html</code> (see <a href="#apidoc">API Documentation</a> below).</li>
+</ol>
+<p><a id="customization"></a></p>
+<h3>2.3 Customization</h3>
+<p>The player skin is competely controlled by a stylesheet. Download <a href="https://github.com/matthias-wolff/MusicBookPlayer.js/blob/main/css/styles.css"><code>css/styles.css</code></a>, modify it to your needs and have your HTML include your style file instead of the default one – that's it.</p>
+<p><a id="apidoc"></a></p>
+<h2>3 API Documentation</h2>
+<p>You will only need the two static methods described in the following. The complete documentation can be found <a href="https://matthias-wolff.github.io/MusicBookPlayer.js/docs/MusicBookPlayer.js/1.0.0/MusicBookPlayer.html">here</a>.</p>
+<h3><code>static MusicBookPayer.create(props)</code></h3>
+<p>Creates the MusicBookPlayer pseudo-singleton. If the object is already existing, the method just returns it. If the singleton is not yet existing, the method creates it and writes the MusicBookPlayer HTML page into the current document.</p>
+<h4>Parameters:</h4>
+<table>
+  <tr><th>Name</th><th>Type</th><th>Description</th></tr>
+  <tr><td><code>props</code></td><td>Object</td><td>Music book properties</td></tr>
+  <tr><td></td><td></td><td><b><i>Properties</i></b><table>
+    <tr><th>Name</th><th>Type</th><th>Attributes</th><th>Description</th></tr>
+    <tr><td><code>mediaBaseURI</code></td><td>string</td><td>&lt;optional&gt;</td><td>Absolute base URI of the book's<br> media files, i.e., audio and image<br> files. If omitted, the HTML document<br> base URI will be used, which means<br> that themedia files are located in the<br> same folder as <code>index.html</code>.</td></tr>
+    <tr><td><code>title</code></td><td>string</td><td> </td><td>Music book title</td></tr>
+    <tr><td><code>artist</code></td><td>string</td><td> </td><td>Artist name</td></tr>
+    <tr><td><code>image</code></td><td>string</td><td> </td><td>Cover image file name relative to<br> <code>mediaBaseURI</code></td></tr>
+    <tr><td><code>descr</code></td><td>string</td><td>&lt;optional&gt;</td><td>Description text, may contain HTML</td></tr>
+  </table></td></tr>
+</table>
+<h4>Returns:</h4>
+<p>The pseudo-singleton, (object, also stored in global variable musicBookPlayer)</p>
+<h3><code>static MusicBookPayer.addAudioPage(props)</code></h3>
+<p>Adds a new audio page to the MusicBookPlayer.</p>
+<h4>Parameters:</h4>
+<table>
+  <tr><th>Name</th><th>Type</th><th>Description</th></tr>
+  <tr><td><code>props</code></td><td>Object</td><td>Page properties</td></tr>
+  <tr><td></td><td></td><td><b><i>Properties</i></b><table>
+    <tr><th>Name</th><th>Type</th><th>Attributes</th><th>Description</th></tr>
+    <tr><td><code>tid</code></td><td>integer</td><td> </td><td>One-based track number</td></tr>
+    <tr><td><code>title</code></td><td>string</td><td> </td><td>Page title</td></tr>
+    <tr><td><code>artist</code></td><td>string</td><td>&lt;optional&gt;</td><td>Artist name. If omitted, the book's<br> artist name will be used.</td></tr>
+    <tr><td><code>audio</code></td><td>string</td><td> </td><td>Audio file name <sup>1) 2)</sup></td></tr>
+    <tr><td><code>image</code></td><td>string</td><td> </td><td>Image file name <sup>2)</sup></td></tr>
+    <tr><td><code>descr</code></td><td>string</td><td>&lt;optional&gt;</td><td>Description text, may contain HTML</td></tr>
+    <tr><td><code>part</code></td><td>string</td><td>&lt;optional&gt;</td><td>Part title. If omitted, the page is a whole<br> track rather than a part of a track.</td></tr>
+    <tr><td><code>poffs</code></td><td>float</td><td>&lt;optional&gt;</td><td>The time offset in seconds if the page is<br> part of a track</td></tr>
+  </table>
+  Footnotes:<br>
+  <sup>1)</sup> Mandatory for tracks. Omit for parts! Track URL must be unique!<br>
+  <sup>2)</sup> absolute or relative to <code>mediaBaseURI</code>
+  </td></tr>
+</table>
+<h4>Returns:</h4>
+<p>The newly created page</p>
+<p><a id="references"></a></p>
+<h2>References</h2>
+<ul>
+<li><a href="https://jquery.com/">jQuery</a></li>
+<li><a href="https://github.com/mediaelement/mediaelement">MediaElement.js</a>
+<ul>
+<li><a href="https://github.com/mediaelement/mediaelement/tree/master/docs">Documentation</a>. (retrieved Aug. 27, 2021)</li>
+<li>designmodo: <a href="https://designmodo.com/audio-player/">How to Create an Audio Player in jQuery, HTML5 &amp; CSS3</a>. (retrieved Aug. 27, 2021)</li>
+<li>design shack: <a href="https://designshack.net/articles/css/custom-html5-audio-element-ui/">Creating a Custom HTML5 Audio Element UI</a>. (retrieved Aug. 27, 2021)</li>
+</ul>
+</li>
+<li><a href="https://audiomotion.dev/#/">Spectrum Analyzer</a> by audioMotion</li>
+<li>Lazy debouncer:
+<ul>
+<li>J. Albers-Zoller: <a href="https://wiki.selfhtml.org/wiki/JavaScript/Tutorials/Debounce_und_Throttle">SelfHTML, JavaScript/Tutorials/Debounce und Throttle</a>. (retrieved Sept. 8, 2021)</li>
+<li>J. Ashkenas: <a href="https://underscorejs.org/%22%3EUnderscore.js">Underscore.js</a>. (retrieved Sept. 8, 2021)</li>
+</ul>
+</li>
+<li><a href="https://loading.io">Loading animation</a> by PlotDB Ltd.</li>
+</ul></article>
+    </section>
+
+
+
+
+
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>musicbookplayer.js</h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class="description">Music Book Player - Javascripts</div>
+        
+
+        
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li>Matthias Wolff</li>
+        </ul>
+    </dd>
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="musicbookplayer.js.html">musicbookplayer.js</a>, <a href="musicbookplayer.js.html#line1">line 1</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="MusicBookPlayer.html">MusicBookPlayer</a></li></ul><h3>Global</h3><ul><li><a href="global.html#musicBookPlayer">musicBookPlayer</a></li><li><a href="global.html#musicBookPlayer_html">musicBookPlayer_html</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Mon Sep 13 2021 16:00:36 GMT+0200 (Mitteleuropäische Sommerzeit)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
