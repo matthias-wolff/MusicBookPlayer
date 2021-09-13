@@ -25,6 +25,8 @@ $(function()
 
 /**
  * The music book player HTML page body.
+ * @type {string}
+ * @constant
  */
 const musicBookPlayer_html = `
 <!-- Begin of <MusicBookPlayerURL>/html/bodytemplate.html -->
@@ -115,12 +117,14 @@ const musicBookPlayer_html = `
 `;
 
 /**
- * The MusicBookPlayer pseudo singleton
+ * The MusicBookPlayer pseudo-singleton.
+ * @type {Object}
  */
 var musicBookPlayer = null;
 
 /**
  * The MusicBookPlayer class
+ * @public
  */
 class MusicBookPlayer
 {  
@@ -130,7 +134,8 @@ class MusicBookPlayer
    * Creates the MusicBookPlayer pseudo-singleton. If the object is already
    * existing, the method just returns it. If the singleton is not yet existing,
    * the method creates it and writes the MusicBookPlayer HTML page into the 
-   * current document.
+   * current document. 
+   * @public
    * 
    * @param {Object} props - Music book properties
    * @param {string} [props.mediaBaseURI=undefined] - Absolute base URI of the 
@@ -153,12 +158,9 @@ class MusicBookPlayer
       return musicBookPlayer;                                                   //   Return it
 
     // Create new object                                                        // ------------------------------------
-    musicBookPlayer = new MusicBookPlayer();                                    // The MusicBookPlayer singleton
-    musicBookPlayer.title       = props.title;                                  // Music book title
-    musicBookPlayer.artist      = props.artist;                                 // Music book artist
-    musicBookPlayer.currentPage = -1;                                           // Current page ID (zero-based)
-    musicBookPlayer.tocPage     = -1;                                           // TOC page ID (zero-based)
-    musicBookPlayer.pages       = [];                                           // Array of pages
+    musicBookPlayer        = new MusicBookPlayer();                             // The MusicBookPlayer singleton
+    musicBookPlayer.title  = props.title;                                       // Music book title
+    musicBookPlayer.artist = props.artist;                                      // Music book artist
 
     // Detect MediaBookPlayer Javascript base URI                               // ------------------------------------
     let scripts = $('script');                                                  // List HTML script tags
@@ -197,6 +199,7 @@ class MusicBookPlayer
   
   /**
    * Adds a new audio page to the MusicBookPlayer.
+   * @public
    * 
    * @param {Object} props - Page properties
    * @param {integer} props.tid - One-based track number.
@@ -253,11 +256,54 @@ class MusicBookPlayer
   }
 
   // -- Constructor and One-Time Initialization --
+
+  /**
+   * Creates a new music book.
+   * @protected
+   */
+  constructor()
+  {
+    /**
+     * Music book title.
+     * @type {string}
+     * @protected
+     */
+    this.title = undefined;
+
+    /**
+     * Music book artist.
+     * @type {string}
+     * @protected
+     */
+    this.artist = undefined; 
+
+    /**
+     * Current page ID (zero-based).
+     * @type {integer}
+     * @protected
+     */
+    this.currentPage = -1; 
+
+    /**
+     * TOC page ID (zero-based).
+     * @type {integer}
+     * @protected
+     */
+    this.tocPage = -1; 
+
+    /**
+     * Array of pages.
+     * @type {Object[]}
+     * @protected
+     */
+    this.pages = []; 
+  }
   
   /**
    * Initializes the MusicBookPlayer pseudo-singleton. The method is to be 
    * invoked only after the underlying MediaElement has been loaded, i.e., in 
    * callback <code>MediaElement.success</code>.
+   * @protected
    */
   static initialize()
   {
@@ -320,6 +366,7 @@ class MusicBookPlayer
   /**
    * Adds an contents page displaying a hyperlinked list of pages. If a contents
    * page is already existing, the method does nothing.
+   * @protected
    * 
    * @return The newly created or existing contents page
    */
@@ -350,9 +397,10 @@ class MusicBookPlayer
 
   /**
    * Creates the title tag inner text.
+   * @protected
    * 
-   * @param title  Music book title
-   * @param artist Artist name
+   * @param {string} title  Music book title
+   * @param {string} artist Music book artist
    */
   editHtmlHead(title,artist)
   {
@@ -370,6 +418,7 @@ class MusicBookPlayer
 
   /**
    * Loads the HTML body template and writes it to the current document.
+   * @protected
    */
   editHtmlBody()
   {
@@ -382,6 +431,7 @@ class MusicBookPlayer
   
   /**
    * Creates HTML code of the table of contents page.
+   * @protected
    */
   makeToc()
   {
@@ -448,9 +498,10 @@ class MusicBookPlayer
   
   /**
    * Moves to the specified page.
+   * @protected
    * 
-   * @param pid One-based index of page, 0 for cover page (integer)
-   * @param play If <code>true</code>, play page's audio file, if 
+   * @param {integer} pid - Zero-based index of page, 0 for cover page
+   * @param {boolean }play - If <code>true</code>, play page's audio file, if 
    *        <code>false</code>, stop playing, if <code>undefined</code>, retain
    *        playing state. 
    */
@@ -481,6 +532,7 @@ class MusicBookPlayer
 
   /**
    * Scrolls to the TOC page (and keeps the current page active).
+   * @protected
    */
   gotoToc()
   {
@@ -490,9 +542,10 @@ class MusicBookPlayer
   /**
    * Moves from the TOC page to another page. If parameter <code>pid</code>
    * refers to the current page, just scroll back and do not rewind audio.
+   * @protected
    * 
-   * @param pid One-based index of page, 0 for cover page (integer)
-   * @param play If <code>true</code>, play page's audio file, if 
+   * @param {integer} pid - Zero-based index of page, 0 for cover page
+   * @param {boolean} play - If <code>true</code>, play page's audio file, if 
    *        <code>false</code>, stop playing, if <code>undefined</code>, retain
    *        playing state. 
    */
@@ -507,8 +560,9 @@ class MusicBookPlayer
   
   /**
    * Moves to the previous page if any.
+   * @protected
    * 
-   * @param play If <code>true</code>, play page's audio file, if 
+   * @param {boolean} play - If <code>true</code>, play page's audio file, if 
    *        <code>false</code>, stop playing, if <code>undefined</code>, retain
    *        playing state. 
    */
@@ -532,8 +586,9 @@ class MusicBookPlayer
 
   /**
    * Moves to the next page if any.
+   * @protected
    * 
-   * @param play If <code>true</code>, play page's audio file, if 
+   * @param {boolean} play - If <code>true</code>, play page's audio file, if 
    *        <code>false</code>, stop playing, if <code>undefined</code>, retain
    *        playing state. 
    */
@@ -550,6 +605,7 @@ class MusicBookPlayer
   /**
    * Retrieves the page ID for the current scroll position of the content 
    * division element.
+   * @protected
    */
   pageIdFromScrollPos()
   {
@@ -561,6 +617,7 @@ class MusicBookPlayer
   
   /**
    * Content division element scroll event hander.
+   * @protected
    */
   handleScrollEvent()
   {
@@ -574,10 +631,11 @@ class MusicBookPlayer
 
   /**
    * Scrolls the contents area to a given page.
+   * @protected
    * 
-   * @param pid       One-based index of page, 0 for cover page (integer)
-   * @param immediate If <code>true</code>, skip scroll animation (boolean,
-   *                  default is <code>false</code>)
+   * @param {integer} pid - Zero-based index of page, 0 for cover page
+   * @param {boolean} [immediate=false] - If <code>true</code>, skip scroll 
+   *        animation
    */
   scrollTo(pid,immediate=false)
   {
@@ -593,6 +651,7 @@ class MusicBookPlayer
   /**
    * Detects the page from the current source and time index of the audio player
    * element.
+   * @protected
    * 
    * @return The One-based page number, 0 for the cover page, or -1 in case
    *         of errors.
@@ -622,8 +681,9 @@ class MusicBookPlayer
 
   /**
    * Updates the UI.
+   * @protected
    * 
-   * @param  Force update (default is <code>false</code>)
+   * @param {boolean} [force=false] - Force update
    */
   updateUI(force=false)
   {
@@ -708,9 +768,10 @@ class MusicBookPlayer
 
   /**
    * HACK: Fix toggling of MediaElement's play/pause button.
+   * @protected
    * 
-   * @param: play If <code>true</code>, show "play" icon, otherwise show "pause"
-   *         icon.
+   * @param {boolean} play - If <code>true</code>, show "play" icon, otherwise 
+   *        show "pause" icon.
    */
   fixTogglePlayPauseButton(play)
   {
@@ -735,9 +796,10 @@ class MusicBookPlayer
   
   /**
    * Enables or disables the play button.
+   * @protected
    * 
-   * @param New state, <code>true</code> for enabled, <code>false</code> for 
-   *        disabled.
+   * @param {boolean} state - New state, <code>true</code> for enabled, 
+   *        <code>false</code> for disabled.
    */
   enablePlayButton(state)
   {
@@ -756,9 +818,10 @@ class MusicBookPlayer
 
   /**
    * Enables or disables the previous part/track button.
+   * @protected
    * 
-   * @param New state, <code>true</code> for enabled, <code>false</code> for 
-   *        disabled.
+   * @param {boolean} state - New state, <code>true</code> for enabled, 
+   *        <code>false</code> for disabled.
    */
   enablePrevButton(state)
   {
@@ -772,9 +835,10 @@ class MusicBookPlayer
 
   /**
    * Enables or disables the next part/track button.
+   * @protected
    * 
-   * @param New state, <code>true</code> for enabled, <code>false</code> for 
-   *        disabled.
+   * @param {boolean} state - New state, <code>true</code> for enabled, 
+   *        <code>false</code> for disabled.
    */
   enableNextButton(state)
   {
@@ -788,9 +852,10 @@ class MusicBookPlayer
 
   /**
    * Enables or disables the contents button.
+   * @protected
    * 
-   * @param New state, <code>true</code> for enabled, <code>false</code> for 
-   *        disabled.
+   * @param {boolean} state - New state, <code>true</code> for enabled, 
+   *        <code>false</code> for disabled.
    */
   enableCntsButton(state)
   {
@@ -804,9 +869,9 @@ class MusicBookPlayer
 
   /**
    * Shows or hides the credits pseudo window.
+   * @protected
    * 
-   * @param: visible New visibility state of credits (boolean, default 
-   *         <code>true</code>)
+   * @param {boolean} [visible=true] - New visibility state of credits
    */
   showCredits(visible=true)
   {
@@ -817,9 +882,12 @@ class MusicBookPlayer
   // -- Static Helpers --
 
   /**
-   * Retrieves a rule from the MediaBookPlayer CSS file.
+   * Retrieves a rule from the MediaBookPlayer CSS file.<br>
+   * <b>NOTE:</b> This method is prone to throwing CSS cross-origin access
+   * errors and should not be used.
+   * @protected
    * 
-   * @param: The selector text
+   * @param {string} selectorText - The selector text<br>
    *         FIXME: Not robust; must match CSS rule definition exactly!
    * @return The rule object or <code>null</code> if the rule was not found
    */
@@ -845,9 +913,10 @@ class MusicBookPlayer
   
   /**
    * Normalizes a resource's URL.
+   * @protected
    * 
-   * @param baseURL  Base URL
-   * @param resource Absolute or relative resource path
+   * @param {string} baseURL - Base URL
+   * @param {string} resource - Absolute or relative resource path
    * @return <code>resource</code> if the committed value is a full URL, or the
    *         concatenation of <code>baseURL</code> and <code>resource</code>
    *         if the committed value of <code>resource</code> was relative
@@ -859,12 +928,13 @@ class MusicBookPlayer
   }
 
   /**
-   * Gets the absulute URL of an HTML resource folder.
+   * Gets the absolute URL of an HTML resource folder.
    * 
-   * @param baseURL  Base URL
-   * @param resource Absolute or relative resource path. If the path name ends
-   *                 with '.html' or '.htm', the entire HTML file name will be
-   *                 removed to obtain the folder URL which contains the file.
+   * @param {string} baseURL - Base URL
+   * @param {string} resource - Absolute or relative resource path. If the path 
+   *        name ends with <code>'.html'</code> or <code>'.htm'</code>, the 
+   *        entire HTML file name will be removed to obtain the folder URL which
+   *        contains the file.
    * @return The absolute URL as described above
    */
   static getFolderURL(resource,baseURL)
@@ -918,6 +988,7 @@ Function.prototype.debounce = function(wait)
 
 /**
  * Define String.endsWith if missing.
+ * 
  * @see https://developer.mozilla.org/de/docs/Web/JavaScript/Reference/Global_Objects/String/endsWith
  */
 if (!String.prototype.endsWith) 
