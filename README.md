@@ -81,7 +81,7 @@ To setup your own music book, you need the following:
     // More audio pages...
   </script>
 
-  <!-- Create spectrum analyzer (must be on end of page body!) -->
+  <!-- Create spectrum analyzer (must be at end of page body!) -->
   <script src="https://matthias-wolff.github.io/MusicBookPlayer.js/js/audioMotion.js" type="module"></script>
 
 </body>
