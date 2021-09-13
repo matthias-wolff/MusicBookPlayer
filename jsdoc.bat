@@ -1,1 +1,1 @@
-jsdoc -d ../docs musicbookplayer.js
+jsdoc -P package-docs.json -R ../README.md -d ../docs musicbookplayer.js audioMotion.js

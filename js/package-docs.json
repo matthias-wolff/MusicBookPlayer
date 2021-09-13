@@ -1,0 +1,14 @@
+{
+  "name"       : "MusicBookPlayer.js",
+  "version"    : "1.0.0",
+  "description": "DHTML audio player displaying booklet pages for audio tracks.",
+  "author"     : "Matthias Wolff (https://www.b-tu.de/en/fg-kommunikationstechnik/team/staff/prof-dr-ing-habil-matthias-wolff)",
+  "repository" : {
+    "type"     :   "git",
+    "url"      :   "https://github.com/matthias-wolff/MusicBookPlayer.js.git"
+                 },
+  "homepage"   : "https://github.com/matthias-wolff/MusicBookPlayer.js",
+  "bugs"       : "https://github.com/matthias-wolff/MusicBookPlayer.js/issues",
+  "license"    : "MIT",
+  "main"       : "musicbookplayer.js"
+}
