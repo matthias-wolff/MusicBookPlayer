@@ -3,7 +3,7 @@ DHTML audio player displaying booklet pages for audio tracks.
 
 | Cover Page Example | Track Page Example | Contents Page Example | 
 | :---: |  :---: |  :---: | 
-| <img src="docs/img/MusicBookPlayer_Screenshot_01.jpg" style="width:20rem" alt="MusicBookPlayer: Cover page example"/><br>&nbsp; | <img src="docs/img/MusicBookPlayer_Screenshot_02.jpg" style="width:20rem" alt="MusicBookPlayer: Cover page example"/><br>&nbsp;(click on images to enlarge) | <img src="docs/img/MusicBookPlayer_Screenshot_03.jpg" style="width:20rem" alt="MusicBookPlayer: Cover page example"/><br>&nbsp; |
+| <img src="https://matthias-wolff.github.io/MusicBookPlayer.js/docs/img/MusicBookPlayer_Screenshot_01.jpg" style="width:20rem" alt="MusicBookPlayer: Cover page example"/><br>&nbsp; | <img src="https://matthias-wolff.github.io/MusicBookPlayer.js/docs/img/MusicBookPlayer_Screenshot_02.jpg" style="width:20rem" alt="MusicBookPlayer: Cover page example"/><br>&nbsp;(click on images to enlarge) | <img src="https://matthias-wolff.github.io/MusicBookPlayer.js/docs/img/MusicBookPlayer_Screenshot_03.jpg" style="width:20rem" alt="MusicBookPlayer: Cover page example"/><br>&nbsp; |
 
 <a id="contents"></a>**Contents**<br>
 [1&emsp;Introduction](#intruduction)<br>
