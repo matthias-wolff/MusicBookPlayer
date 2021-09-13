@@ -149,9 +149,9 @@ The newly created page
 ## 4&emsp;Tested Configurations
 |                                                                                      | Browser | Version | OS         | Particular Issues                   |
 | ------------------------------------------------------------------------------------ | :------ | :------ | :--------- | :---------------------------------- |
-| ![Chrome](https://matthias-wolff.github.io/MusicBookPlayer.js/docs/img/chrome.png)   | Chrome  | 93.0    | Android    | Minor: Cover dummy track not played |
-| ![Chrome](https://matthias-wolff.github.io/MusicBookPlayer.js/docs/img/chrome.png)   | Chrome  | 93.0    | Windows 10 | Minor: Cover dummy track not played |
-| ![Edge](https://matthias-wolff.github.io/MusicBookPlayer.js/docs/img/edge.png)       | Edge    | 93.0    | Windows 10 | Minor: Cover dummy track not played |
+| ![Chrome](https://matthias-wolff.github.io/MusicBookPlayer.js/docs/img/chrome.png)   | Chrome  | 93.0    | Android    | [bug #5](https://github.com/matthias-wolff/MusicBookPlayer.js/issues/5) |
+| ![Chrome](https://matthias-wolff.github.io/MusicBookPlayer.js/docs/img/chrome.png)   | Chrome  | 93.0    | Windows 10 | [bug #5](https://github.com/matthias-wolff/MusicBookPlayer.js/issues/5) |
+| ![Edge](https://matthias-wolff.github.io/MusicBookPlayer.js/docs/img/edge.png)       | Edge    | 93.0    | Windows 10 | [bug #5](https://github.com/matthias-wolff/MusicBookPlayer.js/issues/5) |
 | ![Firefox](https://matthias-wolff.github.io/MusicBookPlayer.js/docs/img/firefox.png) | Firefox | 91.4    | Android    | _none_                              |
 | ![Firefox](https://matthias-wolff.github.io/MusicBookPlayer.js/docs/img/firefox.png) | Firefox | 93.0    | Windows 10 | _none_                              |
 
