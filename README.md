@@ -95,7 +95,7 @@ The player skin is competely controlled by a stylesheet. Download [`css/styles.c
 
 <a id="apidoc"></a>
 ## 3&emsp;API Documentation
-You will only need the two static methods described in the following. The complete documentation can be found [here](https://matthias-wolff.github.io/MusicBookPlayer.js/docs/MusicBookPlayer.js/1.0.0/MusicBookPlayer.html).
+You will only need the two static methods described in the following. [Click here to see the full documentation](https://matthias-wolff.github.io/MusicBookPlayer.js/docs/MusicBookPlayer.js/1.0.0/MusicBookPlayer.html).
 
 ### `static MusicBookPayer.create(props)`
 Creates the MusicBookPlayer pseudo-singleton. If the object is already existing, the method just returns it. If the singleton is not yet existing, the method creates it and writes the MusicBookPlayer HTML page into the current document. 
