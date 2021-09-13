@@ -43,7 +43,7 @@ To setup your own music book, you need the following:
 
 <a id="setup"></a>
 ### 2.2&emsp;Setup
-1. Create a folder for the music book on your local device or your webserver and copy the audio and image filesyour book to that folder (see [demo folder](demo/) for an example).
+1. Create a folder for the music book on your local device or your webserver and copy the audio and image filesyour book to that folder (see [demo folder](https://github.com/matthias-wolff/MusicBookPlayer.js/blob/main/demo/) for an example).
 2. Create an `index.html` file containing the following code in the music book folder:
 ```html
 <!DOCTYPE html>
