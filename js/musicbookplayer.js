@@ -43,7 +43,7 @@ const musicBookPlayer_html = `
     </div>
     <audio id="audio-player" 
       style="width:100%; height:40%;" controls="controls" 
-      src="https://matthias-wolff.github.io/MusicBookPlayer.js/media/coverdummy.mp3"
+      src="https://matthias-wolff.github.io/MusicBookPlayer/media/coverdummy.mp3"
     ></audio>
   </div>
   <div class="track-controls">
@@ -84,7 +84,7 @@ const musicBookPlayer_html = `
       <h1>Music Book Player</h1>
       <p>
         by <a target="_blank" href="https://www.b-tu.de/en/fg-kommunikationstechnik/team/staff/prof-dr-ing-habil-matthias-wolff">Matthias Wolff</a>,
-        hosted on <a target="_blank" href="https://github.com/matthias-wolff/MusicBookPlayer.js">GitHub</a>
+        hosted on <a target="_blank" href="https://github.com/matthias-wolff/MusicBookPlayer">GitHub</a>
       </p>
       <h1 style="margin-top: 0.35rem;">Based upon</h1>
       <ul>
@@ -899,7 +899,7 @@ class MusicBookPlayer
     let linkTag  = null;
     let linkTags = $('link');
     for (let i=0; i<linkTags.length; i++)
-      if (linkTags[i].href.endsWith('/MusicBookPlayer.js/css/styles.css'))
+      if (linkTags[i].href.endsWith('/MusicBookPlayer/css/styles.css'))
         linkTag = linkTags[i];
     
     // Find and return CSS rule

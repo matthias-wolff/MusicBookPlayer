@@ -1,9 +1,9 @@
-# MusicBookPlayer.js&ensp;[&rang;&rang;&thinsp;Demo](https://matthias-wolff.github.io/MusicBookPlayer.js/demo)
+# MusicBookPlayer&ensp;[&rang;&rang;&thinsp;Demo](https://matthias-wolff.github.io/MusicBookPlayer/demo)
 DHTML audio player displaying booklet pages for audio tracks and parts of audio tracks. 
 
 | Cover Page Example | Part-of-Track Page Example | Contents Page Example | 
 | :---: |  :---: |  :---: | 
-| <img src="https://matthias-wolff.github.io/MusicBookPlayer.js/docs/img/MusicBookPlayer_Screenshot_01.jpg" style="width:20rem" alt="MusicBookPlayer: Cover page example"/><br>&nbsp; | <img src="https://matthias-wolff.github.io/MusicBookPlayer.js/docs/img/MusicBookPlayer_Screenshot_02.jpg" style="width:20rem" alt="MusicBookPlayer: Cover page example"/><br>&nbsp;(click on images to enlarge) | <img src="https://matthias-wolff.github.io/MusicBookPlayer.js/docs/img/MusicBookPlayer_Screenshot_03.jpg" style="width:20rem" alt="MusicBookPlayer: Cover page example"/><br>&nbsp; |
+| <img src="https://matthias-wolff.github.io/MusicBookPlayer/docs/img/MusicBookPlayer_Screenshot_01.jpg" style="width:20rem" alt="MusicBookPlayer: Cover page example"/> | <img src="https://matthias-wolff.github.io/MusicBookPlayer/docs/img/MusicBookPlayer_Screenshot_02.jpg" style="width:20rem" alt="MusicBookPlayer: Cover page example"/> | <img src="https://matthias-wolff.github.io/MusicBookPlayer/docs/img/MusicBookPlayer_Screenshot_03.jpg" style="width:20rem" alt="MusicBookPlayer: Cover page example"/> |
 
 <a id="contents"></a>**Contents**<br>
 [1&emsp;Introduction](#intruduction)<br>
@@ -22,13 +22,13 @@ A music book is playlist of audio tracks, each accompanied by an image and an op
 2. Audio pages (<var>n</var>&times;, one per audio track or serveral part pages per audio track)
 3. Contents page (1&times;, created automatically)
 
-`MusicBookPlayer.js` is a DHTML/Javascript-based player for music books. It features audio controls (play/pause, time rail), play list controls (next, previous, contents), and a [live audio spectrum analyzer](https://audiomotion.dev/#/) &ndash; see screenshots above.
+`MusicBookPlayer` is a DHTML/Javascript-based player for music books. It features audio controls (play/pause, time rail), play list controls (next, previous, contents), and a [live audio spectrum analyzer](https://audiomotion.dev/#/) &ndash; see screenshots above.
 
-**[Click here to see a demo](https://matthias-wolff.github.io/MusicBookPlayer.js/demo).**
+**[Click here to see a demo](https://matthias-wolff.github.io/MusicBookPlayer/demo).**
 
 <a id="cyomb"></a>
 ## 2&emsp;Create Your Own Music Book
-The `MusicBookPlayer.js` library is to allow you creating your own music books. It is optimized for smartphones but it will work on tablets and desktop devices as well. `MusicBookPlayer.js` will run locally and on webservers.
+The `MusicBookPlayer` library is to allow you creating your own music books. It is optimized for smartphones but it will work on tablets and desktop devices as well. `MusicBookPlayer` will run locally and on webservers.
 
 <a id="prerequisites"></a>
 ### 2.1&emsp;Prerequisites
@@ -44,7 +44,7 @@ To setup your own music book, you need the following:
 
 <a id="setup"></a>
 ### 2.2&emsp;Setup
-1. Create a folder for the music book on your local device or your webserver and copy the audio and image filesyour book to that folder (see [demo folder](https://github.com/matthias-wolff/MusicBookPlayer.js/blob/main/demo/) for an example).
+1. Create a folder for the music book on your local device or your webserver and copy the audio and image filesyour book to that folder (see [demo folder](https://github.com/matthias-wolff/MusicBookPlayer/blob/main/demo/) for an example).
 2. Create an `index.html` file containing the following code in the music book folder:
 ```html
 <!DOCTYPE html>
@@ -53,12 +53,12 @@ To setup your own music book, you need the following:
   <meta charset="utf-8"/>
   <meta http-equiv="Content-Type" content="text/html"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/> 
-  <link rel="shortcut icon" href="https://matthias-wolff.github.io/MusicBookPlayer.js/img/MusicBookPlayer.ico"/>
-  <link rel="icon" href="https://matthias-wolff.github.io/MusicBookPlayer.js/img/MusicBookPlayer.ico"/>
-  <link rel="stylesheet" type="text/css" media="screen" href="https://matthias-wolff.github.io/MusicBookPlayer.js/css/styles.css"/>
+  <link rel="shortcut icon" href="https://matthias-wolff.github.io/MusicBookPlayer/img/MusicBookPlayer.ico"/>
+  <link rel="icon" href="https://matthias-wolff.github.io/MusicBookPlayer/img/MusicBookPlayer.ico"/>
+  <link rel="stylesheet" type="text/css" media="screen" href="https://matthias-wolff.github.io/MusicBookPlayer/css/styles.css"/>
   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-  <script type="text/javascript" src="https://matthias-wolff.github.io/MusicBookPlayer.js/js/mediaelement-and-player.min.js"></script>
-  <script type="text/javascript" src="https://matthias-wolff.github.io/MusicBookPlayer.js/js/musicbookplayer.js"></script>
+  <script type="text/javascript" src="https://matthias-wolff.github.io/MusicBookPlayer/js/mediaelement-and-player.min.js"></script>
+  <script type="text/javascript" src="https://matthias-wolff.github.io/MusicBookPlayer/js/musicbookplayer.js"></script>
 </head>
 <body>
 
@@ -82,21 +82,21 @@ To setup your own music book, you need the following:
   </script>
 
   <!-- Create spectrum analyzer (must be at end of page body!) -->
-  <script src="https://matthias-wolff.github.io/MusicBookPlayer.js/js/audioMotion.js" type="module"></script>
+  <script src="https://matthias-wolff.github.io/MusicBookPlayer/js/audioMotion.js" type="module"></script>
 
 </body>
 </html>
 ```
-3. _Optionally:_ If you want to host an own installation of `MusicBookPlayer.js`, check out or fork the `MusicBookPlayer.js` library and copy the contents to a local folder or to a folder on your webserver. In the `index.html` file of your music book, replace all occurrances of `https://matthias-wolff.github.io/MusicBookPlayer.js/` by the URL of your copy of the `MusicBookPlayer.js` library.<br>**Note:** All `*.md` files and the `demo` folder of your copy can be deleted.
+3. _Optionally:_ If you want to host an own installation of `MusicBookPlayer`, check out or fork the `MusicBookPlayer` library and copy the contents to a local folder or to a folder on your webserver. In the `index.html` file of your music book, replace all occurrances of `https://matthias-wolff.github.io/MusicBookPlayer/` by the URL of your copy of the `MusicBookPlayer` library.<br>**Note:** All `*.md` files and the `demo` folder of your copy can be deleted.
 4. Initialize your music book in Javascript section `<!-- Initialize Music Book here -->` of `index.html` (see [API Documentation](#apidoc) below).
 
 <a id="customization"></a>
 ### 2.3&emsp;Customization
-The player skin is competely controlled by a stylesheet. Download [`css/styles.css`](https://github.com/matthias-wolff/MusicBookPlayer.js/blob/main/css/styles.css), modify it to your needs and have your HTML include your style file instead of the default one &ndash; that's it.
+The player skin is competely controlled by a stylesheet. Download [`css/styles.css`](https://github.com/matthias-wolff/MusicBookPlayer/blob/main/css/styles.css), modify it to your needs and have your HTML include your style file instead of the default one &ndash; that's it.
 
 <a id="apidoc"></a>
 ## 3&emsp;API Documentation
-You will only need the two static methods described in the following. [Click here to see the full documentation](https://matthias-wolff.github.io/MusicBookPlayer.js/docs/MusicBookPlayer.js/1.0.0/MusicBookPlayer.html).
+You will only need the two static methods described in the following. [Click here to see the full documentation](https://matthias-wolff.github.io/MusicBookPlayer/docs/MusicBookPlayer/1.0.0/MusicBookPlayer.html).
 
 ### `static MusicBookPayer.create(props)`
 Creates the MusicBookPlayer pseudo-singleton. If the object is already existing, the method just returns it. If the singleton is not yet existing, the method creates it and writes the MusicBookPlayer HTML page into the current document. 
@@ -149,13 +149,13 @@ The newly created page
 ## 4&emsp;Tested Configurations
 |                                                                                      | Browser | Version | OS         | Particular Issues                   |
 | ------------------------------------------------------------------------------------ | :------ | :------ | :--------- | :---------------------------------- |
-| ![Chrome](https://matthias-wolff.github.io/MusicBookPlayer.js/docs/img/chrome.png)   | Chrome  | 93.0    | Android    | _none_                              |
-| ![Chrome](https://matthias-wolff.github.io/MusicBookPlayer.js/docs/img/chrome.png)   | Chrome  | 93.0    | Windows 10 | _none_                              |
-| ![Edge](https://matthias-wolff.github.io/MusicBookPlayer.js/docs/img/edge.png)       | Edge    | 93.0    | Windows 10 | _none_                              |
-| ![Firefox](https://matthias-wolff.github.io/MusicBookPlayer.js/docs/img/firefox.png) | Firefox | 91.4    | Android    | _none_                              |
-| ![Firefox](https://matthias-wolff.github.io/MusicBookPlayer.js/docs/img/firefox.png) | Firefox | 93.0    | Windows 10 | _none_                              |
+| ![Chrome](https://matthias-wolff.github.io/MusicBookPlayer/docs/img/chrome.png)   | Chrome  | 93.0    | Android    | _none_                              |
+| ![Chrome](https://matthias-wolff.github.io/MusicBookPlayer/docs/img/chrome.png)   | Chrome  | 93.0    | Windows 10 | _none_                              |
+| ![Edge](https://matthias-wolff.github.io/MusicBookPlayer/docs/img/edge.png)       | Edge    | 93.0    | Windows 10 | _none_                              |
+| ![Firefox](https://matthias-wolff.github.io/MusicBookPlayer/docs/img/firefox.png) | Firefox | 91.4    | Android    | _none_                              |
+| ![Firefox](https://matthias-wolff.github.io/MusicBookPlayer/docs/img/firefox.png) | Firefox | 93.0    | Windows 10 | _none_                              |
 
-More to be tested. **Help wanted** (see [issue #2](https://github.com/matthias-wolff/MusicBookPlayer.js/issues/2))!
+More to be tested. **Help wanted** (see [issue #2](https://github.com/matthias-wolff/MusicBookPlayer/issues/2))!
 
 <a id="references"></a>
 ## References
