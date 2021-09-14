@@ -127,7 +127,6 @@ Adds a new audio page to the MusicBookPlayer.
   <tr><td><code>props</code></td><td>Object</td><td>Page properties</td></tr>
   <tr><td></td><td></td><td><b><i>Properties</i></b><table>
     <tr><th>Name</th><th>Type</th><th>Attributes</th><th>Description</th></tr>
-    <tr><td><code>tid</code></td><td>integer</td><td> </td><td>One-based track number</td></tr>
     <tr><td><code>title</code></td><td>string</td><td> </td><td>Page title</td></tr>
     <tr><td><code>artist</code></td><td>string</td><td>&lt;optional&gt;</td><td>Artist name. If omitted, the book's<br> artist name will be used.</td></tr>
     <tr><td><code>audio</code></td><td>string</td><td> </td><td>Audio file name <sup>1) 2)</sup></td></tr>
