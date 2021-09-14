@@ -22,13 +22,13 @@ A music book is playlist of audio tracks, each accompanied by an image and an op
 2. Audio pages (<var>n</var>&times;, one per audio track or serveral part pages per audio track)
 3. Contents page (1&times;, created automatically)
 
-`MusicBookPlayer` is a DHTML/Javascript-based player for music books. It features audio controls (play/pause, time rail), play list controls (next, previous, contents), and a [live audio spectrum analyzer](https://audiomotion.dev/#/) &ndash; see screenshots above.
+MusicBookPlayer is a DHTML/Javascript-based player for music books. It features audio controls (play/pause, time rail), play list controls (next, previous, contents), and a [live audio spectrum analyzer](https://audiomotion.dev/#/) &ndash; see screenshots above.
 
 **[Click here to see a demo](https://matthias-wolff.github.io/MusicBookPlayer/demo).**
 
 <a id="cyomb"></a>
 ## 2&emsp;Create Your Own Music Book
-The `MusicBookPlayer` library is to allow you creating your own music books. It is optimized for smartphones but it will work on tablets and desktop devices as well. `MusicBookPlayer` will run locally and on webservers.
+The MusicBookPlayer library is to allow you creating your own music books. It is optimized for smartphones but it will work on tablets and desktop devices as well. MusicBookPlayer will run locally and on webservers.
 
 <a id="prerequisites"></a>
 ### 2.1&emsp;Prerequisites
@@ -87,7 +87,7 @@ To setup your own music book, you need the following:
 </body>
 </html>
 ```
-3. _Optionally:_ If you want to host an own installation of `MusicBookPlayer`, check out or fork the `MusicBookPlayer` library and copy the contents to a local folder or to a folder on your webserver. In the `index.html` file of your music book, replace all occurrances of `https://matthias-wolff.github.io/MusicBookPlayer/` by the URL of your copy of the `MusicBookPlayer` library.<br>**Note:** All `*.md` files and the `demo` folder of your copy can be deleted.
+3. _Optionally:_ If you want to host an own installation of MusicBookPlayer, check out or fork the MusicBookPlayer library and copy the contents to a local folder or to a folder on your webserver. In the `index.html` file of your music book, replace all occurrances of `https://matthias-wolff.github.io/MusicBookPlayer/` by the URL of your copy of the MusicBookPlayer library.<br>**Note:** All `*.md` files and the `demo` folder of your copy can be deleted.
 4. Initialize your music book in Javascript section `<!-- Initialize Music Book here -->` of `index.html` (see [API Documentation](#apidoc) below).
 
 <a id="customization"></a>
