@@ -43,7 +43,7 @@
 
 
     <section>
-        <article><h1>MusicBookPlayer.js <a href="https://matthias-wolff.github.io/MusicBookPlayer.js/demo">⟩⟩ Demo</a></h1>
+        <article><h1>MusicBookPlayer <a href="https://matthias-wolff.github.io/MusicBookPlayer/demo">⟩⟩ Demo</a></h1>
 <p>DHTML audio player displaying booklet pages for audio tracks and parts of audio tracks.</p>
 <table>
 <thead>
@@ -55,9 +55,9 @@
 </thead>
 <tbody>
 <tr>
-<td style="text-align:center"><img src="https://matthias-wolff.github.io/MusicBookPlayer.js/docs/img/MusicBookPlayer_Screenshot_01.jpg" style="width:20rem" alt="MusicBookPlayer: Cover page example"/><br> </td>
-<td style="text-align:center"><img src="https://matthias-wolff.github.io/MusicBookPlayer.js/docs/img/MusicBookPlayer_Screenshot_02.jpg" style="width:20rem" alt="MusicBookPlayer: Cover page example"/><br> (click on images to enlarge)</td>
-<td style="text-align:center"><img src="https://matthias-wolff.github.io/MusicBookPlayer.js/docs/img/MusicBookPlayer_Screenshot_03.jpg" style="width:20rem" alt="MusicBookPlayer: Cover page example"/><br> </td>
+<td style="text-align:center"><img src="https://matthias-wolff.github.io/MusicBookPlayer/docs/img/MusicBookPlayer_Screenshot_01.jpg" style="width:20rem" alt="MusicBookPlayer: Cover page example"/></td>
+<td style="text-align:center"><img src="https://matthias-wolff.github.io/MusicBookPlayer/docs/img/MusicBookPlayer_Screenshot_02.jpg" style="width:20rem" alt="MusicBookPlayer: Cover page example"/></td>
+<td style="text-align:center"><img src="https://matthias-wolff.github.io/MusicBookPlayer/docs/img/MusicBookPlayer_Screenshot_03.jpg" style="width:20rem" alt="MusicBookPlayer: Cover page example"/></td>
 </tr>
 </tbody>
 </table>
@@ -78,11 +78,11 @@
 <li>Audio pages (<var>n</var>×, one per audio track or serveral part pages per audio track)</li>
 <li>Contents page (1×, created automatically)</li>
 </ol>
-<p><code>MusicBookPlayer.js</code> is a DHTML/Javascript-based player for music books. It features audio controls (play/pause, time rail), play list controls (next, previous, contents), and a <a href="https://audiomotion.dev/#/">live audio spectrum analyzer</a> – see screenshots above.</p>
-<p><strong><a href="https://matthias-wolff.github.io/MusicBookPlayer.js/demo">Click here to see a demo</a>.</strong></p>
+<p><code>MusicBookPlayer</code> is a DHTML/Javascript-based player for music books. It features audio controls (play/pause, time rail), play list controls (next, previous, contents), and a <a href="https://audiomotion.dev/#/">live audio spectrum analyzer</a> – see screenshots above.</p>
+<p><strong><a href="https://matthias-wolff.github.io/MusicBookPlayer/demo">Click here to see a demo</a>.</strong></p>
 <p><a id="cyomb"></a></p>
 <h2>2 Create Your Own Music Book</h2>
-<p>The <code>MusicBookPlayer.js</code> library is to allow you creating your own music books. It is optimized for smartphones but it will work on tablets and desktop devices as well. <code>MusicBookPlayer.js</code> will run locally and on webservers.</p>
+<p>The <code>MusicBookPlayer</code> library is to allow you creating your own music books. It is optimized for smartphones but it will work on tablets and desktop devices as well. <code>MusicBookPlayer</code> will run locally and on webservers.</p>
 <p><a id="prerequisites"></a></p>
 <h3>2.1 Prerequisites</h3>
 <p>To setup your own music book, you need the following:</p>
@@ -98,7 +98,7 @@
 <p><a id="setup"></a></p>
 <h3>2.2 Setup</h3>
 <ol>
-<li>Create a folder for the music book on your local device or your webserver and copy the audio and image filesyour book to that folder (see <a href="https://github.com/matthias-wolff/MusicBookPlayer.js/blob/main/demo/">demo folder</a> for an example).</li>
+<li>Create a folder for the music book on your local device or your webserver and copy the audio and image filesyour book to that folder (see <a href="https://github.com/matthias-wolff/MusicBookPlayer/blob/main/demo/">demo folder</a> for an example).</li>
 <li>Create an <code>index.html</code> file containing the following code in the music book folder:</li>
 </ol>
 <pre class="prettyprint source lang-html"><code>&lt;!DOCTYPE html>
@@ -107,12 +107,12 @@
   &lt;meta charset=&quot;utf-8&quot;/>
   &lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html&quot;/>
   &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;/> 
-  &lt;link rel=&quot;shortcut icon&quot; href=&quot;https://matthias-wolff.github.io/MusicBookPlayer.js/img/MusicBookPlayer.ico&quot;/>
-  &lt;link rel=&quot;icon&quot; href=&quot;https://matthias-wolff.github.io/MusicBookPlayer.js/img/MusicBookPlayer.ico&quot;/>
-  &lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; media=&quot;screen&quot; href=&quot;https://matthias-wolff.github.io/MusicBookPlayer.js/css/styles.css&quot;/>
+  &lt;link rel=&quot;shortcut icon&quot; href=&quot;https://matthias-wolff.github.io/MusicBookPlayer/img/MusicBookPlayer.ico&quot;/>
+  &lt;link rel=&quot;icon&quot; href=&quot;https://matthias-wolff.github.io/MusicBookPlayer/img/MusicBookPlayer.ico&quot;/>
+  &lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; media=&quot;screen&quot; href=&quot;https://matthias-wolff.github.io/MusicBookPlayer/css/styles.css&quot;/>
   &lt;script type=&quot;text/javascript&quot; src=&quot;https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js&quot;>&lt;/script>
-  &lt;script type=&quot;text/javascript&quot; src=&quot;https://matthias-wolff.github.io/MusicBookPlayer.js/js/mediaelement-and-player.min.js&quot;>&lt;/script>
-  &lt;script type=&quot;text/javascript&quot; src=&quot;https://matthias-wolff.github.io/MusicBookPlayer.js/js/musicbookplayer.js&quot;>&lt;/script>
+  &lt;script type=&quot;text/javascript&quot; src=&quot;https://matthias-wolff.github.io/MusicBookPlayer/js/mediaelement-and-player.min.js&quot;>&lt;/script>
+  &lt;script type=&quot;text/javascript&quot; src=&quot;https://matthias-wolff.github.io/MusicBookPlayer/js/musicbookplayer.js&quot;>&lt;/script>
 &lt;/head>
 &lt;body>
 
@@ -136,21 +136,21 @@
   &lt;/script>
 
   &lt;!-- Create spectrum analyzer (must be at end of page body!) -->
-  &lt;script src=&quot;https://matthias-wolff.github.io/MusicBookPlayer.js/js/audioMotion.js&quot; type=&quot;module&quot;>&lt;/script>
+  &lt;script src=&quot;https://matthias-wolff.github.io/MusicBookPlayer/js/audioMotion.js&quot; type=&quot;module&quot;>&lt;/script>
 
 &lt;/body>
 &lt;/html>
 </code></pre>
 <ol start="3">
-<li><em>Optionally:</em> If you want to host an own installation of <code>MusicBookPlayer.js</code>, check out or fork the <code>MusicBookPlayer.js</code> library and copy the contents to a local folder or to a folder on your webserver. In the <code>index.html</code> file of your music book, replace all occurrances of <code>https://matthias-wolff.github.io/MusicBookPlayer.js/</code> by the URL of your copy of the <code>MusicBookPlayer.js</code> library.<br><strong>Note:</strong> All <code>*.md</code> files and the <code>demo</code> folder of your copy can be deleted.</li>
+<li><em>Optionally:</em> If you want to host an own installation of <code>MusicBookPlayer</code>, check out or fork the <code>MusicBookPlayer</code> library and copy the contents to a local folder or to a folder on your webserver. In the <code>index.html</code> file of your music book, replace all occurrances of <code>https://matthias-wolff.github.io/MusicBookPlayer/</code> by the URL of your copy of the <code>MusicBookPlayer</code> library.<br><strong>Note:</strong> All <code>*.md</code> files and the <code>demo</code> folder of your copy can be deleted.</li>
 <li>Initialize your music book in Javascript section <code>&lt;!-- Initialize Music Book here --&gt;</code> of <code>index.html</code> (see <a href="#apidoc">API Documentation</a> below).</li>
 </ol>
 <p><a id="customization"></a></p>
 <h3>2.3 Customization</h3>
-<p>The player skin is competely controlled by a stylesheet. Download <a href="https://github.com/matthias-wolff/MusicBookPlayer.js/blob/main/css/styles.css"><code>css/styles.css</code></a>, modify it to your needs and have your HTML include your style file instead of the default one – that's it.</p>
+<p>The player skin is competely controlled by a stylesheet. Download <a href="https://github.com/matthias-wolff/MusicBookPlayer/blob/main/css/styles.css"><code>css/styles.css</code></a>, modify it to your needs and have your HTML include your style file instead of the default one – that's it.</p>
 <p><a id="apidoc"></a></p>
 <h2>3 API Documentation</h2>
-<p>You will only need the two static methods described in the following. <a href="https://matthias-wolff.github.io/MusicBookPlayer.js/docs/MusicBookPlayer.js/1.0.0/MusicBookPlayer.html">Click here to see the full documentation</a>.</p>
+<p>You will only need the two static methods described in the following. <a href="https://matthias-wolff.github.io/MusicBookPlayer/docs/MusicBookPlayer/1.0.0/MusicBookPlayer.html">Click here to see the full documentation</a>.</p>
 <h3><code>static MusicBookPayer.create(props)</code></h3>
 <p>Creates the MusicBookPlayer pseudo-singleton. If the object is already existing, the method just returns it. If the singleton is not yet existing, the method creates it and writes the MusicBookPlayer HTML page into the current document.</p>
 <h4>Parameters:</h4>
@@ -206,35 +206,35 @@
 </thead>
 <tbody>
 <tr>
-<td><img src="https://matthias-wolff.github.io/MusicBookPlayer.js/docs/img/chrome.png" alt="Chrome"></td>
+<td><img src="https://matthias-wolff.github.io/MusicBookPlayer/docs/img/chrome.png" alt="Chrome"></td>
 <td style="text-align:left">Chrome</td>
 <td style="text-align:left">93.0</td>
 <td style="text-align:left">Android</td>
-<td style="text-align:left"><a href="https://github.com/matthias-wolff/MusicBookPlayer.js/issues/5">bug #5</a></td>
+<td style="text-align:left"><em>none</em></td>
 </tr>
 <tr>
-<td><img src="https://matthias-wolff.github.io/MusicBookPlayer.js/docs/img/chrome.png" alt="Chrome"></td>
+<td><img src="https://matthias-wolff.github.io/MusicBookPlayer/docs/img/chrome.png" alt="Chrome"></td>
 <td style="text-align:left">Chrome</td>
 <td style="text-align:left">93.0</td>
 <td style="text-align:left">Windows 10</td>
-<td style="text-align:left"><a href="https://github.com/matthias-wolff/MusicBookPlayer.js/issues/5">bug #5</a></td>
+<td style="text-align:left"><em>none</em></td>
 </tr>
 <tr>
-<td><img src="https://matthias-wolff.github.io/MusicBookPlayer.js/docs/img/edge.png" alt="Edge"></td>
+<td><img src="https://matthias-wolff.github.io/MusicBookPlayer/docs/img/edge.png" alt="Edge"></td>
 <td style="text-align:left">Edge</td>
 <td style="text-align:left">93.0</td>
 <td style="text-align:left">Windows 10</td>
-<td style="text-align:left"><a href="https://github.com/matthias-wolff/MusicBookPlayer.js/issues/5">bug #5</a></td>
+<td style="text-align:left"><em>none</em></td>
 </tr>
 <tr>
-<td><img src="https://matthias-wolff.github.io/MusicBookPlayer.js/docs/img/firefox.png" alt="Firefox"></td>
+<td><img src="https://matthias-wolff.github.io/MusicBookPlayer/docs/img/firefox.png" alt="Firefox"></td>
 <td style="text-align:left">Firefox</td>
 <td style="text-align:left">91.4</td>
 <td style="text-align:left">Android</td>
 <td style="text-align:left"><em>none</em></td>
 </tr>
 <tr>
-<td><img src="https://matthias-wolff.github.io/MusicBookPlayer.js/docs/img/firefox.png" alt="Firefox"></td>
+<td><img src="https://matthias-wolff.github.io/MusicBookPlayer/docs/img/firefox.png" alt="Firefox"></td>
 <td style="text-align:left">Firefox</td>
 <td style="text-align:left">93.0</td>
 <td style="text-align:left">Windows 10</td>
@@ -242,7 +242,7 @@
 </tr>
 </tbody>
 </table>
-<p>More to be tested. <strong>Help wanted</strong> (see <a href="https://github.com/matthias-wolff/MusicBookPlayer.js/issues/2">issue #2</a>)!</p>
+<p>More to be tested. <strong>Help wanted</strong> (see <a href="https://github.com/matthias-wolff/MusicBookPlayer/issues/2">issue #2</a>)!</p>
 <p><a id="references"></a></p>
 <h2>References</h2>
 <ul>
@@ -379,7 +379,7 @@
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Mon Sep 13 2021 19:17:07 GMT+0200 (Mitteleuropäische Sommerzeit)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Tue Sep 14 2021 17:19:56 GMT+0200 (Mitteleuropäische Sommerzeit)
 </footer>
 
 <script> prettyPrint(); </script>
