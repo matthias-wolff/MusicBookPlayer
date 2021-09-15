@@ -20,7 +20,7 @@ DHTML audio player displaying booklet pages for audio tracks and parts of audio 
 A music book is playlist of audio tracks, each accompanied by an image and an optional description text &ndash; much like a good old-fashioned audio CD with a booklet. Each audio track may be split into several _parts_ which show their own images and description texts. A music book is structured as follows:
 1. Cover page (1&times;)
 2. Audio pages (<var>n</var>&times;, one per audio track or serveral part pages per audio track)
-3. Contents page (1&times;, created automatically)
+3. Contents page (1&times;)
 
 MusicBookPlayer is a DHTML/Javascript-based player for music books. It features audio controls (play/pause, time rail), play list controls (next, previous, contents), and a [live audio spectrum analyzer](https://audiomotion.dev/#/) &ndash; see screenshots above.
 
@@ -72,13 +72,13 @@ To setup your own music book, you need the following:
         descr : 'Music book descripion',  // Optional
       });
     MusicBookPlayer.addAudioPage({        // Add an audio page (see API description below)
-        tid   : 1,                        // Mandatory: Track ID
-        title : 'Track title',            // Mandatory
+        title : 'Track title',            // Mandatory for tracks
         audio : 'TrackAudio.mp3',         // Mandatory for tracks
-        image : 'TrackImage.jpg',         // Mandatory
+        image : 'TrackImage.jpg',         // Mandatory but not enforced
         descr : 'Track description',      // Optional
       });
     // More audio pages...
+    MusicBookPlayer.addTocPage();         // Add table-of-contents page (see API description below)
   </script>
 
   <!-- Create spectrum analyzer (must be at end of page body!) -->
@@ -96,8 +96,14 @@ The player skin is competely controlled by a stylesheet. Download [`css/styles.c
 
 <a id="apidoc"></a>
 ## 3&emsp;API Documentation
-You will only need the two static methods described in the following. [Click here to see the full documentation](https://matthias-wolff.github.io/MusicBookPlayer/docs/MusicBookPlayer/1.0.0/MusicBookPlayer.html).
+MusicBookPlayer is implemented as a singleton, i.e., you can have only one instance per HTML page. If you want multiple instances, please use `&lt;frame&grt;`s or `&lt;iframe&grt;`s. To create your own music book you will need only three static methods:
+1. [`MusicBookPayer.create(props)`](#MusicBookPayer.create),
+2. [`MusicBookPayer.addAudioPage(props)`](#MusicBookPayer.addAudioPage), and
+3. [`MusicBookPayer.addTocPage()`](#MusicBookPayer.addTocPage).
 
+[Click here to see the full documentation](https://matthias-wolff.github.io/MusicBookPlayer/docs/MusicBookPlayer/1.0.0/MusicBookPlayer.html).
+
+<a id="MusicBookPayer.create"></a>
 ### `static MusicBookPayer.create(props)`
 Creates the MusicBookPlayer pseudo-singleton. If the object is already existing, the method just returns it. If the singleton is not yet existing, the method creates it and writes the MusicBookPlayer HTML page into the current document. 
 
@@ -110,16 +116,17 @@ Creates the MusicBookPlayer pseudo-singleton. If the object is already existing,
     <tr><td><code>mediaBaseURI</code></td><td>string</td><td>&lt;optional&gt;</td><td>Absolute base URI of the book's<br> media files, i.e., audio and image<br> files. If omitted, the HTML document<br> base URI will be used, which means<br> that themedia files are located in the<br> same folder as <code>index.html</code>.</td></tr>
     <tr><td><code>title</code></td><td>string</td><td> </td><td>Music book title</td></tr>
     <tr><td><code>artist</code></td><td>string</td><td> </td><td>Artist name</td></tr>
-    <tr><td><code>image</code></td><td>string</td><td> </td><td>Cover image file name relative to<br> <code>mediaBaseURI</code></td></tr>
+    <tr><td><code>image</code></td><td>string</td><td> </td><td>Cover image URL, absolute or relative<br> to <code>mediaBaseURI</code></td></tr>
     <tr><td><code>descr</code></td><td>string</td><td>&lt;optional&gt;</td><td>Description text, may contain HTML</td></tr>
   </table></td></tr>
 </table>
 
 #### Returns:
-The pseudo-singleton, (object, also stored in global variable musicBookPlayer) 
+The singleton. The object is also stored in `MusicBookPlayer.instance` and can later be retrieved by `MusicBookPlayer.getInstance()`. 
 
+<a id="MusicBookPayer.addAudioPage"></a>
 ### `static MusicBookPayer.addAudioPage(props)`
-Adds a new audio page to the MusicBookPlayer. 
+Adds a new audio page to the MusicBookPlayer. If a TOC page exists, the method will update the TOC.
 
 #### Parameters:
 <table>
@@ -127,22 +134,28 @@ Adds a new audio page to the MusicBookPlayer.
   <tr><td><code>props</code></td><td>Object</td><td>Page properties</td></tr>
   <tr><td></td><td></td><td><b><i>Properties</i></b><table>
     <tr><th>Name</th><th>Type</th><th>Attributes</th><th>Description</th></tr>
-    <tr><td><code>title</code></td><td>string</td><td> </td><td>Page title</td></tr>
-    <tr><td><code>artist</code></td><td>string</td><td>&lt;optional&gt;</td><td>Artist name. If omitted, the book's<br> artist name will be used.</td></tr>
-    <tr><td><code>audio</code></td><td>string</td><td> </td><td>Audio file name <sup>1) 2)</sup></td></tr>
-    <tr><td><code>image</code></td><td>string</td><td> </td><td>Image file name <sup>2)</sup></td></tr>
+    <tr><td><code>title</code></td><td>string</td><td> </td><td>Page title<sup>1)</sup></td></tr>
+    <tr><td><code>artist</code></td><td>string</td><td>&lt;optional&gt;</td><td>Artist name<sup>2)</sup></td></tr>
+    <tr><td><code>audio</code></td><td>string</td><td> </td><td>Audio URL<sup>3)&thinsp;4)</sup></td></tr>
+    <tr><td><code>image</code></td><td>string</td><td> </td><td>Image URL<sup>4)</sup></td></tr>
     <tr><td><code>descr</code></td><td>string</td><td>&lt;optional&gt;</td><td>Description text, may contain HTML</td></tr>
-    <tr><td><code>part</code></td><td>string</td><td>&lt;optional&gt;</td><td>Part title. If omitted, the page is a whole<br> track rather than a part of a track.</td></tr>
-    <tr><td><code>poffs</code></td><td>float</td><td>&lt;optional&gt;</td><td>The time offset in seconds if the page is<br> part of a track</td></tr>
+    <tr><td><code>part</code></td><td>string</td><td>&lt;optional&gt;</td><td>Part title. If page is a track, the part title<br> can be used as a subtitle.</td></tr>
+    <tr><td><code>poffs</code></td><td>float</td><td>&lt;optional&gt;</td><td>The time offset in seconds if the page is<br> part of a track<sup>5)</sup></td></tr>
   </table>
-  Footnotes:<br>
-  <sup>1)</sup> Mandatory for tracks. Omit for parts! Track URL must be unique!<br>
-  <sup>2)</sup> absolute or relative to <code>mediaBaseURI</code>
+  <b><i>Footnotes</i></b><br>
+  <sup>1)</sup> If omitted, the title of the previous page will be copied if a previous page<br> exists. Otherwise, the method will throw an exception.<br>
+  <sup>2)</sup> If omitted, the book's artist name will be used.<br>
+  <sup>3)</sup> absolute or relative to mediaBaseURI, see method <code>create()</code><br>
+  <sup>4)</sup> Mandatory for tracks, omit for parts! Method will throw an exception if the<br> <code>audio</code> property is missing creating a track page. Track audio URLs must be<br> unique throughout the music book!<br>
+  <sup>5)</sup> Mandatory for all parts in a sequence of parts except the first one, omit for<br> tracks! Method will throw an exception of the <code>ptoffs</code> property is missing<br> creating the 2nd, 3rd, etc. part of a track.
   </td></tr>
 </table>
 
 #### Returns:
 The newly created page
+
+<a id="MusicBookPayer.addTocPage"></a>
+### `static MusicBookPayer.addTocPage()`
 
 <a id="testedConfigs"></a>
 ## 4&emsp;Tested Configurations
