@@ -97,7 +97,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="musicbookplayer.js.html">musicbookplayer.js</a>, <a href="musicbookplayer.js.html#line129">line 129</a>
+        <a href="musicbookplayer.js.html">musicbookplayer.js</a>, <a href="musicbookplayer.js.html#line131">line 131</a>
     </li></ul></dd>
     
 
@@ -201,7 +201,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="musicbookplayer.js.html">musicbookplayer.js</a>, <a href="musicbookplayer.js.html#line278">line 278</a>
+        <a href="musicbookplayer.js.html">musicbookplayer.js</a>, <a href="musicbookplayer.js.html#line388">line 388</a>
     </li></ul></dd>
     
 
@@ -219,7 +219,7 @@
 
         
             
-<h4 class="name" id="currentPage"><span class="type-signature">(protected) </span>currentPage<span class="type-signature"> :integer</span></h4>
+<h4 class="name" id="currentPid"><span class="type-signature">(protected) </span>currentPid<span class="type-signature"> :integer</span></h4>
 
 
 
@@ -273,7 +273,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="musicbookplayer.js.html">musicbookplayer.js</a>, <a href="musicbookplayer.js.html#line285">line 285</a>
+        <a href="musicbookplayer.js.html">musicbookplayer.js</a>, <a href="musicbookplayer.js.html#line395">line 395</a>
     </li></ul></dd>
     
 
@@ -291,7 +291,7 @@
 
         
             
-<h4 class="name" id="pages"><span class="type-signature">(protected) </span>pages<span class="type-signature"> :Array.&lt;Object></span></h4>
+<h4 class="name" id="pages"><span class="type-signature">(protected) </span>pages<span class="type-signature"> :Array.&lt;object></span></h4>
 
 
 
@@ -306,7 +306,7 @@
     <ul>
         <li>
             
-<span class="param-type">Array.&lt;Object></span>
+<span class="param-type">Array.&lt;object></span>
 
 
         </li>
@@ -345,7 +345,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="musicbookplayer.js.html">musicbookplayer.js</a>, <a href="musicbookplayer.js.html#line299">line 299</a>
+        <a href="musicbookplayer.js.html">musicbookplayer.js</a>, <a href="musicbookplayer.js.html#line409">line 409</a>
     </li></ul></dd>
     
 
@@ -417,7 +417,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="musicbookplayer.js.html">musicbookplayer.js</a>, <a href="musicbookplayer.js.html#line271">line 271</a>
+        <a href="musicbookplayer.js.html">musicbookplayer.js</a>, <a href="musicbookplayer.js.html#line381">line 381</a>
     </li></ul></dd>
     
 
@@ -435,7 +435,7 @@
 
         
             
-<h4 class="name" id="tocPage"><span class="type-signature">(protected) </span>tocPage<span class="type-signature"> :integer</span></h4>
+<h4 class="name" id="tocPid"><span class="type-signature">(protected) </span>tocPid<span class="type-signature"> :integer</span></h4>
 
 
 
@@ -489,7 +489,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="musicbookplayer.js.html">musicbookplayer.js</a>, <a href="musicbookplayer.js.html#line292">line 292</a>
+        <a href="musicbookplayer.js.html">musicbookplayer.js</a>, <a href="musicbookplayer.js.html#line402">line 402</a>
     </li></ul></dd>
     
 
@@ -525,7 +525,7 @@
 
 
 <div class="description">
-    Adds a new audio page to the MusicBookPlayer.
+    Adds a new audio page to the MusicBookPlayer. If a TOC page exists, themethod will update the TOC.
 </div>
 
 
@@ -567,7 +567,7 @@
             <td class="type">
             
                 
-<span class="param-type">Object</span>
+<span class="param-type">object</span>
 
 
             
@@ -605,37 +605,6 @@
 
         <tr>
             
-                <td class="name"><code>tid</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">integer</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last">One-based track number.</td>
-        </tr>
-
-    
-
-        <tr>
-            
                 <td class="name"><code>title</code></td>
             
 
@@ -651,6 +620,8 @@
             
                 <td class="attributes">
                 
+                    &lt;optional><br>
+                
 
                 
 
@@ -660,7 +631,7 @@
 
             
 
-            <td class="description last">Page title</td>
+            <td class="description last">Page title<sup>1)</sup></td>
         </tr>
 
     
@@ -693,7 +664,7 @@
 
             
 
-            <td class="description last">Artist name. If omitted, the       book's artist name will be used.</td>
+            <td class="description last">Artist name<sup>2)</sup></td>
         </tr>
 
     
@@ -715,6 +686,8 @@
             
                 <td class="attributes">
                 
+                    &lt;optional><br>
+                
 
                 
 
@@ -724,7 +697,7 @@
 
             
 
-            <td class="description last">Audio file name <sup>1) 2)</sup></td>
+            <td class="description last">Audio URL<sup>3)&thinsp;4)</sup></td>
         </tr>
 
     
@@ -746,6 +719,8 @@
             
                 <td class="attributes">
                 
+                    &lt;optional><br>
+                
 
                 
 
@@ -755,7 +730,7 @@
 
             
 
-            <td class="description last">Image file name <sup>2)</sup></td>
+            <td class="description last">Image URL<sup>3)</sup></td>
         </tr>
 
     
@@ -821,7 +796,7 @@
 
             
 
-            <td class="description last">Part title. If omitted, the        page is a whole track rather than a part of a track.</td>
+            <td class="description last">Part title. If page is a track,       the part title can be used as a subtitle.</td>
         </tr>
 
     
@@ -854,7 +829,7 @@
 
             
 
-            <td class="description last">The time offset in seconds if the        page is part of a track</td>
+            <td class="description last">The time offset in seconds if the        page is part of a track<sup>5)</sup></td>
         </tr>
 
     
@@ -902,7 +877,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="musicbookplayer.js.html">musicbookplayer.js</a>, <a href="musicbookplayer.js.html#line223">line 223</a>
+        <a href="musicbookplayer.js.html">musicbookplayer.js</a>, <a href="musicbookplayer.js.html#line240">line 240</a>
     </li></ul></dd>
     
 
@@ -912,7 +887,7 @@
     <dt class="tag-see">See:</dt>
     <dd class="tag-see">
         <ul>
-            <li>Footnotes:<br>     <sup>1)</sup> Mandatory for tracks. Omit for parts! Track URL must be      unique!<br>     <sup>2)</sup> absolute or relative to <code>mediaBaseURI</code></li>
+            <li><b><i>Footnotes</i></b><br>     <sup>1)</sup> If omitted, the title of the previous page will be      copied if a previous page exists. Otherwise, the method will throw an      exception.<br>     <sup>2)</sup> If omitted, the book's artist name will be used.<br>     <sup>3)</sup> absolute or relative to <code>mediaBaseURI</code>, see      method <code>create()</code><br>     <sup>4)</sup> Mandatory for tracks, omit for parts! Method will throw     an exception if the <code>audio</code> property is missing creating a      track page. Track audio URLs must be unique throughout the music book!     <br>     <sup>5)</sup> Mandatory for all parts in a sequence of parts except     the first one, omit for tracks! Method will throw an exception of the     <code>ptoffs</code> property is missing creating the 2nd, 3rd, etc.      part of a track.</li>
         </ul>
     </dd>
     
@@ -955,7 +930,7 @@
     
 
     
-    <h4 class="name" id=".addContentsPage"><span class="type-signature">(protected, static) </span>addContentsPage<span class="signature">()</span><span class="type-signature"></span></h4>
+    <h4 class="name" id=".addTocPage"><span class="type-signature">(static) </span>addTocPage<span class="signature">()</span><span class="type-signature"></span></h4>
     
 
     
@@ -963,7 +938,7 @@
 
 
 <div class="description">
-    Adds an contents page displaying a hyperlinked list of pages. If a contentspage is already existing, the method does nothing.
+    Adds a table-of-contents page displaying a hyperlinked list of pages. If a TOC page is already existing, the method does nothing.<br><b>Note:</b> The TOC will be automatically updated on every invocation of the <code>addAudioPage()</code> method.
 </div>
 
 
@@ -1007,7 +982,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="musicbookplayer.js.html">musicbookplayer.js</a>, <a href="musicbookplayer.js.html#line375">line 375</a>
+        <a href="musicbookplayer.js.html">musicbookplayer.js</a>, <a href="musicbookplayer.js.html#line339">line 339</a>
     </li></ul></dd>
     
 
@@ -1061,7 +1036,7 @@
 
 
 <div class="description">
-    Creates the MusicBookPlayer pseudo-singleton. If the object is alreadyexisting, the method just returns it. If the singleton is not yet existing,the method creates it and writes the MusicBookPlayer HTML page into the current document.
+    Creates the MusicBookPlayer singleton. If the object already exists, the method will just return it. If the singleton does not yet exist, the methodcreates it and writes the MusicBookPlayer HTML page and the music book title page into the current document.
 </div>
 
 
@@ -1103,7 +1078,7 @@
             <td class="type">
             
                 
-<span class="param-type">Object</span>
+<span class="param-type">object</span>
 
 
             
@@ -1260,7 +1235,7 @@
 
             
 
-            <td class="description last">Cover image file name relative to        <code>mediaBaseURI</code></td>
+            <td class="description last">Cover image URL, absolute or relative to        <code>mediaBaseURI</code></td>
         </tr>
 
     
@@ -1341,7 +1316,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="musicbookplayer.js.html">musicbookplayer.js</a>, <a href="musicbookplayer.js.html#line154">line 154</a>
+        <a href="musicbookplayer.js.html">musicbookplayer.js</a>, <a href="musicbookplayer.js.html#line157">line 157</a>
     </li></ul></dd>
     
 
@@ -1370,7 +1345,7 @@
 
         
 <div class="param-desc">
-    The pseudo-singleton object. The object is also stored in a global         variable named <code>musicBookPlayer</code>.
+    The singleton. The object is also stored in        <code>MusicBookPlayer.instance</code> and can later be retrieved by        <code>MusicBookPlayer.getInstance()</code>.
 </div>
 
 
@@ -1488,7 +1463,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="musicbookplayer.js.html">musicbookplayer.js</a>, <a href="musicbookplayer.js.html#line896">line 896</a>
+        <a href="musicbookplayer.js.html">musicbookplayer.js</a>, <a href="musicbookplayer.js.html#line1076">line 1076</a>
     </li></ul></dd>
     
 
@@ -1658,7 +1633,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="musicbookplayer.js.html">musicbookplayer.js</a>, <a href="musicbookplayer.js.html#line942">line 942</a>
+        <a href="musicbookplayer.js.html">musicbookplayer.js</a>, <a href="musicbookplayer.js.html#line1122">line 1122</a>
     </li></ul></dd>
     
 
@@ -1704,7 +1679,7 @@
     
 
     
-    <h4 class="name" id=".initialize"><span class="type-signature">(protected, static) </span>initialize<span class="signature">()</span><span class="type-signature"></span></h4>
+    <h4 class="name" id=".getInstance"><span class="type-signature">(static) </span>getInstance<span class="signature">()</span><span class="type-signature"></span></h4>
     
 
     
@@ -1712,7 +1687,7 @@
 
 
 <div class="description">
-    Initializes the MusicBookPlayer pseudo-singleton. The method is to be invoked only after the underlying MediaElement has been loaded, i.e., in callback <code>MediaElement.success</code>.
+    Returns the MusicBookPlayer singleton instance if any.
 </div>
 
 
@@ -1756,7 +1731,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="musicbookplayer.js.html">musicbookplayer.js</a>, <a href="musicbookplayer.js.html#line308">line 308</a>
+        <a href="musicbookplayer.js.html">musicbookplayer.js</a>, <a href="musicbookplayer.js.html#line361">line 361</a>
     </li></ul></dd>
     
 
@@ -1916,7 +1891,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="musicbookplayer.js.html">musicbookplayer.js</a>, <a href="musicbookplayer.js.html#line926">line 926</a>
+        <a href="musicbookplayer.js.html">musicbookplayer.js</a>, <a href="musicbookplayer.js.html#line1106">line 1106</a>
     </li></ul></dd>
     
 
@@ -2014,7 +1989,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="musicbookplayer.js.html">musicbookplayer.js</a>, <a href="musicbookplayer.js.html#line661">line 661</a>
+        <a href="musicbookplayer.js.html">musicbookplayer.js</a>, <a href="musicbookplayer.js.html#line841">line 841</a>
     </li></ul></dd>
     
 
@@ -2112,7 +2087,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="musicbookplayer.js.html">musicbookplayer.js</a>, <a href="musicbookplayer.js.html#line425">line 425</a>
+        <a href="musicbookplayer.js.html">musicbookplayer.js</a>, <a href="musicbookplayer.js.html#line504">line 504</a>
     </li></ul></dd>
     
 
@@ -2272,7 +2247,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="musicbookplayer.js.html">musicbookplayer.js</a>, <a href="musicbookplayer.js.html#line407">line 407</a>
+        <a href="musicbookplayer.js.html">musicbookplayer.js</a>, <a href="musicbookplayer.js.html#line486">line 486</a>
     </li></ul></dd>
     
 
@@ -2409,7 +2384,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="musicbookplayer.js.html">musicbookplayer.js</a>, <a href="musicbookplayer.js.html#line862">line 862</a>
+        <a href="musicbookplayer.js.html">musicbookplayer.js</a>, <a href="musicbookplayer.js.html#line1042">line 1042</a>
     </li></ul></dd>
     
 
@@ -2546,7 +2521,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="musicbookplayer.js.html">musicbookplayer.js</a>, <a href="musicbookplayer.js.html#line845">line 845</a>
+        <a href="musicbookplayer.js.html">musicbookplayer.js</a>, <a href="musicbookplayer.js.html#line1025">line 1025</a>
     </li></ul></dd>
     
 
@@ -2683,7 +2658,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="musicbookplayer.js.html">musicbookplayer.js</a>, <a href="musicbookplayer.js.html#line806">line 806</a>
+        <a href="musicbookplayer.js.html">musicbookplayer.js</a>, <a href="musicbookplayer.js.html#line986">line 986</a>
     </li></ul></dd>
     
 
@@ -2820,7 +2795,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="musicbookplayer.js.html">musicbookplayer.js</a>, <a href="musicbookplayer.js.html#line828">line 828</a>
+        <a href="musicbookplayer.js.html">musicbookplayer.js</a>, <a href="musicbookplayer.js.html#line1008">line 1008</a>
     </li></ul></dd>
     
 
@@ -2957,7 +2932,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="musicbookplayer.js.html">musicbookplayer.js</a>, <a href="musicbookplayer.js.html#line778">line 778</a>
+        <a href="musicbookplayer.js.html">musicbookplayer.js</a>, <a href="musicbookplayer.js.html#line958">line 958</a>
     </li></ul></dd>
     
 
@@ -3076,7 +3051,7 @@
 
             
 
-            <td class="description last">If <code>true</code>, play page's audio file, if        <code>false</code>, stop playing, if <code>undefined</code>, retain       playing state.</td>
+            <td class="description last">If <code>true</code>, play page'html audio file, if        <code>false</code>, stop playing, if <code>undefined</code>, retain       playing state.</td>
         </tr>
 
     
@@ -3117,7 +3092,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="musicbookplayer.js.html">musicbookplayer.js</a>, <a href="musicbookplayer.js.html#line510">line 510</a>
+        <a href="musicbookplayer.js.html">musicbookplayer.js</a>, <a href="musicbookplayer.js.html#line581">line 581</a>
     </li></ul></dd>
     
 
@@ -3205,7 +3180,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="musicbookplayer.js.html">musicbookplayer.js</a>, <a href="musicbookplayer.js.html#line539">line 539</a>
+        <a href="musicbookplayer.js.html">musicbookplayer.js</a>, <a href="musicbookplayer.js.html#line610">line 610</a>
     </li></ul></dd>
     
 
@@ -3293,7 +3268,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="musicbookplayer.js.html">musicbookplayer.js</a>, <a href="musicbookplayer.js.html#line624">line 624</a>
+        <a href="musicbookplayer.js.html">musicbookplayer.js</a>, <a href="musicbookplayer.js.html#line804">line 804</a>
     </li></ul></dd>
     
 
@@ -3318,6 +3293,844 @@
 
 
 
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="initialize"><span class="type-signature">(protected) </span>initialize<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Initializes the MusicBookPlayer pseudo-singleton. The method is to be invoked only after the underlying MediaElement has been loaded, i.e., in callback <code>MediaElement.success</code>.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="musicbookplayer.js.html">musicbookplayer.js</a>, <a href="musicbookplayer.js.html#line418">line 418</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="isCoverPage"><span class="type-signature">(protected) </span>isCoverPage<span class="signature">(arg)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Determines whether an object is the cover page or a page ID identifies thecover page. A page is the cover page, iff its page index is 0.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>arg</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+|
+
+<span class="param-type">integer</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">An object or a zero-based page ID.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="musicbookplayer.js.html">musicbookplayer.js</a>, <a href="musicbookplayer.js.html#line721">line 721</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    A boolean
+</div>
+
+
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="isPage"><span class="type-signature">(protected) </span>isPage<span class="signature">(arg)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Determines whether an object is a page or if a page ID is valid.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>arg</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+|
+
+<span class="param-type">integer</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">An object or a zero-based page ID.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="musicbookplayer.js.html">musicbookplayer.js</a>, <a href="musicbookplayer.js.html#line688">line 688</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    A valid page object or <code>null</code>
+</div>
+
+
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="isPartPage"><span class="type-signature">(protected) </span>isPartPage<span class="signature">(arg)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Determines whether an object is a part-of-track page or a page ID identifies such a page. A page is a track page, iff its ptoffs field isdefined.<b>Note:</> The first page of a sequence of parts track is both, a part anda track page.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>arg</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+|
+
+<span class="param-type">integer</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">An object or a zero-based page ID.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="musicbookplayer.js.html">musicbookplayer.js</a>, <a href="musicbookplayer.js.html#line762">line 762</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    A boolean
+</div>
+
+
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="isTocPage"><span class="type-signature">(protected) </span>isTocPage<span class="signature">(arg)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Determines whether an object is the table-of-contents page or a page ID identifies that page. A page is the TOC page, iff its page index equals thevalue of <code>musicBookPlayer.tocPid</code>.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>arg</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+|
+
+<span class="param-type">integer</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">An object or a zero-based page ID.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="musicbookplayer.js.html">musicbookplayer.js</a>, <a href="musicbookplayer.js.html#line779">line 779</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    A boolean
+</div>
+
+
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="isTrackPage"><span class="type-signature">(protected) </span>isTrackPage<span class="signature">(arg)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Determines whether an object is a track page or a page ID identifies a track page. A page is a track page, iff it has a predecessor and its audiofile is different from the audio file of the predecessor.<br><b>Note:</> The first page of a sequence of parts track is both, a part anda track page.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>arg</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+|
+
+<span class="param-type">integer</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">An object or a zero-based page ID.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="musicbookplayer.js.html">musicbookplayer.js</a>, <a href="musicbookplayer.js.html#line738">line 738</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    A boolean
+</div>
+
+
+
+    
 
 
 
@@ -3381,7 +4194,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="musicbookplayer.js.html">musicbookplayer.js</a>, <a href="musicbookplayer.js.html#line438">line 438</a>
+        <a href="musicbookplayer.js.html">musicbookplayer.js</a>, <a href="musicbookplayer.js.html#line517">line 517</a>
     </li></ul></dd>
     
 
@@ -3518,7 +4331,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="musicbookplayer.js.html">musicbookplayer.js</a>, <a href="musicbookplayer.js.html#line597">line 597</a>
+        <a href="musicbookplayer.js.html">musicbookplayer.js</a>, <a href="musicbookplayer.js.html#line671">line 671</a>
     </li></ul></dd>
     
 
@@ -3606,7 +4419,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="musicbookplayer.js.html">musicbookplayer.js</a>, <a href="musicbookplayer.js.html#line612">line 612</a>
+        <a href="musicbookplayer.js.html">musicbookplayer.js</a>, <a href="musicbookplayer.js.html#line792">line 792</a>
     </li></ul></dd>
     
 
@@ -3743,7 +4556,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="musicbookplayer.js.html">musicbookplayer.js</a>, <a href="musicbookplayer.js.html#line571">line 571</a>
+        <a href="musicbookplayer.js.html">musicbookplayer.js</a>, <a href="musicbookplayer.js.html#line645">line 645</a>
     </li></ul></dd>
     
 
@@ -3935,7 +4748,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="musicbookplayer.js.html">musicbookplayer.js</a>, <a href="musicbookplayer.js.html#line642">line 642</a>
+        <a href="musicbookplayer.js.html">musicbookplayer.js</a>, <a href="musicbookplayer.js.html#line822">line 822</a>
     </li></ul></dd>
     
 
@@ -4092,7 +4905,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="musicbookplayer.js.html">musicbookplayer.js</a>, <a href="musicbookplayer.js.html#line878">line 878</a>
+        <a href="musicbookplayer.js.html">musicbookplayer.js</a>, <a href="musicbookplayer.js.html#line1058">line 1058</a>
     </li></ul></dd>
     
 
@@ -4252,7 +5065,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="musicbookplayer.js.html">musicbookplayer.js</a>, <a href="musicbookplayer.js.html#line554">line 554</a>
+        <a href="musicbookplayer.js.html">musicbookplayer.js</a>, <a href="musicbookplayer.js.html#line628">line 628</a>
     </li></ul></dd>
     
 
@@ -4409,7 +5222,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="musicbookplayer.js.html">musicbookplayer.js</a>, <a href="musicbookplayer.js.html#line690">line 690</a>
+        <a href="musicbookplayer.js.html">musicbookplayer.js</a>, <a href="musicbookplayer.js.html#line870">line 870</a>
     </li></ul></dd>
     
 
@@ -4461,7 +5274,7 @@
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Tue Sep 14 2021 17:19:57 GMT+0200 (Mitteleuropäische Sommerzeit)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Wed Sep 15 2021 21:54:28 GMT+0200 (Mitteleuropäische Sommerzeit)
 </footer>
 
 <script> prettyPrint(); </script>

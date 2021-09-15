@@ -15,15 +15,14 @@
 
   <!-- Initialize Music Book here -->  
   <script type="text/javascript">
-    MusicBookPlayer.create({ // Create music book and player
+    MusicBookPlayer.create({ // Create music book and player (page #0, cover)
         //mediaBaseURI: document.baseURI, // NOTE: Can be omitted when document base URI
         title : 'Perfect Dream',
         artist: 'Matthias Wolff',
         image : 'Perfect Dream.jpg', 
         //descr : '',
       });
-    let page1 = MusicBookPlayer.addAudioPage({
-        tid   : 1,
+    MusicBookPlayer.addAudioPage({ // Create track 1, part 1 (page #1)
         title : 'Perfect Dream pt. I',
         audio : '01 - Perfect Dream pt. I.mp3',
         image : '01A - Perfect Dream pt. I.jpg',
@@ -31,37 +30,25 @@
         ptoffs: 0,
         //descr : '',
       });
-    MusicBookPlayer.addAudioPage({
-        tid   : page1.tid,
-        title : page1.title,
-        audio : page1.audio,
+    MusicBookPlayer.addAudioPage({ // Create track 1, part 2 (page #2)
         image : '01B - Perfect Dream pt. I.jpg',
         part  : 'Mystery Track',
         ptoffs: 6*60 + 0.515,
         //descr : '',
       });
-    MusicBookPlayer.addAudioPage({
-        tid   : page1.tid,
-        title : page1.title,
-        audio : page1.audio,
+    MusicBookPlayer.addAudioPage({ // Create track 1, part 3 (page #3)
         image : '01C - Perfect Dream pt. I.jpg',
         part  : 'Iceland',
         ptoffs: 9*60 + 26.6772,
         //descr : '',
       });
-    MusicBookPlayer.addAudioPage({
-        tid   : page1.tid,
-        title : page1.title,
-        audio : page1.audio,
+    MusicBookPlayer.addAudioPage({ // Create track 1, part 4 (page #4)
         image : '01D - Perfect Dream pt. I.jpg',
         part  : 'Lönscher Park',
         ptoffs: 13*60 + 11.6844,
         descr : 'Lönscher Park is an arcane park in Görlitz.',
       });
-    MusicBookPlayer.addAudioPage({
-        tid   : page1.tid,
-        title : page1.title,
-        audio : page1.audio,
+    MusicBookPlayer.addAudioPage({ // Create track 1, part 5 (page #5)
         image : '01E - Perfect Dream pt. I.jpg',
         part  : 'Going West',
         ptoffs: 18*60 + 46.5994,
@@ -69,19 +56,13 @@
                +'href="http://www.tangerinedream.org/" target="_blank">'
                +'Tangerine Dream</a>, a world-renowned synth band.',
       });
-    MusicBookPlayer.addAudioPage({
-        tid   : page1.tid,
-        title : page1.title,
-        audio : page1.audio,
+    MusicBookPlayer.addAudioPage({ // Create track 1, part 1 (page #6)
         image : '01F - Perfect Dream pt. I.jpg',
         part  : '[Bridge]',
         ptoffs: 22*60 + 21.4241,
         //descr : '',
     });
-    MusicBookPlayer.addAudioPage({
-        tid   : page1.tid,
-        title : page1.title,
-        audio : page1.audio,
+    MusicBookPlayer.addAudioPage({ // Create track 1, part 1 (page #7)
         image : '01G - Perfect Dream pt. I.jpg',
         part  : 'Klötzelmönch (Logwise Edit)',
         ptoffs: 24*60 + 34.676,
@@ -92,7 +73,7 @@
                +'the song was going to proceed to the dark side of the legend '
                +'in the sequel.',
       });
-    MusicBookPlayer.addAudioPage({
+    MusicBookPlayer.addAudioPage({ // Create track 2 (page #8)
         tid   : 2,
         title : 'Perfect Dream pt. II',
         audio : '02 - Perfect Dream pt. II (Stalker Ambient Mix).mp3',
@@ -102,6 +83,7 @@
                +'Tarkovski. The song uses samples from its avantgarde '
                +'soundtrack.',
       });
+    MusicBookPlayer.addTocPage(); // Create TOC (page #9)
   </script>
 
   <!-- Create spectrum analyzer (must be on end of page body1!) -->
