@@ -76,13 +76,13 @@
 <ol>
 <li>Cover page (1×)</li>
 <li>Audio pages (<var>n</var>×, one per audio track or serveral part pages per audio track)</li>
-<li>Contents page (1×, created automatically)</li>
+<li>Contents page (1×)</li>
 </ol>
-<p><code>MusicBookPlayer</code> is a DHTML/Javascript-based player for music books. It features audio controls (play/pause, time rail), play list controls (next, previous, contents), and a <a href="https://audiomotion.dev/#/">live audio spectrum analyzer</a> – see screenshots above.</p>
+<p>MusicBookPlayer is a DHTML/Javascript-based player for music books. It features audio controls (play/pause, time rail), play list controls (next, previous, contents), and a <a href="https://audiomotion.dev/#/">live audio spectrum analyzer</a> – see screenshots above.</p>
 <p><strong><a href="https://matthias-wolff.github.io/MusicBookPlayer/demo">Click here to see a demo</a>.</strong></p>
 <p><a id="cyomb"></a></p>
 <h2>2 Create Your Own Music Book</h2>
-<p>The <code>MusicBookPlayer</code> library is to allow you creating your own music books. It is optimized for smartphones but it will work on tablets and desktop devices as well. <code>MusicBookPlayer</code> will run locally and on webservers.</p>
+<p>The MusicBookPlayer library is to allow you creating your own music books. It is optimized for smartphones but it will work on tablets and desktop devices as well. MusicBookPlayer will run locally and on webservers.</p>
 <p><a id="prerequisites"></a></p>
 <h3>2.1 Prerequisites</h3>
 <p>To setup your own music book, you need the following:</p>
@@ -126,13 +126,13 @@
         descr : 'Music book descripion',  // Optional
       });
     MusicBookPlayer.addAudioPage({        // Add an audio page (see API description below)
-        tid   : 1,                        // Mandatory: Track ID
-        title : 'Track title',            // Mandatory
+        title : 'Track title',            // Mandatory for tracks
         audio : 'TrackAudio.mp3',         // Mandatory for tracks
-        image : 'TrackImage.jpg',         // Mandatory
+        image : 'TrackImage.jpg',         // Mandatory but not enforced
         descr : 'Track description',      // Optional
       });
     // More audio pages...
+    MusicBookPlayer.addTocPage();         // Add table-of-contents page (see API description below)
   &lt;/script>
 
   &lt;!-- Create spectrum analyzer (must be at end of page body!) -->
@@ -142,7 +142,7 @@
 &lt;/html>
 </code></pre>
 <ol start="3">
-<li><em>Optionally:</em> If you want to host an own installation of <code>MusicBookPlayer</code>, check out or fork the <code>MusicBookPlayer</code> library and copy the contents to a local folder or to a folder on your webserver. In the <code>index.html</code> file of your music book, replace all occurrances of <code>https://matthias-wolff.github.io/MusicBookPlayer/</code> by the URL of your copy of the <code>MusicBookPlayer</code> library.<br><strong>Note:</strong> All <code>*.md</code> files and the <code>demo</code> folder of your copy can be deleted.</li>
+<li><em>Optionally:</em> If you want to host an own installation of MusicBookPlayer, check out or fork the MusicBookPlayer library and copy the contents to a local folder or to a folder on your webserver. In the <code>index.html</code> file of your music book, replace all occurrances of <code>https://matthias-wolff.github.io/MusicBookPlayer/</code> by the URL of your copy of the MusicBookPlayer library.<br><strong>Note:</strong> All <code>*.md</code> files and the <code>demo</code> folder of your copy can be deleted.</li>
 <li>Initialize your music book in Javascript section <code>&lt;!-- Initialize Music Book here --&gt;</code> of <code>index.html</code> (see <a href="#apidoc">API Documentation</a> below).</li>
 </ol>
 <p><a id="customization"></a></p>
@@ -150,7 +150,14 @@
 <p>The player skin is competely controlled by a stylesheet. Download <a href="https://github.com/matthias-wolff/MusicBookPlayer/blob/main/css/styles.css"><code>css/styles.css</code></a>, modify it to your needs and have your HTML include your style file instead of the default one – that's it.</p>
 <p><a id="apidoc"></a></p>
 <h2>3 API Documentation</h2>
-<p>You will only need the two static methods described in the following. <a href="https://matthias-wolff.github.io/MusicBookPlayer/docs/MusicBookPlayer/1.0.0/MusicBookPlayer.html">Click here to see the full documentation</a>.</p>
+<p>MusicBookPlayer is implemented as a singleton, i.e., you can have only one instance per HTML page. If you want multiple instances, please use <code>&amp;lt;frame&amp;grt;</code>s or <code>&amp;lt;iframe&amp;grt;</code>s. To create your own music book you will need only three static methods:</p>
+<ol>
+<li><a href="#MusicBookPayer.create"><code>MusicBookPayer.create(props)</code></a>,</li>
+<li><a href="#MusicBookPayer.addAudioPage"><code>MusicBookPayer.addAudioPage(props)</code></a>, and</li>
+<li><a href="#MusicBookPayer.addTocPage"><code>MusicBookPayer.addTocPage()</code></a>.</li>
+</ol>
+<p><a href="https://matthias-wolff.github.io/MusicBookPlayer/docs/MusicBookPlayer/1.0.0/MusicBookPlayer.html">Click here to see the full documentation</a>.</p>
+<p><a id="MusicBookPayer.create"></a></p>
 <h3><code>static MusicBookPayer.create(props)</code></h3>
 <p>Creates the MusicBookPlayer pseudo-singleton. If the object is already existing, the method just returns it. If the singleton is not yet existing, the method creates it and writes the MusicBookPlayer HTML page into the current document.</p>
 <h4>Parameters:</h4>
@@ -162,36 +169,41 @@
     <tr><td><code>mediaBaseURI</code></td><td>string</td><td>&lt;optional&gt;</td><td>Absolute base URI of the book's<br> media files, i.e., audio and image<br> files. If omitted, the HTML document<br> base URI will be used, which means<br> that themedia files are located in the<br> same folder as <code>index.html</code>.</td></tr>
     <tr><td><code>title</code></td><td>string</td><td> </td><td>Music book title</td></tr>
     <tr><td><code>artist</code></td><td>string</td><td> </td><td>Artist name</td></tr>
-    <tr><td><code>image</code></td><td>string</td><td> </td><td>Cover image file name relative to<br> <code>mediaBaseURI</code></td></tr>
+    <tr><td><code>image</code></td><td>string</td><td> </td><td>Cover image URL, absolute or relative<br> to <code>mediaBaseURI</code></td></tr>
     <tr><td><code>descr</code></td><td>string</td><td>&lt;optional&gt;</td><td>Description text, may contain HTML</td></tr>
   </table></td></tr>
 </table>
 <h4>Returns:</h4>
-<p>The pseudo-singleton, (object, also stored in global variable musicBookPlayer)</p>
+<p>The singleton. The object is also stored in <code>MusicBookPlayer.instance</code> and can later be retrieved by <code>MusicBookPlayer.getInstance()</code>.</p>
+<p><a id="MusicBookPayer.addAudioPage"></a></p>
 <h3><code>static MusicBookPayer.addAudioPage(props)</code></h3>
-<p>Adds a new audio page to the MusicBookPlayer.</p>
+<p>Adds a new audio page to the MusicBookPlayer. If a TOC page exists, the method will update the TOC.</p>
 <h4>Parameters:</h4>
 <table>
   <tr><th>Name</th><th>Type</th><th>Description</th></tr>
   <tr><td><code>props</code></td><td>Object</td><td>Page properties</td></tr>
   <tr><td></td><td></td><td><b><i>Properties</i></b><table>
     <tr><th>Name</th><th>Type</th><th>Attributes</th><th>Description</th></tr>
-    <tr><td><code>tid</code></td><td>integer</td><td> </td><td>One-based track number</td></tr>
-    <tr><td><code>title</code></td><td>string</td><td> </td><td>Page title</td></tr>
-    <tr><td><code>artist</code></td><td>string</td><td>&lt;optional&gt;</td><td>Artist name. If omitted, the book's<br> artist name will be used.</td></tr>
-    <tr><td><code>audio</code></td><td>string</td><td> </td><td>Audio file name <sup>1) 2)</sup></td></tr>
-    <tr><td><code>image</code></td><td>string</td><td> </td><td>Image file name <sup>2)</sup></td></tr>
+    <tr><td><code>title</code></td><td>string</td><td> </td><td>Page title<sup>1)</sup></td></tr>
+    <tr><td><code>artist</code></td><td>string</td><td>&lt;optional&gt;</td><td>Artist name<sup>2)</sup></td></tr>
+    <tr><td><code>audio</code></td><td>string</td><td> </td><td>Audio URL<sup>3)&thinsp;4)</sup></td></tr>
+    <tr><td><code>image</code></td><td>string</td><td> </td><td>Image URL<sup>4)</sup></td></tr>
     <tr><td><code>descr</code></td><td>string</td><td>&lt;optional&gt;</td><td>Description text, may contain HTML</td></tr>
-    <tr><td><code>part</code></td><td>string</td><td>&lt;optional&gt;</td><td>Part title. If omitted, the page is a whole<br> track rather than a part of a track.</td></tr>
-    <tr><td><code>poffs</code></td><td>float</td><td>&lt;optional&gt;</td><td>The time offset in seconds if the page is<br> part of a track</td></tr>
+    <tr><td><code>part</code></td><td>string</td><td>&lt;optional&gt;</td><td>Part title. If page is a track, the part title<br> can be used as a subtitle.</td></tr>
+    <tr><td><code>poffs</code></td><td>float</td><td>&lt;optional&gt;</td><td>The time offset in seconds if the page is<br> part of a track<sup>5)</sup></td></tr>
   </table>
-  Footnotes:<br>
-  <sup>1)</sup> Mandatory for tracks. Omit for parts! Track URL must be unique!<br>
-  <sup>2)</sup> absolute or relative to <code>mediaBaseURI</code>
+  <b><i>Footnotes</i></b><br>
+  <sup>1)</sup> If omitted, the title of the previous page will be copied if a previous page<br> exists. Otherwise, the method will throw an exception.<br>
+  <sup>2)</sup> If omitted, the book's artist name will be used.<br>
+  <sup>3)</sup> absolute or relative to mediaBaseURI, see method <code>create()</code><br>
+  <sup>4)</sup> Mandatory for tracks, omit for parts! Method will throw an exception if the<br> <code>audio</code> property is missing creating a track page. Track audio URLs must be<br> unique throughout the music book!<br>
+  <sup>5)</sup> Mandatory for all parts in a sequence of parts except the first one, omit for<br> tracks! Method will throw an exception of the <code>ptoffs</code> property is missing<br> creating the 2nd, 3rd, etc. part of a track.
   </td></tr>
 </table>
 <h4>Returns:</h4>
 <p>The newly created page</p>
+<p><a id="MusicBookPayer.addTocPage"></a></p>
+<h3><code>static MusicBookPayer.addTocPage()</code></h3>
 <p><a id="testedConfigs"></a></p>
 <h2>4 Tested Configurations</h2>
 <table>
@@ -206,35 +218,35 @@
 </thead>
 <tbody>
 <tr>
-<td><img src="https://matthias-wolff.github.io/MusicBookPlayer/docs/img/chrome.png" alt="Chrome"></td>
+<td><img src="https://matthias-wolff.github.io/MusicBookPlayer/docs/img/chrome.png"  style="width:24px"/></td>
 <td style="text-align:left">Chrome</td>
 <td style="text-align:left">93.0</td>
 <td style="text-align:left">Android</td>
 <td style="text-align:left"><em>none</em></td>
 </tr>
 <tr>
-<td><img src="https://matthias-wolff.github.io/MusicBookPlayer/docs/img/chrome.png" alt="Chrome"></td>
+<td><img src="https://matthias-wolff.github.io/MusicBookPlayer/docs/img/chrome.png"  style="width:24px"/></td>
 <td style="text-align:left">Chrome</td>
 <td style="text-align:left">93.0</td>
 <td style="text-align:left">Windows 10</td>
 <td style="text-align:left"><em>none</em></td>
 </tr>
 <tr>
-<td><img src="https://matthias-wolff.github.io/MusicBookPlayer/docs/img/edge.png" alt="Edge"></td>
+<td><img src="https://matthias-wolff.github.io/MusicBookPlayer/docs/img/edge.png"    style="width:24px"/></td>
 <td style="text-align:left">Edge</td>
 <td style="text-align:left">93.0</td>
 <td style="text-align:left">Windows 10</td>
 <td style="text-align:left"><em>none</em></td>
 </tr>
 <tr>
-<td><img src="https://matthias-wolff.github.io/MusicBookPlayer/docs/img/firefox.png" alt="Firefox"></td>
+<td><img src="https://matthias-wolff.github.io/MusicBookPlayer/docs/img/firefox.png" style="width:24px"/></td>
 <td style="text-align:left">Firefox</td>
 <td style="text-align:left">91.4</td>
 <td style="text-align:left">Android</td>
 <td style="text-align:left"><em>none</em></td>
 </tr>
 <tr>
-<td><img src="https://matthias-wolff.github.io/MusicBookPlayer/docs/img/firefox.png" alt="Firefox"></td>
+<td><img src="https://matthias-wolff.github.io/MusicBookPlayer/docs/img/firefox.png" style="width:24px"/></td>
 <td style="text-align:left">Firefox</td>
 <td style="text-align:left">93.0</td>
 <td style="text-align:left">Windows 10</td>
@@ -379,7 +391,7 @@
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Wed Sep 15 2021 21:54:27 GMT+0200 (Mitteleuropäische Sommerzeit)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Wed Sep 15 2021 22:33:03 GMT+0200 (Mitteleuropäische Sommerzeit)
 </footer>
 
 <script> prettyPrint(); </script>

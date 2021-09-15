@@ -251,7 +251,6 @@ class MusicBookPlayer
     // Initialize new page                                                     // -------------------------------------
     page.pid    = self.pages.length;                                           // Set zero-based page index
     page.artist = props.artist ? props.artist : self.artist;                   // Specified or book's artist
-    page.descr  = props.descr ? props.descr : '';                              // Specified or no page description text
 
     // - Audio file                                                            // - - - - - - - - - - - - - - - - - - -
     if (props.audio)                                                           // Audio file specified in properties
