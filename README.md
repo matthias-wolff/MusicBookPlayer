@@ -166,8 +166,8 @@ The newly created page
 | <img src="https://matthias-wolff.github.io/MusicBookPlayer/docs/img/edge.svg"    style="width:24px"/> | Edge    | 93.0    | Windows 10 | r89 (8afa629)   | _none_            |
 | <img src="https://matthias-wolff.github.io/MusicBookPlayer/docs/img/firefox.svg" style="width:24px"/> | Firefox | 91.4    | Android    | r89 (8afa629)   | _none_            |
 | <img src="https://matthias-wolff.github.io/MusicBookPlayer/docs/img/firefox.svg" style="width:24px"/> | Firefox | 93.0    | Windows 10 | r89 (8afa629)   | _none_            |
-| <img src="https://matthias-wolff.github.io/MusicBookPlayer/docs/img/safari.png"  style="width:24px"/> | Safari  | 14.1    | Big Sur    | r89 (8afa629)   | _none_            |
-| <img src="https://matthias-wolff.github.io/MusicBookPlayer/docs/img/safari.png"  style="width:24px"/> | Safari  | 14.6    | iOS (iPad) | r89 (8afa629)   | init: play button grey |
+| <img src="https://matthias-wolff.github.io/MusicBookPlayer/docs/img/safari.svg"  style="width:24px"/> | Safari  | 14.1    | Big Sur    | r89 (8afa629)   | _none_            |
+| <img src="https://matthias-wolff.github.io/MusicBookPlayer/docs/img/safari.svg"  style="width:24px"/> | Safari  | 14.6    | iOS (iPad) | r89 (8afa629)   | init: play button grey |
 | <img src="https://matthias-wolff.github.io/MusicBookPlayer/docs/img/samsung.svg" style="width:24px"/> | Samsung | 9.0     | Android    | r89 (8afa629)   | _none_            |
 | <img src="https://matthias-wolff.github.io/MusicBookPlayer/docs/img/uc.svg"      style="width:24px"/> | UC      | 12.10   | Android    | r89 (8afa629)   | no spectrum analyzer |
 |                                                                                                       | _all_   | _all_   |iOS (iPhone)| r89 (8afa629)   | big problems...   |
