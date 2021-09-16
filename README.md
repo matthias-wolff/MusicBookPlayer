@@ -161,11 +161,16 @@ The newly created page
 ## 4&emsp;Tested Configurations
 |                                                                                                       | Browser | Version | OS         | MusicBookPlayer | Particular Issues |
 | ----------------------------------------------------------------------------------------------------- | :------ | :------ | :--------- | :-------------: | :---------------- |
-| <img src="https://matthias-wolff.github.io/MusicBookPlayer/docs/img/chrome.png"  style="width:24px"/> | Chrome  | 93.0    | Android    |                 | _none_            |
-| <img src="https://matthias-wolff.github.io/MusicBookPlayer/docs/img/chrome.png"  style="width:24px"/> | Chrome  | 93.0    | Windows 10 |                 | _none_            |
-| <img src="https://matthias-wolff.github.io/MusicBookPlayer/docs/img/edge.png"    style="width:24px"/> | Edge    | 93.0    | Windows 10 |                 | _none_            |
-| <img src="https://matthias-wolff.github.io/MusicBookPlayer/docs/img/firefox.png" style="width:24px"/> | Firefox | 91.4    | Android    |                 | _none_            |
-| <img src="https://matthias-wolff.github.io/MusicBookPlayer/docs/img/firefox.png" style="width:24px"/> | Firefox | 93.0    | Windows 10 | e5c4619         | _none_            |
+| <img src="https://matthias-wolff.github.io/MusicBookPlayer/docs/img/chrome.svg"  style="width:24px"/> | Chrome  | 93.0    | Android    | r89 (8afa629)   | _none_            |
+| <img src="https://matthias-wolff.github.io/MusicBookPlayer/docs/img/chrome.svg"  style="width:24px"/> | Chrome  | 93.0    | Windows 10 | r89 (8afa629)   | _none_            |
+| <img src="https://matthias-wolff.github.io/MusicBookPlayer/docs/img/edge.svg"    style="width:24px"/> | Edge    | 93.0    | Windows 10 | r89 (8afa629)   | _none_            |
+| <img src="https://matthias-wolff.github.io/MusicBookPlayer/docs/img/firefox.svg" style="width:24px"/> | Firefox | 91.4    | Android    | r89 (8afa629)   | _none_            |
+| <img src="https://matthias-wolff.github.io/MusicBookPlayer/docs/img/firefox.svg" style="width:24px"/> | Firefox | 93.0    | Windows 10 | r89 (8afa629)   | _none_            |
+| <img src="https://matthias-wolff.github.io/MusicBookPlayer/docs/img/safari.png"  style="width:24px"/> | Safari  | 14.1    | Big Sur    | r89 (8afa629)   | _none_            |
+| <img src="https://matthias-wolff.github.io/MusicBookPlayer/docs/img/safari.png"  style="width:24px"/> | Safari  | 14.6    | iOS (iPad) | r89 (8afa629)   | init: play button grey |
+| <img src="https://matthias-wolff.github.io/MusicBookPlayer/docs/img/samsung.svg" style="width:24px"/> | Samsung | 9.0     | Android    | r89 (8afa629)   | _none_            |
+| <img src="https://matthias-wolff.github.io/MusicBookPlayer/docs/img/uc.svg"      style="width:24px"/> | UC      | 12.10   | Android    | r89 (8afa629)   | no spectrum analyzer |
+|                                                                                                       | _all_   | _all_   |iOS (iPhone)| r89 (8afa629)   | big problems...   |
 
 More to be tested. **Help wanted** (see [issue #2](https://github.com/matthias-wolff/MusicBookPlayer/issues/2))!
 
