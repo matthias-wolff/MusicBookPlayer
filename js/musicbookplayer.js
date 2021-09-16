@@ -365,7 +365,7 @@ class MusicBookPlayer
     
     // Add DOM element event listeners
     document.getElementById('content').addEventListener('scroll',
-        MusicBookPlayer.handleScrollEvent.debounce(100)
+        MusicBookPlayer.handleScrollEvent.debounce(200)
       );
     
     // TODO: Replace click event handler in mediaelement-and-player.min.js:1652 (see bug #5)
