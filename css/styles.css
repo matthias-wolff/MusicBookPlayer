@@ -45,6 +45,10 @@ main {
   background-position: center center;
 }
 
+.credits {
+	font-size: 8pt;
+}
+
 /* -- General Styles -------------------------------------------------------- */
 
 * {
