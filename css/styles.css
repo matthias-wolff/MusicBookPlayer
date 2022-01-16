@@ -58,8 +58,9 @@ main {
   outline: none;
 }
 
-a {
-	color: #ececec;
+a {/*#68b8e2? #22B424?*/
+	color: #00afd3;
+	text-decoration: none;
 }
 
 .error {
@@ -361,6 +362,11 @@ section {
   margin-left: 0.5rem;
   margin-right: 0.5rem;
 	color: #ececec;
+}
+
+.track-comment .new
+{
+  color: #ffff80;
 }
 
 /* -- TOC ------------------------------------------------------------------- */

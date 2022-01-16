@@ -234,27 +234,38 @@ class MusicBookPlayer
    * the <code>addAudioPage()</code> method.
    * @public
    * 
+   * @param {string} title   - Page title, optional, default is "Cover"
+   * @param {string} credits - Credits link label, optional, default is "Credits"
    * @return The newly created or existing contents page
    */
-  static addTocPage()
+  static addTocPage(title,credits)
   {
+    if (!title  ) title   = 'Cover';                                           // Default title
+    if (!credits) credits = 'Credits';                                         // Default credits link label
     let mbp = MusicBookPlayer.getInstance();                                   // Get MusicBookPlayer singleton
 
     if (mbp.tocPid>=0)                                                         // TOC page already exists
       return mbp.pages[mbp.tocPid];                                            //   return it
 
     let tocPage = MusicBookPlayer.addAudioPage({                               // Add new TOC page >>
-      title: 'Contents',                                                       //   Title
+      title: title,                                                            //   Title
       audio: MusicBookPlayer.normalizeURL(                                     //   Dummy audio file
                  mbp.scriptBaseURI,                                            //   ...
                  'media/contentsdummy.mp3'                                     //   ...
                 ),                                                             //   ...
-      descr: mbp.makeToc(),                                                    //   Description: Write TOC
+      descr: mbp.makeToc(title,credits),                                       //   Description: Write TOC
     });                                                                        // <<
     mbp.tocPid = tocPage.pid;                                                  // Set TOC page ID field
     return tocPage;                                                            // Return newly created TOC page
   }
 
+  static playExternal(url)
+  {
+    let mbp = MusicBookPlayer.getInstance();                                   // Get MusicBookPlayer singleton
+    mbp.mep.pause();                                                           // Pause player
+    window.open(url,'_blank');                                                 // Open external link
+  }
+  
   // -- Constructor, instance getter, and One-Time Initialization --
 
   /**
@@ -495,8 +506,11 @@ class MusicBookPlayer
   /**
    * Creates HTML code of the table of contents page.
    * @protected
+   *
+   * @param {string} title   TOC page title
+   * @param {string} credits Credits link label
    */
-  makeToc()
+  makeToc(title,credits)
   {
     let mbpi = 'MusicBookPlayer.getInstance()';                                // Javascript to get singleton instance
 
@@ -504,7 +518,7 @@ class MusicBookPlayer
     let html = `<table class="toc">
   <tr>
     <td class="track-title" colspan="3">
-      <h1><a href="javascript:${mbpi}.tocGoto(0,false);">Cover</a></h1>
+      <h1><a href="javascript:${mbpi}.tocGoto(0,false);">${title}</a></h1>
     </td>
   </tr>`;
     
@@ -543,7 +557,7 @@ class MusicBookPlayer
     html += `
   <tr>
     <td class="track-title" colspan="3">
-      <h1><a href="javascript:${mbpi}.showCredits();">Credits</a></h1>
+      <h1><a href="javascript:${mbpi}.showCredits();">${credits}</a></h1>
     </td>
   </tr>
 </table>`;
@@ -818,7 +832,8 @@ class MusicBookPlayer
     let cnte = document.getElementById('content');                              // Content division element
     if (immediate)                                                              // Immediate scrolling requested
       cnte.style.scrollBehavior = 'auto';                                       //   Set immediate scroll behavior
-    cnte.scrollLeft = pid * cnte.scrollWidth / this.pages.length                // Scroll to page
+    cnte.scrollLeft = pid * cnte.scrollWidth / this.pages.length;               // Scroll to page
+    document.getElementsByTagName('html')[0].scrollTop  = 0;                    // Scroll to top of page
     if (immediate)                                                              // Immediate scrolling requested
       cnte.style.scrollBehavior = '';                                           //   Restore scrl. behavior to CSS rule
   }
