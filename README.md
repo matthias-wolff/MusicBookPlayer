@@ -179,12 +179,12 @@ More to be tested. **Help wanted** (see [issue #2](https://github.com/matthias-w
 ## References
 * [jQuery](https://jquery.com/)
 * [MediaElement.js](https://github.com/mediaelement/mediaelement)
-  * [Documentation](https://github.com/mediaelement/mediaelement/tree/master/docs). (retrieved Aug. 27, 2021)
-  * designmodo: [How to Create an Audio Player in jQuery, HTML5 & CSS3](https://designmodo.com/audio-player/). (retrieved Aug. 27, 2021)
-  * design shack: [Creating a Custom HTML5 Audio Element UI](https://designshack.net/articles/css/custom-html5-audio-element-ui/). (retrieved Aug. 27, 2021)
-* [Spectrum Analyzer](https://audiomotion.dev/#/) by audioMotion
+  * [Documentation](https://github.com/mediaelement/mediaelement/tree/master/docs). (retrieved Nov. 11, 2026)
+  * designmodo: [How to Create an Audio Player in jQuery, HTML5 & CSS3](https://designmodo.com/audio-player/). (retrieved v)
+  * Aaron Lumsden: [Create a Customized HTML5 Audio Player](https://webdesign.tutsplus.com/create-a-customized-html5-audio-player--webdesign-7081t). (retrieved Nov. 11, 2026)
+* [Spectrum Analyzer](https://audiomotion.dev/#/) by audioMotion (retireved Nov. 11, 2026)
 * Lazy debouncer:
-  * J. Albers-Zoller: [SelfHTML, JavaScript/Tutorials/Debounce und Throttle](https://wiki.selfhtml.org/wiki/JavaScript/Tutorials/Debounce_und_Throttle). (retrieved Sept. 8, 2021)
-  * J. Ashkenas: [Underscore.js](https://underscorejs.org/">Underscore.js). (retrieved Sept. 8, 2021)
-* [Loading animation](https://loading.io) by PlotDB Ltd.
+  * J. Albers-Zoller: [SelfHTML, JavaScript/Tutorials/Debounce und Throttle](https://wiki.selfhtml.org/wiki/JavaScript/Tutorials/Debounce_und_Throttle). (retrieved Nov. 11, 2026)
+  * J. Ashkenas: [Underscore.js](https://underscorejs.org). (retrieved Nov. 11, 2026)
+* [Loading animation](https://loading.io) by PlotDB Ltd (retriebed Nov. 11, 2026).
 
