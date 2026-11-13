@@ -3,6 +3,9 @@
  * @author Matthias Wolff
  */
 
+if (typeof expFeatures=='undefined')
+  expFeatures = false;
+
 // == Document Loaded Callback =================================================
 
 $(function()
@@ -17,6 +20,13 @@ $(function()
     success: function(media,node) 
     {
       MusicBookPlayer.getInstance().initialize();
+      if (window.location.search.substring(0,5) == '?pid=')
+        try
+        {
+          pid =  parseInt(window.location.search.substring(5));
+          MusicBookPlayer.getInstance().goto(pid);
+        }
+        catch (e) { /* Ignore */ }
     }
   });
 });
@@ -47,6 +57,10 @@ class MusicBookPlayer
    * @param {string} props.artist - Artist name
    * @param {string} props.image - Cover image URL, absolute or relative to 
    *        <code>mediaBaseURI</code>
+   * @param {string} [props.staticImage=undefined] - Static backgroud image URL,
+   *        absolute or relative to <code>mediaBaseURI</code>. The image is
+   *        displayed at all pages. The page image may overlay the background
+   *        image.
    * @param {string} [props.descr=undefined] - Description text, may contain 
    *        HTML
    * @return The singleton. The object is also stored in
@@ -89,16 +103,18 @@ class MusicBookPlayer
     // Early UI initialization                                                 // ------------------------------------
     mbp.editHtmlHead(props.title,props.artist);                                // Set document title
     mbp.editHtmlBody();                                                        // Load and apply body template
+    mbp.setStaticImage(props.staticImage);                                     // Set static background image
     window.scroll(0,0);                                                        // Reset window scroll position
     
     // Create cover page (first page of book)                                  // ------------------------------------
     let sbu = mbp.scriptBaseURI;                                               // Shortcut script base URI field name
     MusicBookPlayer.addAudioPage({                                             // Add cover page >>
-        title : props.title,                                                   //   Music book title
-        artist: props.artist,                                                  //   Music book artist
-        audio : MusicBookPlayer.normalizeURL(sbu,'media/coverdummy.mp3'),      //   Cover page dummy audio file
-        image : props.image,                                                   //   Cover image
-        descr : props.descr                                                    //   Music book description
+        title      : props.title,                                              //   Music book title
+        artist     : props.artist,                                             //   Music book artist
+        audio      : MusicBookPlayer.normalizeURL(sbu,'media/coverdummy.mp3'), //   Cover page dummy audio file
+        image      : props.image,                                              //   Cover image
+        staticImage: props.staticImage,                                        //   Cover background image
+        descr      : props.descr                                               //   Music book description
       });                                                                      // <<
     
     // Return newly created object                                             // ------------------------------------
@@ -119,7 +135,7 @@ class MusicBookPlayer
    *        HTML
    * @param {string} [props.part=undefined] - Part title. If page is a track,
    *        the part title can be used as a subtitle.
-   * @param {float} [props.poffs=undefined] - The time offset in seconds if the 
+   * @param {float} [props.ptoffs=undefined] - The time offset in seconds if the 
    *        page is part of a track<sup>5)</sup>
    * @see <b><i>Footnotes</i></b><br>
    *      <sup>1)</sup> If omitted, the title of the previous page will be 
@@ -145,13 +161,14 @@ class MusicBookPlayer
       throw 'MusicBookPlayer.addAudioPage: Missing argument (property object).';//  Not acceptable
     
     // Initialize                                                              // -------------------------------------
-    let mbp = MusicBookPlayer.getInstance();                                   // Get MusicBookPlayer singleton
+    let mbp  = MusicBookPlayer.getInstance();                                  // Get MusicBookPlayer singleton
     let page = new Object;                                                     // Create new music book page
     let prev = mbp.pages.length>0 ? mbp.pages[mbp.pages.length-1] : null;      // Get previous page if any
 
     // Initialize new page                                                     // -------------------------------------
     page.pid    = mbp.pages.length;                                            // Set zero-based page index
     page.artist = props.artist ? props.artist : mbp.artist;                    // Specified or book's artist
+    page.image  = props.image;                                                 // Page image
 
     // - Audio file                                                            // - - - - - - - - - - - - - - - - - - -
     if (props.audio)                                                           // Audio file specified in properties
@@ -169,23 +186,22 @@ class MusicBookPlayer
     else                                                                       // Otherwise
       throw 'Missing property \'title\' on page #${page.pid}';                 //   Not acceptable
 
+    // - Part offset
+    if (typeof props.ptoffs=='undefined')
+      page.ptoffs = 0;
+    else if (typeof props.ptoffs=='number')
+      page.ptoffs = props.ptoffs
+    else                                                                     //   Part offset not specified or NaN
+      throw 'Invalid or missing propery \'ptoffs\' on page #${page.pid}.';   //     Not acceptable
+
     // - Track and part fields                                                 // - - - - - - - - - - - - - - - - - - -
-    if (!prev || page.audio!==prev.audio)                                      // Other audio file than previous page
+    if (!prev || page.title!==prev.title)                                      // Other title than previous page
     {                                                                          // >> (Page is or starts a new track)
       page.tid = prev ? prev.tid+1 : 0;                                        //   Next track ID or 0 for cover page
-      if (typeof props.ptoffs!='undefined' && props.ptoffs!=0)                 //   Non-zero part offset time specified
-        if (console && console.warn)                                           //     Have console
-          console.warn('Ingoring property \'ptoffs\' on page #${page.pid}.');  //       Print a warning
     }                                                                          // <<
     else                                                                       // Same audio file as previous page
     {                                                                          // >> (Part of a track, but not the 1st)
       page.tid = prev.tid ? prev.tid : 0;                                      //   Same track ID or 0 for cover page
-      if (typeof prev.ptoffs=='undefined')                                     //   Previous page has not part offset
-        prev.ptoffs = 0;                                                       //     Set to zero (mark as first part!)
-      if (typeof props.ptoffs=='number')                                       //   Part offset specified as a number
-        page.ptoffs = props.ptoffs;                                            //     Set it
-      else                                                                     //   Part offset not specified or NaN
-        throw 'Invalid or missing propery \'ptoffs\' on page #${page.pid}.';   //     Not acceptable
     }                                                                          // <<
     if (props.part)                                                            // Part name specified in properties
       page.part = props.part;                                                  //   Set it
@@ -234,13 +250,14 @@ class MusicBookPlayer
    * the <code>addAudioPage()</code> method.
    * @public
    * 
-   * @param {string} title   - Page title, optional, default is "Cover"
+   * @param {string} title   - Page title, optional, default is "Contents"
    * @param {string} credits - Credits link label, optional, default is "Credits"
+   * @param {string} extraCredits - Extra credits text, optional, default is ""
    * @return The newly created or existing contents page
    */
-  static addTocPage(title,credits)
+  static addTocPage(title,credits,extraCredits)
   {
-    if (!title  ) title   = 'Cover';                                           // Default title
+    if (!title  ) title   = 'Contents';                                        // Default title
     if (!credits) credits = 'Credits';                                         // Default credits link label
     let mbp = MusicBookPlayer.getInstance();                                   // Get MusicBookPlayer singleton
 
@@ -253,8 +270,9 @@ class MusicBookPlayer
                  mbp.scriptBaseURI,                                            //   ...
                  'media/contentsdummy.mp3'                                     //   ...
                 ),                                                             //   ...
-      descr: mbp.makeToc(title,credits),                                       //   Description: Write TOC
+      descr: mbp.makeToc('Cover',credits,extraCredits),                        //   Description: Write TOC
     });                                                                        // <<
+    tocPage.tid = undefined;
     mbp.tocPid = tocPage.pid;                                                  // Set TOC page ID field
     return tocPage;                                                            // Return newly created TOC page
   }
@@ -364,8 +382,37 @@ class MusicBookPlayer
     this.mep.addEventListener('ended', function (){
         let mbp = MusicBookPlayer.getInstance();
         mbp.updateUI();
-        if (mbp.currentPid < mbp.pages.length-1)
-          mbp.next(true);
+        let loopState = mbp.getLoop(); 
+        if (loopState==1)
+        { // Loop book
+          if (mbp.currentPid == mbp.pages.length-1)
+          {
+            mbp.goto(1,true);
+            if (expFeatures)
+              mbp.scrollTo(1); // Move away from TOC page
+          }
+          else
+            mbp.next(true);
+        }
+        else if (loopState==2)
+        { // Loop track
+          if (mbp.currentPid>0 && mbp.currentPid<mbp.pages.length-1)
+          {
+            let tid = mbp.currentPid;
+            while (!mbp.isTrackPage(tid))
+              tid--;
+            mbp.goto(tid,true);
+            if (expFeatures)
+              mbp.scrollTo(tid); // Move away from TOC page
+          }
+          else
+            mbp.next(true);
+        }
+        else
+        { // Loop off
+          if (mbp.currentPid < mbp.pages.length-1)
+            mbp.next(true);
+        }
       });
     this.mep.addEventListener('progress', function(){
         MusicBookPlayer.getInstance().updateUI();
@@ -427,10 +474,17 @@ class MusicBookPlayer
         </div>
         <div id="spectrum-analyzer" class="spectrum-analyzer"></div>
       </div>
-      <audio id="audio-player" 
-        style="width:100%; height:40%;" controls="controls" 
-        src="https://matthias-wolff.github.io/MusicBookPlayer/media/coverdummy.mp3"
-      ></audio>
+      <div class="audio-player-player">
+        <div class="mejs-button mbp-loop" onclick="MusicBookPlayer.getInstance().loop();">
+          <button type="button" aria-controls="mep_0" 
+            title="Loop Track/Book" aria-label="Loop Track/Book"
+          ></button>
+        </div>
+        <audio id="audio-player" 
+          style="width:100%; height:40%;" controls="controls" 
+          src="${MusicBookPlayer.getInstance().scriptBaseURI}media/coverdummy.mp3"
+        ></audio>
+      </div>
     </div>
     <div class="track-controls">
       <div class="track-info">
@@ -470,7 +524,7 @@ class MusicBookPlayer
         <h1>Music Book Player</h1>
         <p>
           by <a target="_blank" href="https://www.b-tu.de/en/fg-kommunikationstechnik/team/staff/prof-dr-ing-habil-matthias-wolff">Matthias Wolff</a>,
-          hosted on <a target="_blank" href="https://github.com/matthias-wolff/MusicBookPlayer">GitHub</a>
+          Hotfix (unstable, experimental features) May. 10, 2026
         </p>
         <h1 style="margin-top: 0.35rem;">Based upon</h1>
         <ul>
@@ -502,6 +556,45 @@ class MusicBookPlayer
   `;
     bodyElem.innerHTML = bodyHTML;
   }
+
+  /**
+   * Sets the image of a page.
+   * @protected
+   *
+   * @param {integer} pid - Zero-based index of page, 0 for cover page
+   * @param {string} URI - The URI of the image
+   */
+  setPageImage(pid,URI)
+  {
+    if (pid<0 || pid>=this.pages.length)                                       // Invalid page ID
+      return;                                                                  //   Return
+    if (URI==='undefined')                                                     // URI undefined
+      return;                                                                  //   Return
+
+    let imgSrc = MusicBookPlayer.normalizeURL(this.mediaBaseURI,URI);          // Make absolute URL of image file
+    if (typeof this.pages[pid].elem.image!=='undefined')                       // Page image container present
+      if (typeof this.pages[pid].elem.image.img!=='undefined')                 //   Image in container present
+        this.pages[pid].elem.image.img.setAttribute('src',imgSrc);             //     Set image source
+  }
+
+  /**
+   * Sets the static background image for all pages.
+   * @protected
+   *
+   * @param {string} URI The URI of the image
+   */
+  setStaticImage(URI)
+  {
+    if (!URI)
+      return;
+
+    let imgSrc = MusicBookPlayer.normalizeURL(this.mediaBaseURI,URI);          // Make absolute URL of image file
+    let cDiv   = document.querySelector('.content');
+    cDiv.style['background-image'   ] = 'url('+imgSrc+')';
+    cDiv.style['background-size'    ] = '100% auto';
+    cDiv.style['background-position'] = '0 0';
+    cDiv.style['background-repeat'  ] = 'no-repeat';
+  }
   
   /**
    * Creates HTML code of the table of contents page.
@@ -509,8 +602,9 @@ class MusicBookPlayer
    *
    * @param {string} title   TOC page title
    * @param {string} credits Credits link label
+   * @param {string} extraCredits - Extra credits text, optional, default is ""
    */
-  makeToc(title,credits)
+  makeToc(title,credits,extraCredits)
   {
     let mbpi = 'MusicBookPlayer.getInstance()';                                // Javascript to get singleton instance
 
@@ -541,7 +635,7 @@ class MusicBookPlayer
         tid  : !p2 ? `<a href="${lnk}">${tid}</a>` : '',                       //     Track number HTML
         tnos : !p2 ? `<a href="${lnk}">&nbsp;-&nbsp;</a>` : '',                //     Track number separator HTML
         title: !p2 ? `<h1><a href="${lnk}">${tit}</a></h1>` : '',              //     Title HTML
-        part : p1 || p2                                                        //     Part HTML
+        part : (typeof page.part)!='undefined'                                 //     Part HTML
                ? `<h2><a href="${lnk}">${page.part}</a></h2>`                  //     ...
                : ''                                                            //     ...
       };                                                                       //   <<
@@ -555,12 +649,16 @@ class MusicBookPlayer
 
     // Make TOC footer
     html += `
+  <tr><td colspan="3" style="font-size:3pt">&nbsp;</td></tr>
   <tr>
     <td class="track-title" colspan="3">
       <h1><a href="javascript:${mbpi}.showCredits();">${credits}</a></h1>
     </td>
   </tr>
 </table>`;
+
+    if (extraCredits)
+      html += extraCredits
 
     return html;
   }
@@ -607,10 +705,11 @@ class MusicBookPlayer
    */
   gotoToc()
   {
-    if (this.tocPid>=0)
-      this.scrollTo(this.tocPid);
+    var pid = this.tocPid>=0 ? this.tocPid : 0; 
+    if (this.mep.paused)
+      this.goto(pid);
     else
-      this.scrollTo(0);
+      this.scrollTo(pid);
   }
   
   /**
@@ -625,13 +724,49 @@ class MusicBookPlayer
    */
   tocGoto(pid,play)
   {
-    if (this.currentPid==this.tocPid)                    // Currently on TOC page
-      this.goto(pid,play);                                          //    Normal goto
-    if (this.currentPid!=pid)                                       // Move to other than current page
-      this.goto(pid,play);                                          //    Normal goto
-    this.scrollTo(pid);                                             // Scroll to current page
+    if (this.currentPid==this.tocPid)                                          // Currently on TOC page
+      this.goto(pid,play);                                                     //    Normal goto
+    if (this.currentPid!=pid)                                                  // Move to other than current page
+      this.goto(pid,play);                                                     //    Normal goto
+    this.scrollTo(pid);                                                        // Scroll to current page
+  }
+
+  /**
+   * Toggles the state of the loop button.
+   * @protected
+   */
+  loop()
+  {
+    var imgLoopNone  = `url(${this.scriptBaseURI}img/loop-none.svg)`;
+    var imgLoopTrack = `url(${this.scriptBaseURI}img/loop-track.svg)`;
+    var imgLoopBook  = `url(${this.scriptBaseURI}img/loop-book.svg)`;
+
+    var btnLoop = document.querySelector('.mbp-loop button');
+    var state = this.getLoop();
+    if (state==0)
+      btnLoop.style['background-image'] = imgLoopBook;
+    else if (state==1)
+      btnLoop.style['background-image'] = imgLoopTrack;
+    else
+      btnLoop.style['background-image'] = imgLoopNone;
   }
   
+  /**
+   * Determines the state of the loop button.
+   *
+   * @return 0: no loop, 1: loop book, 2: loop track
+   */
+  getLoop()
+  {
+    var btnLoop = document.querySelector('.mbp-loop button');
+
+    if (btnLoop.style['background-image'].search('loop-book')>=0)
+      return 1;
+    if (btnLoop.style['background-image'].search('loop-track')>=0)
+      return 2;
+    return 0;
+  }
+
   /**
    * Moves to the previous page if any.
    * @protected
@@ -736,14 +871,15 @@ class MusicBookPlayer
   isTrackPage(arg)
   {
     let page = this.isPage(arg);                                               // Get page object for argument
+    if (!page)                                                                 // Argument does not reference a page
+      return false;                                                            //   Not a track page
     if (page.pid==0 || page.pid==this.tocPid)                                  // Cover or TOC page
       return false;                                                            //   Not a track page
     let prev = page.pid>0 ? this.pages[page.pid-1] : null;                     // Get previous page of any
-    if (!page)                                                                 // Argument does not reference a page
-      return false;                                                            //   Not a track page
     if (!prev)                                                                 // No previous page, i.e., cover page
       return false;                                                            //   Not a track page
-    return (page.audio!==prev.audio);                                          // Track if audio different for prev.
+    return (page.title!=prev.title);                                           // Track if title differs from prev.
+    //return (page.audio!=prev.audio);                                          // Track if audio different for prev.
   }
 
   /**
@@ -760,9 +896,11 @@ class MusicBookPlayer
   isPartPage(arg)
   {
     let page = this.isPage(arg);                                               // Get page object for argument
+    if (!page)                                                                 // Argument does not reference a page
+      return false;                                                            //   Not a part page
     if (page.pid==0 || page.pid==this.tocPid)                                  // Cover or TOC page
       return false;                                                            //   Not a track page
-    return (page && typeof page.ptoffs!='undefined');                          // Part if ptoffs property exists
+    return true;                                                               // Everything else is a part page
   }
 
   /**
@@ -828,14 +966,15 @@ class MusicBookPlayer
    */
   scrollTo(pid,immediate=false)
   {
-    pid = Math.max(0,Math.min(pid,this.pages.length-1));                        // Rectify page ID
-    let cnte = document.getElementById('content');                              // Content division element
-    if (immediate)                                                              // Immediate scrolling requested
-      cnte.style.scrollBehavior = 'auto';                                       //   Set immediate scroll behavior
-    cnte.scrollLeft = pid * cnte.scrollWidth / this.pages.length;               // Scroll to page
-    document.getElementsByTagName('html')[0].scrollTop  = 0;                    // Scroll to top of page
-    if (immediate)                                                              // Immediate scrolling requested
-      cnte.style.scrollBehavior = '';                                           //   Restore scrl. behavior to CSS rule
+    pid = Math.max(0,Math.min(pid,this.pages.length-1));                       // Rectify page ID
+    let cnte = document.getElementById('content');                             // Content division element
+    if (immediate)                                                             // Immediate scrolling requested
+      cnte.style.scrollBehavior = 'auto';                                      //   Set immediate scroll behavior
+    this.preventScrollToSameImage(pid);                                        // Prevent scrolling same page images
+    cnte.scrollLeft = pid * cnte.scrollWidth / this.pages.length;              // Scroll to page
+    document.getElementsByTagName('html')[0].scrollTop  = 0;                   // Scroll to top of page
+    if (immediate)                                                             // Immediate scrolling requested
+      cnte.style.scrollBehavior = '';                                          //   Restore scrl. behavior to CSS rule
   }
   
   /**
@@ -1002,7 +1141,7 @@ class MusicBookPlayer
     catch (e)
     {
       // Probably CSS cross-origin access error -> ignore
-      console.log(e);
+      //console.log(e);
     }
   }
 
@@ -1067,6 +1206,87 @@ class MusicBookPlayer
   {
     let v = visible ? 'visible' : 'hidden';
     document.getElementById('credits').style.visibility = v;
+  }
+
+  // -- Experimental UI Helpers --
+
+  /**
+   * Prevents scrolling between identical page images
+   * @protected
+   * 
+   * @param {integer} pid - Zero-based index of page, 0 for cover page
+   */
+  preventScrollToSameImage(pid)
+  {
+    if (!expFeatures) return;                                                  // Experimental features off --^
+    
+    //console.log('preventScrollToSameImage('+pid+')');                        // LOG
+    let orgPid = this.currentPid;                                              // Get ID of origin page
+    let trgPid = pid;                                                          // Get ID of target page
+    if (orgPid<0 || orgPid>=this.pages.length) return;                         // Invalid origin page ID --^
+    if (trgPid<0 || trgPid>=this.pages.length) return;                         // Invalid target page ID --^
+
+    let orgImgURI = this.pages[orgPid].image;                                  // Get origin page image UIR
+    let trgImgURI = this.pages[trgPid].image;                                  // Get target page image UIR
+    //console.log('- Origin: pid='+orgPid+', image="'+orgImgURI);              // LOG
+    //console.log('- Target: pid='+trgPid+', image="'+trgImgURI);              // LOG
+    if (orgImgURI==trgImgURI)                                                  // Origin and target images identical
+    {                                                                          // >>
+      this.setStaticImage(orgImgURI);                                          //   Page image -> static image
+      this.setPageImage(orgPid,'blank.png');                                   //   Remove origin page image
+      this.setPageImage(trgPid,'blank.png');                                   //   Remove target page image
+    }                                                                          // <<
+    else                                                                       // Origin and target images different
+    {                                                                          // >>
+      this.setPageImage(orgPid,orgImgURI);                                     //   Restore origin page image
+      this.setPageImage(trgPid,trgImgURI);                                     //   Restore target page image
+      if (this.pages[0].staticImage!=undefined)                                //   Book has static image
+        this.setStaticImage(this.pages[0].staticImage);                        //     Restore it
+      else                                                                     //   Book does not have static image
+        this.setStaticImage('blank.png');                                      //     Remove static image
+    }                                                                          // <<
+  }
+
+  // -- Download Helpers --
+
+  /**
+   * Downloads the audio file of a page.
+   * 
+   * @param {integer} pid - Zero-based index of page, 0 for cover page
+   */
+  downloadPageAudio(pid)
+  {
+    if (pid<0||pid>=this.pages.length)
+      return true;
+    if (this.isCoverPage(pid)||this.isTocPage(pid))
+      return;
+    MusicBookPlayer.downloadFile(this.pages[pid]);
+  }
+
+  /**
+   * Downloads all audio files.
+   */
+  downloadAlbum()
+  {
+    let prevAudioUrl = '';
+    let tid = 1;
+    for (let pid=1; pid<this.pages.length; pid++)
+    {
+      if (this.tocPid==pid)
+        continue;
+      let audioUrl = this.pages[pid].audio;
+      if (audioUrl==prevAudioUrl)
+        continue;
+
+      let a = (new URL(audioUrl)).pathname.split('/');
+      let fname = (''+tid).padStart(2,'0') + ' - ' + a[a.length-1];
+
+      //console.log(fname+' ('+audioUrl+')');
+      MusicBookPlayer.downloadFile(audioUrl,fname);
+
+      prevAudioUrl = audioUrl;
+      tid++;
+    }
   }
 
   // -- Static Helpers --
@@ -1142,6 +1362,37 @@ class MusicBookPlayer
     if (!path.endsWith('/'))                                                   // Not ending with a slash
       path += '/';                                                             //   Append a slash
      return path;                                                              // Return base URL path
+  }
+
+  /**
+   * Client-side download of a file. Intended for audio file download.
+   * 
+   * @param {string} url - The file URL
+   * @param {atring} fname - The download file name
+   * 
+   * @see https://www.reddit.com/r/learnjavascript/comments/10g4z32/how_to_start_a_clientside_download_with_javascript
+   */
+  static downloadFile(url,fname)
+  {
+    if (fname==undefined)                                                       // No download file name given
+    {                                                                           // >>
+      let a = (new URL(url)).pathname.split('/');                               //   Split URL path
+      fname = a[a.length-1];                                                    //   fname <- last path element
+    }                                                                           // <<
+
+    const a = document.createElement('a');                                      // Create link object
+    a.setAttribute('href',url);                                                 // href attribute <- download URL
+    a.setAttribute('download',fname);                                           // download attribute <- fname
+    a.style.display = 'none';                                                   // Do not display link object
+    document.body.appendChild(a);                                               // Add link object to HTML body
+    a.click();                                                                  // Simulate clink on link
+    document.body.removeChild(a);                                               // Remove link object to HTML body
+  }
+
+  // -- Debug Helpers --
+
+  static debug()
+  {
   }
 
 }
