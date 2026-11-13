@@ -82,7 +82,8 @@ To setup your own music book, you need the following:
   </script>
 
   <!-- Create spectrum analyzer (must be at end of page body!) -->
-  <script src="https://matthias-wolff.github.io/MusicBookPlayer/js/audioMotion.js" type="module"></script>
+  <script src="https://cdn.jsdelivr.net/npm/audiomotion-analyzer@4"></script>
+  <script src="https://www-docs.b-tu.de/fg-kommunikationstechnik/public/matthias.wolff/MusicBookPlayer-2025.12/js/audioMotion.js"></script>
 
 </body>
 </html>
