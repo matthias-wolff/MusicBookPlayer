@@ -1,8 +1,6 @@
 // Music Book Player - Import and Create AudioMotionAnalyzer
 // Matthias Wolff
 
-import AudioMotionAnalyzer from 'https://cdn.skypack.dev/audiomotion-analyzer?min';
-     
 // Create spectrum analyzer
 new AudioMotionAnalyzer(
     document.getElementById('spectrum-analyzer'),
