@@ -8,7 +8,7 @@ body { /* Page body */
   border: none;
 	font-family: Helvetica, Arial, sans-serif;
 	font-size: 11pt;
-  background: #f0f0f0; 
+  background: #030303; 
 }
 
 @media (min-width: 30rem) { /* Wide viewports... */
@@ -61,6 +61,13 @@ main {
 a {/*#68b8e2? #22B424?*/
 	color: #00afd3;
 	text-decoration: none;
+}
+
+a.button {/*#68b8e2? #22B424?*/
+  color: #030303;
+  background-color: #00afd3;
+  text-decoration: none;
+  padding: 2px;
 }
 
 .error {
@@ -124,6 +131,15 @@ div.spectrum-analyzer {
   text-shadow: 1px 1px 1px rgba(0,0,0,0.5);
 }
 
+/* -- Audio Player Player Layout -------------------------------------------- */
+
+div.audio-player-player {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 2rem;
+}
+
 /* -- MediaElement Layout --------------------------------------------------- */
 
 div.mejs-container { /* Player container */
@@ -151,6 +167,7 @@ div.mejs-controls { /* Player controls container */
   text-indent: -9999px;
 }
  
+.mbp-loop button,
 .mejs-controls .mejs-play button,
 .mejs-controls .mejs-pause button,
 .mbp-prev button,
@@ -167,9 +184,9 @@ aside button {
   text-indent: -9999px;
 }
 
-.mejs-controls .mejs-play button,
-.mejs-controls .mejs-pause button { 
+.mbp-loop button { 
   margin-left: 0.35em;
+  background-image: url(../img/loop-none.svg);
 }
 
 .mejs-controls .mejs-play button {
@@ -288,7 +305,7 @@ div.track-controls {
   display: grid;
   grid-template-columns: auto 33px 33px 33px;
   gap: 0.1rem;
-  align-items: center;
+  align-items: top;
 }
 
 div.track-info {
@@ -361,6 +378,7 @@ section {
   margin-top: 0.5rem;
   margin-left: 0.5rem;
   margin-right: 0.5rem;
+  background-color: #03030380;       /* <- Track ambient color! */
 	color: #ececec;
 }
 
